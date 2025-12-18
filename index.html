@@ -230,11 +230,60 @@
     .رسالة b{display:block;font-size:13px;margin-bottom:3px}
     .رسالة span{display:block;color:var(--نص2);font-size:12px;line-height:1.35}
     .إغلاق{cursor:pointer;opacity:.8}
+
+    /* نافذة تسجيل/دخول */
+    .مودال{position:fixed;inset:0;display:none;place-items:center;z-index:80;background:rgba(0,0,0,.55);backdrop-filter:blur(8px)}
+    .مودال.ظهار{display:grid}
+    .مودال .صندوق{
+      width:min(520px, 92vw);
+      border:1px solid var(--حد);
+      background:rgba(17,24,39,.92);
+      border-radius:20px;
+      box-shadow:var(--ظل);
+      padding:14px;
+    }
+    .مودال .رأس{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+    .مودال .رأس b{font-size:14px}
+    .مودال .صف{display:grid;gap:10px}
+    .مساعدة{font-size:12px;color:var(--نص2);line-height:1.5}
+    .شبكةزرين{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    @media (max-width:520px){.شبكةزرين{grid-template-columns:1fr}}
+    .فاصل{height:1px;background:rgba(255,255,255,.08);margin:10px 0}
+    .وسم{font-size:12px;color:var(--نص2)}
+    .نسخ{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-size:12px}
   </style>
 </head>
 
 <body>
   <div class="توست" id="توست"></div>
+
+  <!-- نافذة تسجيل / دخول -->
+  <div class="مودال" id="مودال_دخول">
+    <div class="صندوق">
+      <div class="رأس">
+        <b>تسجيل / دخول</b>
+        <span class="زر صغير" id="اغلاق_مودال">إغلاق</span>
+      </div>
+
+      <div class="صف">
+        <input class="حقل" id="حقل_اسم" placeholder="اسم المستخدم (اختياري)" />
+        <input class="حقل" id="حقل_بريد" placeholder="البريد الإلكتروني" inputmode="email" />
+        <input class="حقل" id="حقل_كلمة" placeholder="كلمة المرور" type="password" />
+        <div class="مساعدة">
+          - إذا ما عندك حساب: اضغط <b>إنشاء حساب</b><br>
+          - إذا عندك حساب: اضغط <b>تسجيل دخول</b>
+        </div>
+        <div class="شبكةزرين">
+          <button class="زر أساسي" id="زر_تسجيل_حساب">إنشاء حساب</button>
+          <button class="زر" id="زر_تسجيل_دخول">تسجيل دخول</button>
+        </div>
+        <div class="فاصل"></div>
+        <div class="مساعدة">
+          الإحالة (إن وجدت): <span class="نسخ" id="عرض_إحالة">—</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="حاوية">
     <div class="شريط">
@@ -426,14 +475,14 @@
     <div class="صفحة" id="صفحة_عروض">
       <div class="بطاقة">
         <b id="عنوان_العروض">العروض المتاحة</b>
-        <div class="نصصغير" id="وصف_العروض">هذه عينة واجهة. سيتم ربط التحقق التلقائي والشركات لاحقًا.</div>
+        <div class="نصصغير" id="وصف_العروض">واجهة جاهزة. (حالياً الربح هنا يتم تسجيله في قاعدة البيانات كنقاط حقيقية للتجربة)</div>
 
         <div class="شبكةعروض">
           <div class="عرض">
             <div class="صورةعرض">أ</div>
             <div style="flex:1">
               <h4>تثبيت تطبيق وتجربة بسيطة</h4>
-              <p class="وصف">أكمل الخطوات المطلوبة وسيتم إضافة النقاط تلقائيًا بعد التحقق.</p>
+              <p class="وصف">سيتم تسجيل المهمة في Firestore وإضافة النقاط.</p>
               <div class="سفل">
                 <span class="شارة أخضر">+ 500 نقطة</span>
                 <button class="زر صغير أساسي" onclick="أكمل_مهمة('تطبيق: تجربة بسيطة', 500)">ابدأ</button>
@@ -445,7 +494,7 @@
             <div class="صورةعرض">س</div>
             <div style="flex:1">
               <h4>استطلاع قصير</h4>
-              <p class="وصف">أجب عن الاستطلاع وستضاف النقاط تلقائيًا عند اكتماله.</p>
+              <p class="وصف">سيتم تسجيل المهمة في Firestore وإضافة النقاط.</p>
               <div class="سفل">
                 <span class="شارة أخضر">+ 350 نقطة</span>
                 <button class="زر صغير أساسي" onclick="أكمل_مهمة('استطلاع: قصير', 350)">ابدأ</button>
@@ -457,7 +506,7 @@
             <div class="صورةعرض">ل</div>
             <div style="flex:1">
               <h4>لعبة: الوصول لمستوى</h4>
-              <p class="وصف">حقق الهدف داخل اللعبة، وستضاف النقاط تلقائيًا بعد التحقق.</p>
+              <p class="وصف">سيتم تسجيل المهمة في Firestore وإضافة النقاط.</p>
               <div class="سفل">
                 <span class="شارة أخضر">+ 1200 نقطة</span>
                 <button class="زر صغير أساسي" onclick="أكمل_مهمة('لعبة: مستوى', 1200)">ابدأ</button>
@@ -469,7 +518,7 @@
             <div class="صورةعرض">م</div>
             <div style="flex:1">
               <h4>متابعة قناة رسمية (مرة واحدة)</h4>
-              <p class="وصف">سيتم التحقق تلقائيًا عند الربط النهائي.</p>
+              <p class="وصف">مرة واحدة فقط لكل حساب.</p>
               <div class="سفل">
                 <span class="شارة أخضر">+ 300 نقطة</span>
                 <button class="زر صغير أساسي" onclick="أكمل_مهمة('متابعة: قناة', 300, {مرة:true, مفتاح:'متابعة_قناة'})">تنفيذ</button>
@@ -479,7 +528,7 @@
         </div>
 
         <div class="نصصغير" style="margin-top:10px">
-          تذكير: السحب يدوي. النقاط تضاف تلقائيًا بعد التحقق الحقيقي عند ربط شركات العروض.
+          تذكير: السحب يدوي. وتم حفظ كل العمليات في قاعدة البيانات.
         </div>
       </div>
     </div>
@@ -526,7 +575,7 @@
             <div class="صورةعرض">٪</div>
             <div style="flex:1">
               <h4>قواعد الإحالة</h4>
-              <p class="وصف">تُحسب ٥٪ تلقائيًا من أرباح الصديق بشكل دائم بعد تحقق الأرباح الحقيقي.</p>
+              <p class="وصف">يتم تسجيل الإحالة في قاعدة البيانات عند إنشاء حساب جديد عبر رابطك.</p>
               <div class="سفل">
                 <span class="شارة أزرق">نسبة: ٥٪</span>
                 <span class="شارة ذهبي">بدون حد يومي</span>
@@ -536,7 +585,7 @@
         </div>
 
         <div class="نصصغير" style="margin-top:10px">
-          سيتم تفعيل الربط الكامل للإحالات تلقائيًا عند ربط شركات العروض والتحقق.
+          رابطك يعمل الآن. فقط شاركه وسيُسجل ref تلقائياً.
         </div>
       </div>
     </div>
@@ -554,13 +603,13 @@
               <p class="وصف" id="تفاصيل_مستخدم">سجّل للدخول وحفظ رصيدك على كل الأجهزة.</p>
               <div class="سفل">
                 <span class="شارة ذهبي" id="شارة_مستوى2">المستوى: ١</span>
-                <span class="شارة أخضر" id="شارة_ترتيب">الترتيب: —</span>
+                <span class="شارة أخضر" id="شارة_ترتيب">المعرّف: —</span>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="نصصغير" style="margin-top:10px" id="سجل_نقاط_عنوان">سجل النقاط (عينة)</div>
+        <div class="نصصغير" style="margin-top:10px" id="سجل_نقاط_عنوان">سجل النقاط</div>
         <table class="جدول" id="جدول_سجل">
           <tbody></tbody>
         </table>
@@ -580,126 +629,36 @@
     </div>
   </div>
 
-<script>
-  // ======= لغة تلقائية + تبديل يدوي =======
-  const ترجمة = {
-    ar: {
-      اسم_المشروع:"منت كاش",
-      وصف_قصير:"اكسب نقاط واسحب أرباحك بسهولة",
-      زر_لغة:"تغيير اللغة",
-      زر_دخول:"تسجيل / دخول",
-      زر_خروج:"خروج",
-      نص_الرصيد:"رصيدك",
-      تلقائي:"إضافة النقاط تتم تلقائيًا بعد التحقق الحقيقي. السحب يدوي بموافقة الإدارة.",
-      سريع:"سريع",
-      وصف_سريع:"مهام مختارة لربح نقاط أسرع",
-      مكافأة:"استلام مكافأة يومية",
-      مهمة_سريعة:"مهمة متابعة قناة",
-      مهمة_سريعة_وصف:"تابع قناتك الرسمية لتحصل على نقاط (مرة واحدة)",
-      تنفيذ:"تنفيذ",
-      كسب_عنوان:"كسب النقاط",
-      كسب_وصف:"عروض، استطلاعات، تطبيقات، ألعاب، مهام متابعة",
-      عروض_عنوان:"العروض",
-      عروض_وصف:"مهام متعددة وربح نقاط بعد التحقق",
-      سحب_عنوان:"السحب",
-      سحب_وصف:"اطلب سحبك وسيتم المراجعة والموافقة",
-      إحالات_عنوان:"دعوة الأصدقاء",
-      إحالات_وصف:"احصل على ٥٪ من أرباح أصدقائك بشكل دائم",
-      عنوان_كسب:"كسب النقاط",
-      وصف_كسب:"اختر القسم الذي تريد الربح منه",
-      عنوان_العروض:"العروض المتاحة",
-      وصف_العروض:"هذه عينة واجهة. سيتم ربط التحقق التلقائي والشركات لاحقًا.",
-      عنوان_السحب:"السحب",
-      وصف_السحب:"الحد الأدنى للسحب: ١٠٠٠٠ نقطة (١٠ دولارات). السحب يدوي بموافقة الإدارة.",
-      عنوان_الإحالات:"دعوة الأصدقاء",
-      وصف_الإحالات_نص:"تحصل على ٥٪ من أرباح أصدقائك دائمًا عند تسجيلهم عبر رابطك.",
-      عنوان_الحساب:"الحساب",
-      وصف_الحساب:"ملفك، مستواك، وسجل النقاط",
-      سجل_نقاط:"سجل النقاط (عينة)",
-      توست_مكافأة:"تمت إضافة مكافأة يومية",
-      توست_مهمة:"تمت إضافة نقاط للمهمة (عينة)",
-      توست_سحب:"تم إرسال طلب السحب للمراجعة",
-      توست_نسخ:"تم نسخ رابط الدعوة",
-      توست_منع:"هذه المهمة تم تنفيذها سابقًا",
-      زائر:"زائر",
-      مستخدم:"مستخدم"
-    },
-    en: {
-      // بدون كلمات أجنبية في الواجهة الآن حسب طلبك، نجهزها لاحقًا في لوحة التحكم
-      // سنبقي الواجهة عربية، ونفعل الإنجليزية عند طلبك في مرحلة لاحقة.
-      اسم_المشروع:"منت كاش",
-      وصف_قصير:"اكسب نقاط واسحب أرباحك بسهولة"
-    }
+<script type="module">
+  // ================================
+  // Firebase (Auth + Firestore)
+  // ================================
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+  import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
+  import { getFirestore, doc, getDoc, setDoc, updateDoc, serverTimestamp, increment, collection, addDoc, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAR1agEF6AHWHrgY4g_M3EoojdPKB1U9sY",
+    authDomain: "mintcash-65c77.firebaseapp.com",
+    projectId: "mintcash-65c77",
+    storageBucket: "mintcash-65c77.appspot.com",
+    messagingSenderId: "448741584532",
+    appId: "1:448741584532:web:ccad1e2feabd4c8071ce81",
+    measurementId: "G-44HHCZ090K"
   };
 
-  // ======= حالة =======
-  const تخزين = {
-    اقرأ(مفتاح, افتراضي){
-      try{ const v = localStorage.getItem(مفتاح); return v ? JSON.parse(v) : افتراضي; }
-      catch(e){ return افتراضي; }
-    },
-    اكتب(مفتاح, قيمة){
-      localStorage.setItem(مفتاح, JSON.stringify(قيمة));
-    }
-  };
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
 
-  let حالة = تخزين.اقرأ("حالة", {
-    لغة: (navigator.language || "ar").toLowerCase().startsWith("ar") ? "ar" : "ar",
-    مسجل: false,
-    اسم: "زائر",
-    رصيد: 0,
-    مستوى: 1,
-    سجل: [],
-    سحوبات: [],
-    مهام_منفذة: {}
-  });
-
+  // ================================
+  // أدوات
+  // ================================
   const عنصر = (id)=>document.getElementById(id);
 
-  function طبق_اللغة(){
-    const ق = ترجمة[حالة.لغة] || ترجمة.ar;
-    عنصر("اسم_المشروع").textContent = ق.اسم_المشروع;
-    عنصر("وصف_قصير").textContent = ق.وصف_قصير;
-    عنصر("زر_لغة").textContent = ق.زر_لغة;
-    عنصر("زر_دخول").textContent = ق.زر_دخول;
-    عنصر("زر_خروج").textContent = ق.زر_خروج;
-    عنصر("نص_الرصيد").textContent = ق.نص_الرصيد;
-    عنصر("نص_تلقائي").textContent = ق.تلقائي;
-    عنصر("عنوان_سريع").textContent = ق.سريع;
-    عنصر("وصف_سريع").textContent = ق.وصف_سريع;
-    عنصر("زر_مكافأة").textContent = ق.مكافأة;
-    عنصر("عنوان_مهمة_سريعة").textContent = ق.مهمة_سريعة;
-    عنصر("وصف_مهمة_سريعة").textContent = ق.مهمة_سريعة_وصف;
-    عنصر("زر_مهمة_سريعة").textContent = ق.تنفيذ;
-
-    عنصر("كسب_عنوان").textContent = ق.كسب_عنوان;
-    عنصر("كسب_وصف").textContent = ق.كسب_وصف;
-    عنصر("عروض_عنوان").textContent = ق.عروض_عنوان;
-    عنصر("عروض_وصف").textContent = ق.عروض_وصف;
-    عنصر("سحب_عنوان").textContent = ق.سحب_عنوان;
-    عنصر("سحب_وصف").textContent = ق.سحب_وصف;
-    عنصر("إحالات_عنوان").textContent = ق.إحالات_عنوان;
-    عنصر("إحالات_وصف").textContent = ق.إحالات_وصف;
-
-    عنصر("عنوان_كسب").textContent = ق.عنوان_كسب;
-    عنصر("وصف_كسب").textContent = ق.وصف_كسب;
-    عنصر("عنوان_العروض").textContent = ق.عنوان_العروض;
-    عنصر("وصف_العروض").textContent = ق.وصف_العروض;
-    عنصر("عنوان_السحب").textContent = ق.عنوان_السحب;
-    عنصر("وصف_السحب").textContent = ق.وصف_السحب;
-    عنصر("عنوان_الإحالات").textContent = ق.عنوان_الإحالات;
-    عنصر("وصف_الإحالات_نص").textContent = ق.وصف_الإحالات_نص;
-    عنصر("عنوان_الحساب").textContent = ق.عنوان_الحساب;
-    عنصر("وصف_الحساب").textContent = ق.وصف_الحساب;
-    عنصر("سجل_نقاط_عنوان").textContent = ق.سجل_نقاط;
-
-    document.documentElement.lang = "ar";
-    document.documentElement.dir = "rtl";
-  }
-
-  function حفظ(){
-    تخزين.اكتب("حالة", حالة);
-    حدث_الواجهة();
+  function رقم(n){
+    try{ return new Intl.NumberFormat("ar").format(n); }
+    catch(e){ return String(n); }
   }
 
   function توست(عنوان, نص){
@@ -718,6 +677,27 @@
     setTimeout(()=>{ try{ بطاقة.remove(); }catch(e){} }, 4500);
   }
 
+  // ================================
+  // إحالة من الرابط
+  // ================================
+  const بارام = new URLSearchParams(location.search);
+  const ref = بارام.get("دعوة"); // رابطك في كودك كان ?دعوة=
+  عنصر("عرض_إحالة").textContent = ref ? ref : "—";
+
+  // ================================
+  // حالة التطبيق (من قاعدة البيانات)
+  // ================================
+  let حالة = {
+    uid: null,
+    مسجل: false,
+    اسم: "زائر",
+    رصيد: 0,
+    مستوى: 1
+  };
+
+  // ================================
+  // واجهة
+  // ================================
   function حدث_الواجهة(){
     عنصر("رصيد").textContent = رقم(حالة.رصيد);
     عنصر("شارة_حالة").textContent = حالة.مسجل ? "مسجل" : "زائر";
@@ -725,52 +705,22 @@
     عنصر("شارة_مستوى2").textContent = "المستوى: " + رقم(حالة.مستوى);
     عنصر("اسم_مستخدم").textContent = حالة.مسجل ? حالة.اسم : "زائر";
     عنصر("تفاصيل_مستخدم").textContent = حالة.مسجل ? "مرحبًا بك في منت كاش." : "سجّل للدخول وحفظ رصيدك على كل الأجهزة.";
+    عنصر("شارة_ترتيب").textContent = "المعرّف: " + (حالة.uid ? حالة.uid.slice(0,10) : "—");
 
     عنصر("زر_دخول").style.display = حالة.مسجل ? "none" : "inline-flex";
     عنصر("زر_خروج").style.display = حالة.مسجل ? "inline-flex" : "none";
 
-    // رابط دعوة (عينة)
-    const معرّف = حالة.مسجل ? "u" + (حالة.اسم || "1").toString().toLowerCase().replace(/\s+/g,"") : "زائر";
-    عنصر("رابط_دعوة").value = location.origin + location.pathname + "?دعوة=" + encodeURIComponent(معرّف);
-
-    // سجل النقاط
-    const سجل = عنصر("جدول_سجل").querySelector("tbody");
-    سجل.innerHTML = "";
-    const آخر = حالة.سجل.slice().reverse().slice(0, 6);
-    if(آخر.length === 0){
-      سجل.innerHTML = `<tr><td>لا يوجد سجل بعد</td><td>—</td><td>—</td></tr>`;
+    // رابط دعوة حقيقي = uid
+    if(حالة.uid){
+      عنصر("رابط_دعوة").value = location.origin + location.pathname + "?دعوة=" + encodeURIComponent(حالة.uid);
     } else {
-      آخر.forEach(س=>{
-        const tr = document.createElement("tr");
-        tr.innerHTML = `<td>${س.سبب}</td><td>${س.كمية > 0 ? "+" : ""}${رقم(s.كمية)}</td><td>${س.وقت}</td>`;
-        سجل.appendChild(tr);
-      });
-    }
-
-    // طلبات السحب
-    const جسم = عنصر("جدول_السحب").querySelector("tbody");
-    جسم.innerHTML = "";
-    const طلبات = حالة.سحوبات.slice().reverse();
-    if(طلبات.length === 0){
-      جسم.innerHTML = `<tr><td>لا يوجد طلبات</td><td>—</td><td>—</td></tr>`;
-    }else{
-      طلبات.forEach(t=>{
-        const tr = document.createElement("tr");
-        tr.innerHTML = `<td>${t.طريقة}</td><td>${رقم(t.نقاط)} نقطة</td><td>${t.حالة}</td>`;
-        جسم.appendChild(tr);
-      });
+      عنصر("رابط_دعوة").value = "سجّل دخول لتفعيل رابط الدعوة";
     }
   }
 
-  function رقم(n){
-    try{
-      return new Intl.NumberFormat("ar").format(n);
-    }catch(e){
-      return String(n);
-    }
-  }
-
-  // ======= تنقل =======
+  // ================================
+  // تنقل الصفحات
+  // ================================
   function اذهب(معرّف){
     document.querySelectorAll(".صفحة").forEach(p=>p.classList.remove("نشطة"));
     عنصر(معرّف).classList.add("نشطة");
@@ -778,92 +728,271 @@
     document.querySelectorAll(".عنصر").forEach(x=>x.classList.remove("نشط"));
     document.querySelectorAll(`.عنصر[data-nav="${معرّف}"]`).forEach(x=>x.classList.add("نشط"));
 
-    // تمييز زر الوسط
     document.querySelectorAll(".زرمنتصف").forEach(b=>b.classList.remove("نشط"));
     const وسط = document.querySelector(`.زرمنتصف[data-nav="${معرّف}"]`);
     if(وسط) وسط.classList.add("نشط");
 
-    // تمرير لأعلى
     window.scrollTo({top:0, behavior:"smooth"});
   }
 
   document.querySelectorAll("[data-go]").forEach(el=>{
     el.addEventListener("click", ()=> اذهب(el.getAttribute("data-go")));
   });
-
   document.querySelectorAll(".عنصر").forEach(el=>{
     el.addEventListener("click", ()=> اذهب(el.getAttribute("data-nav")));
   });
-
-  // أقسام كسب (عينة)
   document.querySelectorAll("[data-open]").forEach(el=>{
     el.addEventListener("click", ()=>{
       const قسم = el.getAttribute("data-open");
-      توست("تم فتح القسم", "هذا نموذج. سيتم ربطه بالتحقق التلقائي لاحقًا: " + قسم);
+      توست("تم فتح القسم", "تم فتح: " + قسم);
       اذهب("صفحة_عروض");
     });
   });
 
-  // ======= تسجيل / خروج (عينة مؤقتة) =======
-  عنصر("زر_دخول").onclick = ()=>{
-    حالة.مسجل = true;
-    حالة.اسم = "مستخدم";
-    توست("تم الدخول", "هذه نسخة أولى. سنربط الدخول الحقيقي لاحقًا.");
-    حفظ();
-  };
-  عنصر("زر_خروج").onclick = ()=>{
-    حالة.مسجل = false;
-    حالة.اسم = "زائر";
-    توست("تم الخروج", "تم تسجيل الخروج.");
-    حفظ();
+  // ================================
+  // مودال دخول/تسجيل
+  // ================================
+  function افتح_مودال(){ عنصر("مودال_دخول").classList.add("ظهار"); }
+  function اغلق_مودال(){ عنصر("مودال_دخول").classList.remove("ظهار"); }
+
+  عنصر("زر_دخول").onclick = افتح_مودال;
+  عنصر("اغلاق_مودال").onclick = اغلق_مودال;
+  عنصر("مودال_دخول").addEventListener("click", (e)=>{
+    if(e.target.id === "مودال_دخول") اغلق_مودال();
+  });
+
+  // ================================
+  // Firestore Helpers
+  // ================================
+  async function اجلب_مستخدم(uid){
+    const refDoc = doc(db, "users", uid);
+    const snap = await getDoc(refDoc);
+    return { refDoc, snap };
+  }
+
+  async function اضمن_حساب(uid, email, displayName){
+    const { refDoc, snap } = await اجلب_مستخدم(uid);
+    if(!snap.exists()){
+      await setDoc(refDoc, {
+        email: email || "",
+        name: displayName || "مستخدم",
+        points: 0,
+        level: 1,
+        createdAt: serverTimestamp(),
+        referrer: ref || null
+      });
+      // سجل إحالة (اختياري)
+      if(ref){
+        await addDoc(collection(db, "referrals"), {
+          referrer: ref,
+          newUser: uid,
+          createdAt: serverTimestamp()
+        });
+      }
+    }
+  }
+
+  async function حدث_من_قاعدة(){
+    if(!حالة.uid) return;
+    const { snap } = await اجلب_مستخدم(حالة.uid);
+    if(!snap.exists()) return;
+
+    const d = snap.data();
+    حالة.اسم = d.name || (auth.currentUser?.email || "مستخدم");
+    حالة.رصيد = Number(d.points || 0);
+    حالة.مستوى = Number(d.level || 1);
+
+    await حدث_سجل();
+    await حدث_سحوبات();
+    حدث_الواجهة();
+  }
+
+  async function حدث_سجل(){
+    const جسم = عنصر("جدول_سجل").querySelector("tbody");
+    جسم.innerHTML = "";
+    if(!حالة.uid){
+      جسم.innerHTML = `<tr><td>سجّل دخول لعرض السجل</td><td>—</td><td>—</td></tr>`;
+      return;
+    }
+    const qy = query(collection(db, "users", حالة.uid, "ledger"), orderBy("createdAt","desc"), limit(10));
+    const snaps = await getDocs(qy);
+    if(snaps.empty){
+      جسم.innerHTML = `<tr><td>لا يوجد سجل بعد</td><td>—</td><td>—</td></tr>`;
+      return;
+    }
+    snaps.forEach(s=>{
+      const it = s.data();
+      const tr = document.createElement("tr");
+      const كمية = Number(it.amount || 0);
+      tr.innerHTML = `<td>${it.reason || "—"}</td><td>${(كمية>0?"+":"")}${رقم(كمية)}</td><td>${(it.timeText||"—")}</td>`;
+      جسم.appendChild(tr);
+    });
+  }
+
+  async function حدث_سحوبات(){
+    const جسم = عنصر("جدول_السحب").querySelector("tbody");
+    جسم.innerHTML = "";
+    if(!حالة.uid){
+      جسم.innerHTML = `<tr><td>سجّل دخول</td><td>—</td><td>—</td></tr>`;
+      return;
+    }
+    const qy = query(collection(db, "users", حالة.uid, "withdrawals"), orderBy("createdAt","desc"), limit(20));
+    const snaps = await getDocs(qy);
+    if(snaps.empty){
+      جسم.innerHTML = `<tr><td>لا يوجد طلبات</td><td>—</td><td>—</td></tr>`;
+      return;
+    }
+    snaps.forEach(s=>{
+      const it = s.data();
+      const tr = document.createElement("tr");
+      tr.innerHTML = `<td>${it.method || "—"}</td><td>${رقم(Number(it.points||0))} نقطة</td><td>${it.status || "قيد المراجعة"}</td>`;
+      جسم.appendChild(tr);
+    });
+  }
+
+  // ================================
+  // تسجيل / دخول / خروج (حقيقي)
+  // ================================
+  عنصر("زر_تسجيل_حساب").onclick = async ()=>{
+    const name = (عنصر("حقل_اسم").value || "").trim() || "مستخدم";
+    const email = (عنصر("حقل_بريد").value || "").trim();
+    const pass = (عنصر("حقل_كلمة").value || "").trim();
+
+    if(!email || !pass){
+      توست("نقص بيانات", "اكتب البريد وكلمة المرور.");
+      return;
+    }
+    try{
+      const cred = await createUserWithEmailAndPassword(auth, email, pass);
+      if(name) await updateProfile(cred.user, { displayName: name });
+      await اضمن_حساب(cred.user.uid, email, name);
+      توست("تم", "تم إنشاء الحساب بنجاح.");
+      اغلق_مودال();
+    }catch(e){
+      توست("خطأ", (e?.message || "تعذر إنشاء الحساب").slice(0,120));
+    }
   };
 
-  // ======= مكافأة يومية (عينة) =======
-  عنصر("زر_مكافأة").onclick = ()=>{
+  عنصر("زر_تسجيل_دخول").onclick = async ()=>{
+    const email = (عنصر("حقل_بريد").value || "").trim();
+    const pass = (عنصر("حقل_كلمة").value || "").trim();
+
+    if(!email || !pass){
+      توست("نقص بيانات", "اكتب البريد وكلمة المرور.");
+      return;
+    }
+    try{
+      const cred = await signInWithEmailAndPassword(auth, email, pass);
+      await اضمن_حساب(cred.user.uid, cred.user.email, cred.user.displayName || "مستخدم");
+      توست("تم", "تم تسجيل الدخول.");
+      اغلق_مودال();
+    }catch(e){
+      توست("خطأ", (e?.message || "تعذر تسجيل الدخول").slice(0,120));
+    }
+  };
+
+  عنصر("زر_خروج").onclick = async ()=>{
+    await signOut(auth);
+    توست("تم", "تم تسجيل الخروج.");
+  };
+
+  onAuthStateChanged(auth, async (user)=>{
+    if(user){
+      حالة.uid = user.uid;
+      حالة.مسجل = true;
+      await اضمن_حساب(user.uid, user.email, user.displayName || "مستخدم");
+      await حدث_من_قاعدة();
+    }else{
+      حالة = { uid:null, مسجل:false, اسم:"زائر", رصيد:0, مستوى:1 };
+      حدث_الواجهة();
+      await حدث_سجل();
+      await حدث_سحوبات();
+    }
+  });
+
+  // ================================
+  // إضافة نقاط + دفتر قيود (Ledger)
+  // ================================
+  async function أضف_نقاط(كمية, سبب){
+    if(!حالة.uid){
+      توست("مطلوب تسجيل", "سجّل أولاً.");
+      return false;
+    }
+    const userRef = doc(db, "users", حالة.uid);
+    await updateDoc(userRef, {
+      points: increment(كمية)
+    });
+    await addDoc(collection(db, "users", حالة.uid, "ledger"), {
+      amount: كمية,
+      reason: سبب,
+      createdAt: serverTimestamp(),
+      timeText: new Date().toLocaleString("ar")
+    });
+
+    // تحديث المستوى (حسب رصيد النقاط الجديد) — نقرأ بسرعة بعد الزيادة
+    const snap = await getDoc(userRef);
+    const pts = Number(snap.data()?.points || 0);
+    const lvl = Math.max(1, Math.floor(pts / 3000) + 1);
+    await updateDoc(userRef, { level: lvl });
+
+    await حدث_من_قاعدة();
+    return true;
+  }
+
+  // ================================
+  // مكافأة يومية (مرة كل يوم لكل مستخدم)
+  // ================================
+  عنصر("زر_مكافأة").onclick = async ()=>{
+    if(!حالة.uid){ توست("مطلوب تسجيل", "سجّل أولاً."); return; }
     const اليوم = new Date().toISOString().slice(0,10);
-    if(حالة.مهام_منفذة["مكافأة_"+اليوم]){
+    const taskKey = "daily_" + اليوم;
+
+    // نخزن تنفيذ المهمة داخل users/{uid}/tasks/{taskKey}
+    const taskRef = doc(db, "users", حالة.uid, "tasks", taskKey);
+    const taskSnap = await getDoc(taskRef);
+    if(taskSnap.exists()){
       توست("مكافأة يومية", "تم استلام مكافأة اليوم مسبقًا.");
       return;
     }
-    حالة.مهام_منفذة["مكافأة_"+اليوم] = true;
-    أضف_نقاط(200, "مكافأة يومية");
+    await setDoc(taskRef, { done:true, createdAt: serverTimestamp() });
+    await أضف_نقاط(200, "مكافأة يومية");
     توست("مكافأة يومية", "تمت إضافة ٢٠٠ نقطة.");
-    حفظ();
   };
 
   // مهمة سريعة (مرة واحدة)
   عنصر("زر_مهمة_سريعة").onclick = ()=>{
-    أكمل_مهمة("متابعة: قناة رسمية", 300, {مرة:true, مفتاح:"متابعة_قناة"});
+    أكمل_مهمة("متابعة: قناة رسمية", 300, {مرة:true, مفتاح:"follow_channel_once"});
   };
 
-  function أضف_نقاط(كمية, سبب){
-    حالة.رصيد += كمية;
-    حالة.سجل.push({سبب, كمية, وقت: new Date().toLocaleString("ar")});
-    // تحديث مستوى بسيط (عينة)
-    حالة.مستوى = Math.max(1, Math.floor(حالة.رصيد / 3000) + 1);
-  }
+  // ================================
+  // تنفيذ مهمة (مع مرة واحدة)
+  // ================================
+  window.أكمل_مهمة = async (اسم, نقاط, خيارات={})=>{
+    if(!حالة.uid){ توست("مطلوب تسجيل", "سجّل أولاً."); return; }
 
-  function أكمل_مهمة(اسم, نقاط, خيارات={}){
     if(خيارات.مرة && خيارات.مفتاح){
-      if(حالة.مهام_منفذة[خيارات.مفتاح]){
+      const tRef = doc(db, "users", حالة.uid, "tasks", خيارات.مفتاح);
+      const tSnap = await getDoc(tRef);
+      if(tSnap.exists()){
         توست("تنبيه", "هذه المهمة تم تنفيذها سابقًا.");
         return;
       }
-      حالة.مهام_منفذة[خيارات.مفتاح] = true;
+      await setDoc(tRef, { done:true, createdAt: serverTimestamp() });
     }
-    // هذه إضافة نموذجية الآن. لاحقًا سنستبدلها بالتحقق التلقائي الحقيقي
-    أضف_نقاط(نقاط, اسم);
-    توست("تمت إضافة نقاط", `+ ${رقم(نقاط)} نقطة`);
-    حفظ();
-  }
 
-  // ======= طلب سحب (يدوي) =======
-  function طلب_سحب(){
+    await أضف_نقاط(Number(نقاط||0), اسم);
+    توست("تمت إضافة نقاط", `+ ${رقم(Number(نقاط||0))} نقطة`);
+  };
+
+  // ================================
+  // طلب سحب (يُحفظ في Firestore)
+  // ================================
+  window.طلب_سحب = async ()=>{
     const طريقة = عنصر("طريقة_السحب").value;
     const نقاط = Number(عنصر("كمية_نقاط").value || 0);
     const بيانات = (عنصر("بيانات_السحب").value || "").trim();
 
-    if(!حالة.مسجل){
+    if(!حالة.uid){
       توست("مطلوب تسجيل", "سجّل أولًا قبل إرسال طلب سحب.");
       return;
     }
@@ -880,37 +1009,46 @@
       return;
     }
 
-    // لا نخصم الآن (حسب نظامك) إلا بعد الموافقة من الإدارة لاحقًا
-    حالة.سحوبات.push({
-      طريقة, نقاط, بيانات,
-      حالة:"قيد المراجعة",
-      وقت: new Date().toLocaleString("ar")
+    // لا نخصم النقاط الآن (حسب نظامك) إلا بعد موافقة الإدارة
+    await addDoc(collection(db, "users", حالة.uid, "withdrawals"), {
+      method: طريقة,
+      points: نقاط,
+      details: بيانات,
+      status: "قيد المراجعة",
+      createdAt: serverTimestamp(),
+      timeText: new Date().toLocaleString("ar")
     });
+
     توست("تم الإرسال", "تم إرسال طلب السحب للمراجعة.");
     عنصر("كمية_نقاط").value = "";
     عنصر("بيانات_السحب").value = "";
-    حفظ();
-  }
+    await حدث_سحوبات();
+  };
 
+  // ================================
   // نسخ رابط الدعوة
-  function نسخ_رابط(){
+  // ================================
+  window.نسخ_رابط = ()=>{
     const نص = عنصر("رابط_دعوة").value;
-    navigator.clipboard?.writeText(nص).then(()=>{
+    navigator.clipboard?.writeText(نص).then(()=>{
       توست("تم النسخ", "تم نسخ رابط الدعوة.");
     }).catch(()=>{
       توست("انسخ يدويًا", "اضغط مطولًا على الرابط وانسخه.");
     });
-  }
+  };
 
-  // تبديل لغة (نجهز الواجهة الإنجليزية لاحقًا كما اتفقنا)
+  // ================================
+  // اللغة (حسب طلبك: عربي فقط)
+  // ================================
   عنصر("زر_لغة").onclick = ()=>{
-    توست("ملاحظة", "الواجهة عربية الآن حسب طلبك. سنفعل الإنجليزية بالكامل في المرحلة القادمة.");
+    توست("ملاحظة", "الواجهة عربية الآن حسب طلبك. نضيف الإنجليزية لاحقًا.");
   };
 
   // بدء
-  طبق_اللغة();
   حدث_الواجهة();
-  حفظ();
+  await حدث_سجل();
+  await حدث_سحوبات();
 </script>
+
 </body>
 </html>
