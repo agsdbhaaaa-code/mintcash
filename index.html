@@ -2,1053 +2,318 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <meta name="description" content="منت كاش: اكسب نقاط من العروض والاستطلاعات والألعاب واسحب أرباحك بسهولة." />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>منت كاش</title>
-
-  <style>
-    :root{
-      --خلفية:#0b1220;
-      --خلفية2:#0f1a35;
-      --بطاقة:rgba(17,24,39,.78);
-      --حد:rgba(255,255,255,.08);
-      --نص:#e5e7eb;
-      --نص2:#9ca3af;
-      --أخضر:#22c55e;
-      --أزرق:#3b82f6;
-      --أحمر:#ef4444;
-      --ذهبي:#f59e0b;
-      --ظل: 0 18px 60px rgba(0,0,0,.35);
-      --دائري:18px;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
-      background: radial-gradient(1200px 800px at 70% -10%, rgba(34,197,94,.18), transparent 55%),
-                  radial-gradient(900px 700px at 20% 10%, rgba(59,130,246,.18), transparent 52%),
-                  linear-gradient(160deg, var(--خلفية), var(--خلفية2));
-      color:var(--نص);
-      min-height:100vh;
-    }
-    a{color:inherit; text-decoration:none}
-    .حاوية{max-width:1100px;margin:0 auto;padding:18px 14px 90px}
-    .شريط{
-      display:flex;align-items:center;justify-content:space-between;gap:10px;
-      padding:14px 14px;border:1px solid var(--حد);background:rgba(15,26,53,.5);
-      border-radius:var(--دائري);box-shadow:var(--ظل);backdrop-filter: blur(10px);
-      position:sticky;top:10px;z-index:10;
-    }
-    .شعار{display:flex;align-items:center;gap:10px}
-    .نقطةشعار{
-      width:38px;height:38px;border-radius:12px;
-      background: linear-gradient(135deg, rgba(34,197,94,.9), rgba(59,130,246,.85));
-      display:grid;place-items:center;box-shadow:0 12px 28px rgba(34,197,94,.18);
-      font-weight:800;
-    }
-    .عنوان{display:flex;flex-direction:column;line-height:1.15}
-    .عنوان b{font-size:14px}
-    .عنوان span{font-size:12px;color:var(--نص2)}
-    .أزرار{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-    .زر{
-      border:1px solid var(--حد);
-      background:rgba(255,255,255,.04);
-      color:var(--نص);
-      padding:10px 12px;border-radius:14px;
-      cursor:pointer; user-select:none;
-    }
-    .زر.أساسي{background:rgba(34,197,94,.18); border-color:rgba(34,197,94,.35)}
-    .زر.خطر{background:rgba(239,68,68,.12); border-color:rgba(239,68,68,.35)}
-    .زر.صغير{padding:8px 10px;border-radius:12px;font-size:12px}
-    .زر:active{transform:scale(.98)}
-
-    .شبكةملخص{
-      margin-top:14px;
-      display:grid;grid-template-columns: 1.2fr .8fr;gap:12px;
-    }
-    @media (max-width:860px){.شبكةملخص{grid-template-columns:1fr}}
-    .بطاقة{
-      border:1px solid var(--حد);
-      background:var(--بطاقة);
-      border-radius:var(--دائري);
-      box-shadow:var(--ظل);
-      padding:14px;
-      backdrop-filter: blur(10px);
-    }
-    .ملخصTop{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
-    .نصصغير{color:var(--نص2);font-size:12px}
-    .رصيد{
-      display:flex;align-items:flex-end;gap:8px;margin-top:8px;flex-wrap:wrap
-    }
-    .رصيد .رقم{font-size:34px;font-weight:900;letter-spacing:.3px}
-    .شارة{
-      display:inline-flex;align-items:center;gap:6px;
-      padding:7px 10px;border-radius:999px;font-size:12px;
-      border:1px solid var(--حد); background:rgba(255,255,255,.04);
-    }
-    .شارة.أخضر{border-color:rgba(34,197,94,.35); background:rgba(34,197,94,.12)}
-    .شارة.أزرق{border-color:rgba(59,130,246,.35); background:rgba(59,130,246,.12)}
-    .شارة.ذهبي{border-color:rgba(245,158,11,.35); background:rgba(245,158,11,.12)}
-
-    .تبويبات{
-      margin-top:14px;
-      display:grid;grid-template-columns: repeat(2, 1fr);gap:12px;
-    }
-    @media (max-width:520px){.تبويبات{grid-template-columns:1fr}}
-    .مربع{
-      padding:14px;border-radius:var(--دائري);
-      border:1px solid var(--حد);
-      background:rgba(255,255,255,.035);
-      box-shadow:var(--ظل);
-      display:flex;gap:12px;align-items:flex-start;
-      cursor:pointer;
-    }
-    .مربع:hover{border-color:rgba(34,197,94,.35)}
-    .أيقونة{
-      width:44px;height:44px;border-radius:14px;
-      display:grid;place-items:center;
-      background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.08);
-      flex:0 0 auto;
-      font-weight:900;
-    }
-    .مربع h3{margin:0 0 4px;font-size:14px}
-    .مربع p{margin:0;color:var(--نص2);font-size:12px;line-height:1.45}
-    .مربع .يمين{flex:1}
-    .مربع .يمين .سطر{display:flex;justify-content:space-between;gap:10px;align-items:center}
-    .مربع .يمين .سطر .شارة{margin-inline-start:auto}
-
-    .صفحة{display:none;margin-top:14px}
-    .صفحة.نشطة{display:block}
-
-    .شبكةعروض{
-      display:grid;grid-template-columns: repeat(2, 1fr);
-      gap:12px;margin-top:12px;
-    }
-    @media (max-width:760px){.شبكةعروض{grid-template-columns:1fr}}
-    .عرض{
-      border:1px solid var(--حد);
-      background:rgba(255,255,255,.03);
-      border-radius:var(--دائري);
-      padding:14px;
-      box-shadow:var(--ظل);
-      display:flex;gap:12px;
-    }
-    .صورةعرض{
-      width:54px;height:54px;border-radius:16px;
-      background:linear-gradient(135deg, rgba(34,197,94,.35), rgba(59,130,246,.25));
-      border:1px solid rgba(255,255,255,.08);
-      flex:0 0 auto; display:grid;place-items:center; font-weight:900;
-    }
-    .عرض h4{margin:0 0 6px;font-size:14px}
-    .عرض .وصف{margin:0;color:var(--نص2);font-size:12px;line-height:1.45}
-    .عرض .سفل{
-      display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px;flex-wrap:wrap
-    }
-
-    .نموذج{
-      display:grid;gap:10px;margin-top:10px
-    }
-    .حقل{
-      border:1px solid var(--حد);
-      background:rgba(255,255,255,.04);
-      color:var(--نص);
-      padding:12px 12px;border-radius:14px;
-      outline:none;
-      width:100%;
-    }
-    .سطرحقول{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    @media (max-width:700px){.سطرحقول{grid-template-columns:1fr}}
-
-    .جدول{
-      width:100%;
-      border-collapse:separate;
-      border-spacing:0 10px;
-      margin-top:10px;
-    }
-    .جدول td{
-      padding:12px 12px;
-      background:rgba(255,255,255,.03);
-      border:1px solid var(--حد);
-    }
-    .جدول tr td:first-child{border-radius:14px 0 0 14px}
-    .جدول tr td:last-child{border-radius:0 14px 14px 0}
-    [dir="rtl"] .جدول tr td:first-child{border-radius:0 14px 14px 0}
-    [dir="rtl"] .جدول tr td:last-child{border-radius:14px 0 0 14px}
-
-    .شريطسفلي{
-      position:fixed;left:0;right:0;bottom:0;
-      background:rgba(9,14,26,.82);
-      border-top:1px solid rgba(255,255,255,.08);
-      backdrop-filter: blur(12px);
-      padding:10px 12px;
-      z-index:20;
-    }
-    .شريطسفلي .قائمة{
-      max-width:1100px;margin:0 auto;
-      display:grid;grid-template-columns: repeat(5, 1fr);
-      gap:10px;
-      align-items:center;
-    }
-    .عنصر{
-      display:grid;place-items:center;gap:4px;
-      color:var(--نص2);
-      font-size:11px;
-      cursor:pointer;
-      padding:8px 6px;border-radius:14px;
-      border:1px solid transparent;
-    }
-    .عنصر.نشط{color:var(--نص); border-color:rgba(34,197,94,.28); background:rgba(34,197,94,.10)}
-    .زرمنتصف{
-      transform:translateY(-12px);
-      background:linear-gradient(135deg, rgba(34,197,94,.95), rgba(59,130,246,.9));
-      border:none;
-      color:white;
-      box-shadow:0 18px 40px rgba(34,197,94,.22);
-      font-weight:900;
-      padding:12px 10px;
-      border-radius:18px;
-    }
-    .زرمنتصف.نشط{outline:2px solid rgba(255,255,255,.18)}
-
-    .توست{
-      position:fixed;top:16px;inset-inline:16px;
-      max-width:520px;margin:0 auto;
-      z-index:50;
-      display:grid;gap:10px;
-      pointer-events:none;
-    }
-    .رسالة{
-      pointer-events:auto;
-      border:1px solid var(--حد);
-      background:rgba(17,24,39,.92);
-      box-shadow:var(--ظل);
-      border-radius:16px;
-      padding:12px 12px;
-      display:flex;justify-content:space-between;gap:10px;align-items:flex-start
-    }
-    .رسالة b{display:block;font-size:13px;margin-bottom:3px}
-    .رسالة span{display:block;color:var(--نص2);font-size:12px;line-height:1.35}
-    .إغلاق{cursor:pointer;opacity:.8}
-
-    /* نافذة تسجيل/دخول */
-    .مودال{position:fixed;inset:0;display:none;place-items:center;z-index:80;background:rgba(0,0,0,.55);backdrop-filter:blur(8px)}
-    .مودال.ظهار{display:grid}
-    .مودال .صندوق{
-      width:min(520px, 92vw);
-      border:1px solid var(--حد);
-      background:rgba(17,24,39,.92);
-      border-radius:20px;
-      box-shadow:var(--ظل);
-      padding:14px;
-    }
-    .مودال .رأس{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
-    .مودال .رأس b{font-size:14px}
-    .مودال .صف{display:grid;gap:10px}
-    .مساعدة{font-size:12px;color:var(--نص2);line-height:1.5}
-    .شبكةزرين{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    @media (max-width:520px){.شبكةزرين{grid-template-columns:1fr}}
-    .فاصل{height:1px;background:rgba(255,255,255,.08);margin:10px 0}
-    .وسم{font-size:12px;color:var(--نص2)}
-    .نسخ{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-size:12px}
-  </style>
+  <link rel="stylesheet" href="./style.css" />
+  <meta name="theme-color" content="#0b1422">
 </head>
 
 <body>
-  <div class="توست" id="توست"></div>
+  <div class="bg"></div>
 
-  <!-- نافذة تسجيل / دخول -->
-  <div class="مودال" id="مودال_دخول">
-    <div class="صندوق">
-      <div class="رأس">
-        <b>تسجيل / دخول</b>
-        <span class="زر صغير" id="اغلاق_مودال">إغلاق</span>
-      </div>
-
-      <div class="صف">
-        <input class="حقل" id="حقل_اسم" placeholder="اسم المستخدم (اختياري)" />
-        <input class="حقل" id="حقل_بريد" placeholder="البريد الإلكتروني" inputmode="email" />
-        <input class="حقل" id="حقل_كلمة" placeholder="كلمة المرور" type="password" />
-        <div class="مساعدة">
-          - إذا ما عندك حساب: اضغط <b>إنشاء حساب</b><br>
-          - إذا عندك حساب: اضغط <b>تسجيل دخول</b>
-        </div>
-        <div class="شبكةزرين">
-          <button class="زر أساسي" id="زر_تسجيل_حساب">إنشاء حساب</button>
-          <button class="زر" id="زر_تسجيل_دخول">تسجيل دخول</button>
-        </div>
-        <div class="فاصل"></div>
-        <div class="مساعدة">
-          الإحالة (إن وجدت): <span class="نسخ" id="عرض_إحالة">—</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="حاوية">
-    <div class="شريط">
-      <div class="شعار">
-        <div class="نقطةشعار">م</div>
-        <div class="عنوان">
-          <b id="اسم_المشروع">منت كاش</b>
-          <span id="وصف_قصير">اكسب نقاط واسحب أرباحك بسهولة</span>
+  <!-- App Shell -->
+  <main class="app" id="app">
+    <!-- Top header -->
+    <header class="topbar">
+      <div class="brand">
+        <div class="avatar" aria-hidden="true">م</div>
+        <div class="brandText">
+          <div class="brandName">منت كاش</div>
+          <div class="brandSub">اكسب نقاط واسحب أرباحك بسهولة</div>
         </div>
       </div>
 
-      <div class="أزرار">
-        <button class="زر صغير" id="زر_لغة">تغيير اللغة</button>
-        <button class="زر أساسي" id="زر_دخول">تسجيل / دخول</button>
-        <button class="زر خطر" id="زر_خروج" style="display:none;">خروج</button>
+      <div class="topActions">
+        <button class="btn ghost" id="btnOpenEarnings" type="button">افتح لوحة الكسب</button>
+        <button class="btn primary" id="btnAuth" type="button">تسجيل / إنشاء</button>
       </div>
-    </div>
+    </header>
 
-    <!-- ملخص -->
-    <div class="شبكةملخص">
-      <div class="بطاقة">
-        <div class="ملخصTop">
-          <div>
-            <div class="نصصغير" id="نص_الرصيد">رصيدك</div>
-            <div class="رصيد">
-              <div class="رقم" id="رصيد">0</div>
-              <div class="شارة أخضر" id="شارة_تحويل">١٠٠٠ نقطة = ١ دولار</div>
+    <!-- Pills -->
+    <section class="pillsRow">
+      <span class="pill ok"><span class="dot"></span> مهام كثيرة يوميًا</span>
+      <span class="pill info"><span class="dot"></span> تحقق تلقائي للنقاط</span>
+      <span class="pill warn"><span class="dot"></span> سحب يدوي بموافقة الإدارة</span>
+    </section>
+
+    <!-- Pages (SPA) -->
+    <section class="pages">
+      <!-- HOME -->
+      <section class="page active" id="page-home">
+        <div class="heroCard card">
+          <h1 class="heroTitle">اكسب نقاط وأرباحك من العروض والاستطلاعات والألعاب</h1>
+          <p class="heroDesc">
+            نفّذ مهام بسيطة (تطبيقات، ألعاب، استطلاعات، عروض) واحصل على نقاط بعد التحقق. ثم اطلب السحب بسهولة.
+            <br />
+            <span class="muted">المعيار: 1000 نقطة = 1 دولار (عرض النقاط للمستخدم يكون أقل لضمان الربح).</span>
+          </p>
+
+          <div class="heroBtns">
+            <button class="btn primary" data-nav="earn" type="button">ابدأ الكسب الآن</button>
+            <button class="btn" data-nav="auth" type="button">إنشاء حساب</button>
+            <button class="btn ghost" data-nav="how" type="button">شاهد كيف يعمل</button>
+          </div>
+        </div>
+
+        <div class="statsGrid">
+          <div class="stat card">
+            <div class="statValue" id="statTime">17 دقيقة</div>
+            <div class="statLabel">متوسط الوقت حتى أول سحب</div>
+          </div>
+          <div class="stat card">
+            <div class="statValue" id="statEarning">34.67 دولار</div>
+            <div class="statLabel">متوسط أرباح المستخدمين يوميًا</div>
+          </div>
+        </div>
+
+        <div class="sectionTitle">أقسام الكسب</div>
+        <div class="cards2">
+          <button class="miniCard card" data-nav="offers" type="button">
+            <div class="miniIcon">🎯</div>
+            <div class="miniTxt">
+              <div class="miniTitle">العروض</div>
+              <div class="miniSub">نفّذ مهام واحصل على نقاط بعد التحقق</div>
             </div>
-            <div class="نصصغير" id="نص_تلقائي">إضافة النقاط تتم تلقائيًا بعد التحقق الحقيقي. السحب يدوي بموافقة الإدارة.</div>
-          </div>
-          <div style="display:grid;gap:8px;justify-items:end">
-            <div class="شارة أزرق" id="شارة_حالة">زائر</div>
-            <div class="شارة ذهبي" id="شارة_مستوى">المستوى: ١</div>
-          </div>
-        </div>
-      </div>
+            <div class="miniTag">مربحة</div>
+          </button>
 
-      <div class="بطاقة">
-        <div style="display:flex;justify-content:space-between;gap:10px;align-items:center">
-          <div>
-            <b id="عنوان_سريع">سريع</b>
-            <div class="نصصغير" id="وصف_سريع">مهام مختارة لربح نقاط أسرع</div>
-          </div>
-          <button class="زر أساسي صغير" id="زر_مكافأة">استلام مكافأة يومية</button>
+          <button class="miniCard card" data-nav="earn" type="button">
+            <div class="miniIcon">🧠</div>
+            <div class="miniTxt">
+              <div class="miniTitle">الاستطلاعات</div>
+              <div class="miniSub">استطلاعات سريعة بنقاط فورية/بعد مراجعة</div>
+            </div>
+            <div class="miniTag">سريع</div>
+          </button>
         </div>
 
-        <div class="شبكةعروض" style="grid-template-columns:1fr;margin-top:10px">
-          <div class="عرض" style="padding:12px">
-            <div class="صورةعرض">★</div>
-            <div style="flex:1">
-              <h4 id="عنوان_مهمة_سريعة">مهمة متابعة قناة</h4>
-              <p class="وصف" id="وصف_مهمة_سريعة">تابع قناتك الرسمية لتحصل على نقاط (مرة واحدة)</p>
-              <div class="سفل">
-                <span class="شارة أخضر" id="نقاط_سريعة">+ 300 نقطة</span>
-                <button class="زر صغير أساسي" id="زر_مهمة_سريعة">تنفيذ</button>
+        <div class="hint card">
+          <div class="hintTitle">ملاحظة</div>
+          <div class="hintText">
+            النقاط تُضاف تلقائيًا بعد التحقق الحقيقي. السحب يتم يدويًا بموافقة الإدارة.
+          </div>
+        </div>
+      </section>
+
+      <!-- EARN -->
+      <section class="page" id="page-earn">
+        <div class="card profileCard">
+          <div class="profileLeft">
+            <div class="avatar big">م</div>
+            <div class="profileMeta">
+              <div class="profileName" id="uName">زائر</div>
+              <div class="profileSmall">رصيدك من النقاط</div>
+            </div>
+          </div>
+
+          <div class="profileRight">
+            <div class="coins">
+              <div class="coinsValue" id="uPoints">0</div>
+              <div class="coinsUnit">نقطة</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card levelCard">
+          <div class="levelRow">
+            <div class="levelChip" id="uLevel">المستوى: 1</div>
+            <div class="levelRate" id="uRate">1000 نقطة = 1 دولار</div>
+          </div>
+          <div class="levelNote muted">
+            إضافة النقاط تلقائيًا بعد التحقق الحقيقي. السحب يدوي بموافقة الإدارة.
+          </div>
+        </div>
+
+        <div class="sectionTitle">سريع</div>
+        <div class="card taskCard">
+          <div class="taskIcon">⭐</div>
+          <div class="taskBody">
+            <div class="taskTitle">مهمة متابعة قناة</div>
+            <div class="taskSub">تابع قناتك الرسمية لتحصل على نقاط (مرة واحدة)</div>
+            <div class="taskRow">
+              <div class="taskReward">+ <span id="followReward">300</span> نقطة</div>
+              <button class="btn small" id="btnFollow" type="button">تنفيذ</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="sectionTitle">مهام يومية</div>
+        <div class="tasksList" id="tasksList"></div>
+
+        <div class="sectionTitle">إجراءات سريعة</div>
+        <div class="cards2">
+          <button class="miniCard card" data-nav="withdraw" type="button">
+            <div class="miniIcon">💸</div>
+            <div class="miniTxt">
+              <div class="miniTitle">السحب</div>
+              <div class="miniSub">اختر طريقة السحب واطلب المبلغ</div>
+            </div>
+            <div class="miniTag">مهم</div>
+          </button>
+
+          <button class="miniCard card" data-nav="referrals" type="button">
+            <div class="miniIcon">👥</div>
+            <div class="miniTxt">
+              <div class="miniTitle">الإحالات</div>
+              <div class="miniSub">شارك رابطك واربح نسبة من أرباح أصدقائك</div>
+            </div>
+            <div class="miniTag">دائم</div>
+          </button>
+        </div>
+      </section>
+
+      <!-- OFFERS -->
+      <section class="page" id="page-offers">
+        <div class="card headerCard">
+          <div class="headerTitle">العروض</div>
+          <div class="headerSub">نفّذ مهام واحصل على نقاط بعد التحقق</div>
+        </div>
+
+        <div class="offersGrid" id="offersGrid"></div>
+      </section>
+
+      <!-- WITHDRAW -->
+      <section class="page" id="page-withdraw">
+        <div class="card headerCard">
+          <div class="headerTitle">السحب</div>
+          <div class="headerSub">السحب يدوي بموافقة الإدارة. الحد الأدنى حسب طريقة السحب.</div>
+        </div>
+
+        <div class="card formCard">
+          <label class="lbl">طريقة السحب</label>
+          <div class="selectWrap">
+            <select id="withdrawMethod"></select>
+          </div>
+
+          <div class="row2">
+            <div>
+              <label class="lbl">المبلغ بالدولار</label>
+              <div class="selectWrap">
+                <select id="withdrawUsd"></select>
               </div>
             </div>
+            <div>
+              <label class="lbl">النقاط المطلوبة</label>
+              <div class="inp readonly" id="withdrawPoints">0</div>
+            </div>
+          </div>
+
+          <label class="lbl" id="targetLabel">أدخل بريد بايبال</label>
+          <input class="inp" id="withdrawTarget" type="text" placeholder="example@email.com" inputmode="email" />
+
+          <div class="note muted" id="withdrawNote">
+            * سيتم مراجعة الطلب يدويًا. تأكد من صحة البيانات.
+          </div>
+
+          <button class="btn primary wide" id="btnCreateWithdraw" type="button">إرسال طلب السحب</button>
+
+          <div class="divider"></div>
+
+          <div class="miniInfo">
+            <div class="miniInfoTitle">حدود السحب (حسب الاتفاق)</div>
+            <ul class="miniInfoList" id="withdrawLimitsList"></ul>
           </div>
         </div>
 
-        <div class="نصصغير" style="margin-top:8px" id="ملاحظة_نصف">ملاحظة: النقاط المعروضة للمستخدم تكون أقل من قيمة المنصة لضمان الربح.</div>
-      </div>
-    </div>
+        <div class="card listCard">
+          <div class="listTitle">طلباتك</div>
+          <div class="listSub muted">آخر الطلبات المسجلة على جهازك (واجهة فقط)</div>
+          <div class="reqs" id="withdrawRequests"></div>
+        </div>
+      </section>
 
-    <!-- الصفحات -->
-    <div class="صفحة نشطة" id="صفحة_الرئيسية">
-      <div class="تبويبات">
-        <div class="مربع" data-go="صفحة_كسب">
-          <div class="أيقونة">💎</div>
-          <div class="يمين">
-            <div class="سطر">
-              <h3 id="كسب_عنوان">كسب النقاط</h3>
-              <span class="شارة أخضر">الأقسام</span>
-            </div>
-            <p id="كسب_وصف">عروض، استطلاعات، تطبيقات، ألعاب، مهام متابعة</p>
-          </div>
+      <!-- REFERRALS -->
+      <section class="page" id="page-referrals">
+        <div class="card headerCard">
+          <div class="headerTitle">دعوة الأصدقاء</div>
+          <div class="headerSub">تحصل على نسبة من أرباح أصدقائك دائمًا عند تسجيلهم عبر رابطك.</div>
         </div>
 
-        <div class="مربع" data-go="صفحة_عروض">
-          <div class="أيقونة">🎯</div>
-          <div class="يمين">
-            <div class="سطر">
-              <h3 id="عروض_عنوان">العروض</h3>
-              <span class="شارة أزرق">تحقق تلقائي</span>
-            </div>
-            <p id="عروض_وصف">مهام متعددة وربح نقاط بعد التحقق</p>
+        <div class="card formCard">
+          <label class="lbl">رابط الدعوة</label>
+          <div class="copyRow">
+            <input class="inp" id="refLink" type="text" readonly />
+            <button class="btn" id="btnCopyRef" type="button">نسخ رابط الدعوة</button>
+          </div>
+
+          <div class="card inner">
+            <div class="innerTitle">قواعد الإحالة</div>
+            <ul class="rules">
+              <li>تربح نسبة من أرباح أصدقائك عند تنفيذهم مهام.</li>
+              <li>النسبة والإضافات يمكن تعديلها من لوحة الإدارة لاحقًا.</li>
+              <li>أي تلاعب يؤدي لإيقاف الحساب.</li>
+            </ul>
           </div>
         </div>
+      </section>
 
-        <div class="مربع" data-go="صفحة_سحب">
-          <div class="أيقونة">💳</div>
-          <div class="يمين">
-            <div class="سطر">
-              <h3 id="سحب_عنوان">السحب</h3>
-              <span class="شارة ذهبي">يدوي</span>
-            </div>
-            <p id="سحب_وصف">اطلب سحبك وسيتم المراجعة والموافقة</p>
-          </div>
+      <!-- HOW -->
+      <section class="page" id="page-how">
+        <div class="card headerCard">
+          <div class="headerTitle">شاهد كيف يعمل</div>
+          <div class="headerSub">شرح سريع لطريقة المنصة.</div>
         </div>
 
-        <div class="مربع" data-go="صفحة_إحالات">
-          <div class="أيقونة">🤝</div>
-          <div class="يمين">
-            <div class="سطر">
-              <h3 id="إحالات_عنوان">دعوة الأصدقاء</h3>
-              <span class="شارة أخضر">٥٪ دائمًا</span>
-            </div>
-            <p id="إحالات_وصف">احصل على ٥٪ من أرباح أصدقائك بشكل دائم</p>
-          </div>
+        <div class="card formCard">
+          <ol class="steps">
+            <li>أنشئ حسابك أو ادخل كزائر.</li>
+            <li>نفّذ مهام (عروض/استطلاعات/ألعاب).</li>
+            <li>بعد التحقق الحقيقي تُضاف النقاط تلقائيًا.</li>
+            <li>اطلب السحب (PayPal / Google Play) حسب الحد الأدنى.</li>
+            <li>تتم الموافقة يدويًا من الإدارة.</li>
+          </ol>
+          <button class="btn primary wide" data-nav="earn" type="button">ابدأ الآن</button>
         </div>
-      </div>
-    </div>
+      </section>
 
-    <div class="صفحة" id="صفحة_كسب">
-      <div class="بطاقة">
-        <b id="عنوان_كسب">كسب النقاط</b>
-        <div class="نصصغير" id="وصف_كسب">اختر القسم الذي تريد الربح منه</div>
-
-        <div class="تبويبات" style="margin-top:12px">
-          <div class="مربع" data-open="عروض">
-            <div class="أيقونة">🎯</div>
-            <div class="يمين">
-              <div class="سطر">
-                <h3 id="قسم_العروض">العروض</h3>
-                <span class="شارة أخضر">مربحة</span>
-              </div>
-              <p id="قسم_العروض_وصف">نفّذ مهام واحصل على نقاط بعد التحقق</p>
-            </div>
-          </div>
-
-          <div class="مربع" data-open="استطلاعات">
-            <div class="أيقونة">🧠</div>
-            <div class="يمين">
-              <div class="سطر">
-                <h3 id="قسم_الاستطلاعات">الاستطلاعات</h3>
-                <span class="شارة أزرق">سريع</span>
-              </div>
-              <p id="قسم_الاستطلاعات_وصف">أجب عن أسئلة واربح نقاط</p>
-            </div>
-          </div>
-
-          <div class="مربع" data-open="تطبيقات">
-            <div class="أيقونة">📲</div>
-            <div class="يمين">
-              <div class="سطر">
-                <h3 id="قسم_التطبيقات">التطبيقات</h3>
-                <span class="شارة ذهبي">تحقق</span>
-              </div>
-              <p id="قسم_التطبيقات_وصف">حمّل تطبيقات وأكمل الشروط</p>
-            </div>
-          </div>
-
-          <div class="مربع" data-open="ألعاب">
-            <div class="أيقونة">🎮</div>
-            <div class="يمين">
-              <div class="سطر">
-                <h3 id="قسم_الألعاب">الألعاب</h3>
-                <span class="شارة أخضر">مستويات</span>
-              </div>
-              <p id="قسم_الألعاب_وصف">العب وحقق أهداف لتحصل على نقاط</p>
-            </div>
-          </div>
-
-          <div class="مربع" data-open="متابعة">
-            <div class="أيقونة">📣</div>
-            <div class="يمين">
-              <div class="سطر">
-                <h3 id="قسم_المتابعة">مهام متابعة</h3>
-                <span class="شارة أزرق">مرة</span>
-              </div>
-              <p id="قسم_المتابعة_وصف">تابع قنواتنا لتحصل على نقاط (مرة واحدة)</p>
-            </div>
-          </div>
-
-          <div class="مربع" data-open="يومي">
-            <div class="أيقونة">🎁</div>
-            <div class="يمين">
-              <div class="سطر">
-                <h3 id="قسم_اليومي">مكافأة يومية</h3>
-                <span class="شارة ذهبي">يومي</span>
-              </div>
-              <p id="قسم_اليومي_وصف">ادخل يوميًا واستلم نقاط</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="صفحة" id="صفحة_عروض">
-      <div class="بطاقة">
-        <b id="عنوان_العروض">العروض المتاحة</b>
-        <div class="نصصغير" id="وصف_العروض">واجهة جاهزة. (حالياً الربح هنا يتم تسجيله في قاعدة البيانات كنقاط حقيقية للتجربة)</div>
-
-        <div class="شبكةعروض">
-          <div class="عرض">
-            <div class="صورةعرض">أ</div>
-            <div style="flex:1">
-              <h4>تثبيت تطبيق وتجربة بسيطة</h4>
-              <p class="وصف">سيتم تسجيل المهمة في Firestore وإضافة النقاط.</p>
-              <div class="سفل">
-                <span class="شارة أخضر">+ 500 نقطة</span>
-                <button class="زر صغير أساسي" onclick="أكمل_مهمة('تطبيق: تجربة بسيطة', 500)">ابدأ</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="عرض">
-            <div class="صورةعرض">س</div>
-            <div style="flex:1">
-              <h4>استطلاع قصير</h4>
-              <p class="وصف">سيتم تسجيل المهمة في Firestore وإضافة النقاط.</p>
-              <div class="سفل">
-                <span class="شارة أخضر">+ 350 نقطة</span>
-                <button class="زر صغير أساسي" onclick="أكمل_مهمة('استطلاع: قصير', 350)">ابدأ</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="عرض">
-            <div class="صورةعرض">ل</div>
-            <div style="flex:1">
-              <h4>لعبة: الوصول لمستوى</h4>
-              <p class="وصف">سيتم تسجيل المهمة في Firestore وإضافة النقاط.</p>
-              <div class="سفل">
-                <span class="شارة أخضر">+ 1200 نقطة</span>
-                <button class="زر صغير أساسي" onclick="أكمل_مهمة('لعبة: مستوى', 1200)">ابدأ</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="عرض">
-            <div class="صورةعرض">م</div>
-            <div style="flex:1">
-              <h4>متابعة قناة رسمية (مرة واحدة)</h4>
-              <p class="وصف">مرة واحدة فقط لكل حساب.</p>
-              <div class="سفل">
-                <span class="شارة أخضر">+ 300 نقطة</span>
-                <button class="زر صغير أساسي" onclick="أكمل_مهمة('متابعة: قناة', 300, {مرة:true, مفتاح:'متابعة_قناة'})">تنفيذ</button>
-              </div>
-            </div>
-          </div>
+      <!-- AUTH -->
+      <section class="page" id="page-auth">
+        <div class="card headerCard">
+          <div class="headerTitle">تسجيل / إنشاء حساب</div>
+          <div class="headerSub">واجهة فقط الآن — الربط الحقيقي لاحقًا.</div>
         </div>
 
-        <div class="نصصغير" style="margin-top:10px">
-          تذكير: السحب يدوي. وتم حفظ كل العمليات في قاعدة البيانات.
-        </div>
-      </div>
-    </div>
+        <div class="card formCard">
+          <label class="lbl">الاسم</label>
+          <input class="inp" id="authName" type="text" placeholder="اكتب اسمك" />
 
-    <div class="صفحة" id="صفحة_سحب">
-      <div class="بطاقة">
-        <b id="عنوان_السحب">السحب</b>
-        <div class="نصصغير" id="وصف_السحب">الحد الأدنى للسحب: ١٠٠٠٠ نقطة (١٠ دولارات). السحب يدوي بموافقة الإدارة.</div>
+          <label class="lbl">البريد (اختياري)</label>
+          <input class="inp" id="authEmail" type="email" placeholder="example@email.com" />
 
-        <div class="نموذج">
-          <div class="سطرحقول">
-            <select class="حقل" id="طريقة_السحب">
-              <option value="بايبال">بايبال</option>
-              <option value="بينانس">بينانس</option>
-              <option value="يو إس تي">يو إس تي</option>
-              <option value="بطاقة رقمية">بطاقة رقمية</option>
-              <option value="تحويل يدوي">تحويل يدوي</option>
-              <option value="واتساب">واتساب (تحويل يدوي)</option>
-            </select>
-            <input class="حقل" id="كمية_نقاط" type="number" min="0" placeholder="الكمية بالنقاط (مثال: ١٠٠٠٠)" />
+          <div class="row2">
+            <button class="btn primary wide" id="btnLogin" type="button">دخول</button>
+            <button class="btn wide" id="btnLogout" type="button">تسجيل خروج</button>
           </div>
-          <input class="حقل" id="بيانات_السحب" placeholder="بيانات السحب (بريد/معرف/عنوان/رقم واتساب)" />
-          <button class="زر أساسي" onclick="طلب_سحب()">إرسال طلب السحب</button>
-        </div>
 
-        <table class="جدول" id="جدول_السحب" aria-label="طلبات السحب">
-          <tbody></tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="صفحة" id="صفحة_إحالات">
-      <div class="بطاقة">
-        <b id="عنوان_الإحالات">دعوة الأصدقاء</b>
-        <div class="نصصغير" id="وصف_الإحالات_نص">تحصل على ٥٪ من أرباح أصدقائك دائمًا عند تسجيلهم عبر رابطك.</div>
-
-        <div class="نموذج">
-          <input class="حقل" id="رابط_دعوة" readonly />
-          <button class="زر أساسي" onclick="نسخ_رابط()">نسخ رابط الدعوة</button>
-        </div>
-
-        <div class="شبكةعروض" style="grid-template-columns:1fr;margin-top:12px">
-          <div class="عرض">
-            <div class="صورةعرض">٪</div>
-            <div style="flex:1">
-              <h4>قواعد الإحالة</h4>
-              <p class="وصف">يتم تسجيل الإحالة في قاعدة البيانات عند إنشاء حساب جديد عبر رابطك.</p>
-              <div class="سفل">
-                <span class="شارة أزرق">نسبة: ٥٪</span>
-                <span class="شارة ذهبي">بدون حد يومي</span>
-              </div>
-            </div>
+          <div class="note muted">
+            * الآن هذا قالب UI مطابق. الربط الحقيقي (Firebase/سيرفر/حماية) نركبه بعد ما تعتمد الشكل 100%.
           </div>
         </div>
+      </section>
+    </section>
 
-        <div class="نصصغير" style="margin-top:10px">
-          رابطك يعمل الآن. فقط شاركه وسيُسجل ref تلقائياً.
-        </div>
-      </div>
-    </div>
+    <!-- Bottom nav -->
+    <nav class="bottomNav">
+      <button class="navItem active" data-nav="home" type="button">
+        <span class="navIcon">🏠</span><span class="navTxt">الرئيسية</span>
+      </button>
+      <button class="navItem" data-nav="earn" type="button">
+        <span class="navIcon">⚡</span><span class="navTxt">كسب</span>
+      </button>
+      <button class="navItem" data-nav="offers" type="button">
+        <span class="navIcon">🎯</span><span class="navTxt">العروض</span>
+      </button>
+      <button class="navItem" data-nav="withdraw" type="button">
+        <span class="navIcon">💸</span><span class="navTxt">السحب</span>
+      </button>
+      <button class="navItem" data-nav="referrals" type="button">
+        <span class="navIcon">👥</span><span class="navTxt">إحالات</span>
+      </button>
+    </nav>
+  </main>
 
-    <div class="صفحة" id="صفحة_حساب">
-      <div class="بطاقة">
-        <b id="عنوان_الحساب">الحساب</b>
-        <div class="نصصغير" id="وصف_الحساب">ملفك، مستواك، وسجل النقاط</div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-        <div class="شبكةعروض" style="grid-template-columns:1fr;margin-top:12px">
-          <div class="عرض">
-            <div class="صورةعرض">👤</div>
-            <div style="flex:1">
-              <h4 id="اسم_مستخدم">زائر</h4>
-              <p class="وصف" id="تفاصيل_مستخدم">سجّل للدخول وحفظ رصيدك على كل الأجهزة.</p>
-              <div class="سفل">
-                <span class="شارة ذهبي" id="شارة_مستوى2">المستوى: ١</span>
-                <span class="شارة أخضر" id="شارة_ترتيب">المعرّف: —</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="نصصغير" style="margin-top:10px" id="سجل_نقاط_عنوان">سجل النقاط</div>
-        <table class="جدول" id="جدول_سجل">
-          <tbody></tbody>
-        </table>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- شريط سفلي -->
-  <div class="شريطسفلي">
-    <div class="قائمة">
-      <div class="عنصر نشط" data-nav="صفحة_الرئيسية">الرئيسية</div>
-      <div class="عنصر" data-nav="صفحة_كسب">كسب</div>
-      <div class="عنصر زرمنتصف" data-nav="صفحة_عروض">العروض</div>
-      <div class="عنصر" data-nav="صفحة_سحب">السحب</div>
-      <div class="عنصر" data-nav="صفحة_حساب">حسابي</div>
-    </div>
-  </div>
-
-<script type="module">
-  // ================================
-  // Firebase (Auth + Firestore)
-  // ================================
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
-  import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
-  import { getFirestore, doc, getDoc, setDoc, updateDoc, serverTimestamp, increment, collection, addDoc, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyAR1agEF6AHWHrgY4g_M3EoojdPKB1U9sY",
-    authDomain: "mintcash-65c77.firebaseapp.com",
-    projectId: "mintcash-65c77",
-    storageBucket: "mintcash-65c77.appspot.com",
-    messagingSenderId: "448741584532",
-    appId: "1:448741584532:web:ccad1e2feabd4c8071ce81",
-    measurementId: "G-44HHCZ090K"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
-
-  // ================================
-  // أدوات
-  // ================================
-  const عنصر = (id)=>document.getElementById(id);
-
-  function رقم(n){
-    try{ return new Intl.NumberFormat("ar").format(n); }
-    catch(e){ return String(n); }
-  }
-
-  function توست(عنوان, نص){
-    const صندوق = عنصر("توست");
-    const بطاقة = document.createElement("div");
-    بطاقة.className = "رسالة";
-    بطاقة.innerHTML = `
-      <div>
-        <b>${عنوان}</b>
-        <span>${نص}</span>
-      </div>
-      <div class="إغلاق">✕</div>
-    `;
-    بطاقة.querySelector(".إغلاق").onclick = ()=> بطاقة.remove();
-    صندوق.appendChild(بطاقة);
-    setTimeout(()=>{ try{ بطاقة.remove(); }catch(e){} }, 4500);
-  }
-
-  // ================================
-  // إحالة من الرابط
-  // ================================
-  const بارام = new URLSearchParams(location.search);
-  const ref = بارام.get("دعوة"); // رابطك في كودك كان ?دعوة=
-  عنصر("عرض_إحالة").textContent = ref ? ref : "—";
-
-  // ================================
-  // حالة التطبيق (من قاعدة البيانات)
-  // ================================
-  let حالة = {
-    uid: null,
-    مسجل: false,
-    اسم: "زائر",
-    رصيد: 0,
-    مستوى: 1
-  };
-
-  // ================================
-  // واجهة
-  // ================================
-  function حدث_الواجهة(){
-    عنصر("رصيد").textContent = رقم(حالة.رصيد);
-    عنصر("شارة_حالة").textContent = حالة.مسجل ? "مسجل" : "زائر";
-    عنصر("شارة_مستوى").textContent = "المستوى: " + رقم(حالة.مستوى);
-    عنصر("شارة_مستوى2").textContent = "المستوى: " + رقم(حالة.مستوى);
-    عنصر("اسم_مستخدم").textContent = حالة.مسجل ? حالة.اسم : "زائر";
-    عنصر("تفاصيل_مستخدم").textContent = حالة.مسجل ? "مرحبًا بك في منت كاش." : "سجّل للدخول وحفظ رصيدك على كل الأجهزة.";
-    عنصر("شارة_ترتيب").textContent = "المعرّف: " + (حالة.uid ? حالة.uid.slice(0,10) : "—");
-
-    عنصر("زر_دخول").style.display = حالة.مسجل ? "none" : "inline-flex";
-    عنصر("زر_خروج").style.display = حالة.مسجل ? "inline-flex" : "none";
-
-    // رابط دعوة حقيقي = uid
-    if(حالة.uid){
-      عنصر("رابط_دعوة").value = location.origin + location.pathname + "?دعوة=" + encodeURIComponent(حالة.uid);
-    } else {
-      عنصر("رابط_دعوة").value = "سجّل دخول لتفعيل رابط الدعوة";
-    }
-  }
-
-  // ================================
-  // تنقل الصفحات
-  // ================================
-  function اذهب(معرّف){
-    document.querySelectorAll(".صفحة").forEach(p=>p.classList.remove("نشطة"));
-    عنصر(معرّف).classList.add("نشطة");
-
-    document.querySelectorAll(".عنصر").forEach(x=>x.classList.remove("نشط"));
-    document.querySelectorAll(`.عنصر[data-nav="${معرّف}"]`).forEach(x=>x.classList.add("نشط"));
-
-    document.querySelectorAll(".زرمنتصف").forEach(b=>b.classList.remove("نشط"));
-    const وسط = document.querySelector(`.زرمنتصف[data-nav="${معرّف}"]`);
-    if(وسط) وسط.classList.add("نشط");
-
-    window.scrollTo({top:0, behavior:"smooth"});
-  }
-
-  document.querySelectorAll("[data-go]").forEach(el=>{
-    el.addEventListener("click", ()=> اذهب(el.getAttribute("data-go")));
-  });
-  document.querySelectorAll(".عنصر").forEach(el=>{
-    el.addEventListener("click", ()=> اذهب(el.getAttribute("data-nav")));
-  });
-  document.querySelectorAll("[data-open]").forEach(el=>{
-    el.addEventListener("click", ()=>{
-      const قسم = el.getAttribute("data-open");
-      توست("تم فتح القسم", "تم فتح: " + قسم);
-      اذهب("صفحة_عروض");
-    });
-  });
-
-  // ================================
-  // مودال دخول/تسجيل
-  // ================================
-  function افتح_مودال(){ عنصر("مودال_دخول").classList.add("ظهار"); }
-  function اغلق_مودال(){ عنصر("مودال_دخول").classList.remove("ظهار"); }
-
-  عنصر("زر_دخول").onclick = افتح_مودال;
-  عنصر("اغلاق_مودال").onclick = اغلق_مودال;
-  عنصر("مودال_دخول").addEventListener("click", (e)=>{
-    if(e.target.id === "مودال_دخول") اغلق_مودال();
-  });
-
-  // ================================
-  // Firestore Helpers
-  // ================================
-  async function اجلب_مستخدم(uid){
-    const refDoc = doc(db, "users", uid);
-    const snap = await getDoc(refDoc);
-    return { refDoc, snap };
-  }
-
-  async function اضمن_حساب(uid, email, displayName){
-    const { refDoc, snap } = await اجلب_مستخدم(uid);
-    if(!snap.exists()){
-      await setDoc(refDoc, {
-        email: email || "",
-        name: displayName || "مستخدم",
-        points: 0,
-        level: 1,
-        createdAt: serverTimestamp(),
-        referrer: ref || null
-      });
-      // سجل إحالة (اختياري)
-      if(ref){
-        await addDoc(collection(db, "referrals"), {
-          referrer: ref,
-          newUser: uid,
-          createdAt: serverTimestamp()
-        });
-      }
-    }
-  }
-
-  async function حدث_من_قاعدة(){
-    if(!حالة.uid) return;
-    const { snap } = await اجلب_مستخدم(حالة.uid);
-    if(!snap.exists()) return;
-
-    const d = snap.data();
-    حالة.اسم = d.name || (auth.currentUser?.email || "مستخدم");
-    حالة.رصيد = Number(d.points || 0);
-    حالة.مستوى = Number(d.level || 1);
-
-    await حدث_سجل();
-    await حدث_سحوبات();
-    حدث_الواجهة();
-  }
-
-  async function حدث_سجل(){
-    const جسم = عنصر("جدول_سجل").querySelector("tbody");
-    جسم.innerHTML = "";
-    if(!حالة.uid){
-      جسم.innerHTML = `<tr><td>سجّل دخول لعرض السجل</td><td>—</td><td>—</td></tr>`;
-      return;
-    }
-    const qy = query(collection(db, "users", حالة.uid, "ledger"), orderBy("createdAt","desc"), limit(10));
-    const snaps = await getDocs(qy);
-    if(snaps.empty){
-      جسم.innerHTML = `<tr><td>لا يوجد سجل بعد</td><td>—</td><td>—</td></tr>`;
-      return;
-    }
-    snaps.forEach(s=>{
-      const it = s.data();
-      const tr = document.createElement("tr");
-      const كمية = Number(it.amount || 0);
-      tr.innerHTML = `<td>${it.reason || "—"}</td><td>${(كمية>0?"+":"")}${رقم(كمية)}</td><td>${(it.timeText||"—")}</td>`;
-      جسم.appendChild(tr);
-    });
-  }
-
-  async function حدث_سحوبات(){
-    const جسم = عنصر("جدول_السحب").querySelector("tbody");
-    جسم.innerHTML = "";
-    if(!حالة.uid){
-      جسم.innerHTML = `<tr><td>سجّل دخول</td><td>—</td><td>—</td></tr>`;
-      return;
-    }
-    const qy = query(collection(db, "users", حالة.uid, "withdrawals"), orderBy("createdAt","desc"), limit(20));
-    const snaps = await getDocs(qy);
-    if(snaps.empty){
-      جسم.innerHTML = `<tr><td>لا يوجد طلبات</td><td>—</td><td>—</td></tr>`;
-      return;
-    }
-    snaps.forEach(s=>{
-      const it = s.data();
-      const tr = document.createElement("tr");
-      tr.innerHTML = `<td>${it.method || "—"}</td><td>${رقم(Number(it.points||0))} نقطة</td><td>${it.status || "قيد المراجعة"}</td>`;
-      جسم.appendChild(tr);
-    });
-  }
-
-  // ================================
-  // تسجيل / دخول / خروج (حقيقي)
-  // ================================
-  عنصر("زر_تسجيل_حساب").onclick = async ()=>{
-    const name = (عنصر("حقل_اسم").value || "").trim() || "مستخدم";
-    const email = (عنصر("حقل_بريد").value || "").trim();
-    const pass = (عنصر("حقل_كلمة").value || "").trim();
-
-    if(!email || !pass){
-      توست("نقص بيانات", "اكتب البريد وكلمة المرور.");
-      return;
-    }
-    try{
-      const cred = await createUserWithEmailAndPassword(auth, email, pass);
-      if(name) await updateProfile(cred.user, { displayName: name });
-      await اضمن_حساب(cred.user.uid, email, name);
-      توست("تم", "تم إنشاء الحساب بنجاح.");
-      اغلق_مودال();
-    }catch(e){
-      توست("خطأ", (e?.message || "تعذر إنشاء الحساب").slice(0,120));
-    }
-  };
-
-  عنصر("زر_تسجيل_دخول").onclick = async ()=>{
-    const email = (عنصر("حقل_بريد").value || "").trim();
-    const pass = (عنصر("حقل_كلمة").value || "").trim();
-
-    if(!email || !pass){
-      توست("نقص بيانات", "اكتب البريد وكلمة المرور.");
-      return;
-    }
-    try{
-      const cred = await signInWithEmailAndPassword(auth, email, pass);
-      await اضمن_حساب(cred.user.uid, cred.user.email, cred.user.displayName || "مستخدم");
-      توست("تم", "تم تسجيل الدخول.");
-      اغلق_مودال();
-    }catch(e){
-      توست("خطأ", (e?.message || "تعذر تسجيل الدخول").slice(0,120));
-    }
-  };
-
-  عنصر("زر_خروج").onclick = async ()=>{
-    await signOut(auth);
-    توست("تم", "تم تسجيل الخروج.");
-  };
-
-  onAuthStateChanged(auth, async (user)=>{
-    if(user){
-      حالة.uid = user.uid;
-      حالة.مسجل = true;
-      await اضمن_حساب(user.uid, user.email, user.displayName || "مستخدم");
-      await حدث_من_قاعدة();
-    }else{
-      حالة = { uid:null, مسجل:false, اسم:"زائر", رصيد:0, مستوى:1 };
-      حدث_الواجهة();
-      await حدث_سجل();
-      await حدث_سحوبات();
-    }
-  });
-
-  // ================================
-  // إضافة نقاط + دفتر قيود (Ledger)
-  // ================================
-  async function أضف_نقاط(كمية, سبب){
-    if(!حالة.uid){
-      توست("مطلوب تسجيل", "سجّل أولاً.");
-      return false;
-    }
-    const userRef = doc(db, "users", حالة.uid);
-    await updateDoc(userRef, {
-      points: increment(كمية)
-    });
-    await addDoc(collection(db, "users", حالة.uid, "ledger"), {
-      amount: كمية,
-      reason: سبب,
-      createdAt: serverTimestamp(),
-      timeText: new Date().toLocaleString("ar")
-    });
-
-    // تحديث المستوى (حسب رصيد النقاط الجديد) — نقرأ بسرعة بعد الزيادة
-    const snap = await getDoc(userRef);
-    const pts = Number(snap.data()?.points || 0);
-    const lvl = Math.max(1, Math.floor(pts / 3000) + 1);
-    await updateDoc(userRef, { level: lvl });
-
-    await حدث_من_قاعدة();
-    return true;
-  }
-
-  // ================================
-  // مكافأة يومية (مرة كل يوم لكل مستخدم)
-  // ================================
-  عنصر("زر_مكافأة").onclick = async ()=>{
-    if(!حالة.uid){ توست("مطلوب تسجيل", "سجّل أولاً."); return; }
-    const اليوم = new Date().toISOString().slice(0,10);
-    const taskKey = "daily_" + اليوم;
-
-    // نخزن تنفيذ المهمة داخل users/{uid}/tasks/{taskKey}
-    const taskRef = doc(db, "users", حالة.uid, "tasks", taskKey);
-    const taskSnap = await getDoc(taskRef);
-    if(taskSnap.exists()){
-      توست("مكافأة يومية", "تم استلام مكافأة اليوم مسبقًا.");
-      return;
-    }
-    await setDoc(taskRef, { done:true, createdAt: serverTimestamp() });
-    await أضف_نقاط(200, "مكافأة يومية");
-    توست("مكافأة يومية", "تمت إضافة ٢٠٠ نقطة.");
-  };
-
-  // مهمة سريعة (مرة واحدة)
-  عنصر("زر_مهمة_سريعة").onclick = ()=>{
-    أكمل_مهمة("متابعة: قناة رسمية", 300, {مرة:true, مفتاح:"follow_channel_once"});
-  };
-
-  // ================================
-  // تنفيذ مهمة (مع مرة واحدة)
-  // ================================
-  window.أكمل_مهمة = async (اسم, نقاط, خيارات={})=>{
-    if(!حالة.uid){ توست("مطلوب تسجيل", "سجّل أولاً."); return; }
-
-    if(خيارات.مرة && خيارات.مفتاح){
-      const tRef = doc(db, "users", حالة.uid, "tasks", خيارات.مفتاح);
-      const tSnap = await getDoc(tRef);
-      if(tSnap.exists()){
-        توست("تنبيه", "هذه المهمة تم تنفيذها سابقًا.");
-        return;
-      }
-      await setDoc(tRef, { done:true, createdAt: serverTimestamp() });
-    }
-
-    await أضف_نقاط(Number(نقاط||0), اسم);
-    توست("تمت إضافة نقاط", `+ ${رقم(Number(نقاط||0))} نقطة`);
-  };
-
-  // ================================
-  // طلب سحب (يُحفظ في Firestore)
-  // ================================
-  window.طلب_سحب = async ()=>{
-    const طريقة = عنصر("طريقة_السحب").value;
-    const نقاط = Number(عنصر("كمية_نقاط").value || 0);
-    const بيانات = (عنصر("بيانات_السحب").value || "").trim();
-
-    if(!حالة.uid){
-      توست("مطلوب تسجيل", "سجّل أولًا قبل إرسال طلب سحب.");
-      return;
-    }
-    if(!نقاط || نقاط < 10000){
-      توست("الحد الأدنى", "الحد الأدنى للسحب هو ١٠٠٠٠ نقطة.");
-      return;
-    }
-    if(نقاط > حالة.رصيد){
-      توست("رصيد غير كاف", "رصيدك لا يكفي لهذا الطلب.");
-      return;
-    }
-    if(!بيانات){
-      توست("بيانات ناقصة", "اكتب بيانات السحب.");
-      return;
-    }
-
-    // لا نخصم النقاط الآن (حسب نظامك) إلا بعد موافقة الإدارة
-    await addDoc(collection(db, "users", حالة.uid, "withdrawals"), {
-      method: طريقة,
-      points: نقاط,
-      details: بيانات,
-      status: "قيد المراجعة",
-      createdAt: serverTimestamp(),
-      timeText: new Date().toLocaleString("ar")
-    });
-
-    توست("تم الإرسال", "تم إرسال طلب السحب للمراجعة.");
-    عنصر("كمية_نقاط").value = "";
-    عنصر("بيانات_السحب").value = "";
-    await حدث_سحوبات();
-  };
-
-  // ================================
-  // نسخ رابط الدعوة
-  // ================================
-  window.نسخ_رابط = ()=>{
-    const نص = عنصر("رابط_دعوة").value;
-    navigator.clipboard?.writeText(نص).then(()=>{
-      توست("تم النسخ", "تم نسخ رابط الدعوة.");
-    }).catch(()=>{
-      توست("انسخ يدويًا", "اضغط مطولًا على الرابط وانسخه.");
-    });
-  };
-
-  // ================================
-  // اللغة (حسب طلبك: عربي فقط)
-  // ================================
-  عنصر("زر_لغة").onclick = ()=>{
-    توست("ملاحظة", "الواجهة عربية الآن حسب طلبك. نضيف الإنجليزية لاحقًا.");
-  };
-
-  // بدء
-  حدث_الواجهة();
-  await حدث_سجل();
-  await حدث_سحوبات();
-</script>
-
+  <script src="./app.js"></script>
 </body>
 </html>
