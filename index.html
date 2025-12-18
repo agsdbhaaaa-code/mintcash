@@ -1,319 +1,162 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>منت كاش</title>
-  <link rel="stylesheet" href="./style.css" />
-  <meta name="theme-color" content="#0b1422">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MintCash</title>
+
+<style>
+:root{
+  --green:#2dff88;
+  --bg-dark:rgba(0,0,0,.6);
+  --card:#0f1f1a;
+}
+*{box-sizing:border-box;font-family:Arial}
+body{
+  margin:0;min-height:100vh;
+  background:
+    linear-gradient(var(--bg-dark),var(--bg-dark)),
+    url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEioGadxhmGRd2UJiH3Utj15KOcxGxPY3ZcTSRjIeElA6jt2PySe2h0NQ0lDpchkZsSqGDEf1EQ82nDcMkbUd3-Qw8zPa4TpLnEDOt3SegWkyjiJoCAqRa6E0HCpfJrVSdm9xL_hTubA86EFmebwZAdkIAKHYlMVrZ31okUr-16LYD_Dc81vs-_p7AGOeuQ/s1376/1766075604391.jpg")
+    center/cover no-repeat;
+  color:#fff;
+}
+header{display:flex;justify-content:space-between;align-items:center;padding:14px 16px}
+.logo{display:flex;align-items:center;gap:10px}
+.logo img{width:42px;height:42px;border-radius:50%}
+.lang-btn{padding:8px 14px;border-radius:16px;border:1px solid rgba(255,255,255,.3);background:rgba(0,0,0,.3);color:#fff;cursor:pointer}
+main{text-align:center;padding:80px 16px}
+h1 span{color:var(--green)}
+.actions{display:flex;gap:12px;justify-content:center;margin-top:28px}
+.btn{padding:14px 26px;border-radius:18px;border:none;cursor:pointer;font-size:16px}
+.btn.green{background:var(--green)}
+.btn.dark{background:rgba(0,0,0,.4);color:#fff}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;align-items:center;justify-content:center;z-index:100}
+.modal{width:92%;max-width:420px;background:var(--card);border-radius:20px;padding:22px;position:relative}
+.close{position:absolute;top:10px;left:14px;font-size:22px;cursor:pointer}
+.modal h3{text-align:center;margin-bottom:18px}
+.field{margin-bottom:12px}
+.field input{width:100%;padding:14px;border-radius:14px;border:none;background:#1b2f28;color:#fff}
+.submit{width:100%;padding:14px;border-radius:16px;background:var(--green);border:none;font-size:16px;cursor:pointer}
+.divider{text-align:center;margin:14px 0;opacity:.7}
+.google-btn{width:100%;height:54px;border-radius:18px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;gap:12px;color:#fff;font-size:15px;cursor:pointer}
+.google-btn img{width:22px}
+</style>
 </head>
 
 <body>
-  <div class="bg"></div>
 
-  <!-- App Shell -->
-  <main class="app" id="app">
-    <!-- Top header -->
-    <header class="topbar">
-      <div class="brand">
-        <div class="avatar" aria-hidden="true">م</div>
-        <div class="brandText">
-          <div class="brandName">منت كاش</div>
-          <div class="brandSub">اكسب نقاط واسحب أرباحك بسهولة</div>
-        </div>
-      </div>
+<header>
+  <div class="logo">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhTrhu7Mi9p9krwFaOjjVmV_Yqi8PMNXcMpnJWQka-f3QpemAOY-8nK_QCzXBHFkQENTdNctzUxY61FK0Wi-uZh6hruvb2s_qZ7aTjluaNrYIzat6Y_0ODG_2F9s25ETtwDcBwyXqRz4HlG-4YIG6_mPXR8A6MzuwESeCpYMoqXEAjXG1Qm0vaveW7n9KI/s562/Screenshot_20251218_204032_Google.jpg">
+    <strong>MintCash</strong>
+  </div>
+  <button class="lang-btn" onclick="toggleLang()">AR / EN</button>
+</header>
 
-      <div class="topActions">
-        <button class="btn ghost" id="btnOpenEarnings" type="button">افتح لوحة الكسب</button>
-        <button class="btn primary" id="btnAuth" type="button">تسجيل / إنشاء</button>
-      </div>
-    </header>
+<main>
+  <h1 id="title"><span>اكسب المال</span> أثناء المتعة</h1>
+  <p id="desc">جرّب التطبيقات والألعاب الآن!</p>
+  <div class="actions">
+    <button class="btn green" onclick="openAuth()">ابدأ الآن</button>
+    <button class="btn dark" onclick="openAuth()">تسجيل الدخول</button>
+  </div>
+</main>
 
-    <!-- Pills -->
-    <section class="pillsRow">
-      <span class="pill ok"><span class="dot"></span> مهام كثيرة يوميًا</span>
-      <span class="pill info"><span class="dot"></span> تحقق تلقائي للنقاط</span>
-      <span class="pill warn"><span class="dot"></span> سحب يدوي بموافقة الإدارة</span>
-    </section>
+<div class="overlay" id="authBox">
+  <div class="modal">
+    <div class="close" onclick="closeAuth()">×</div>
+    <h3 id="authTitle">إنشاء حساب / تسجيل دخول</h3>
+    <div class="field"><input id="name" placeholder="الاسم"></div>
+    <div class="field"><input id="email" placeholder="البريد الإلكتروني"></div>
+    <div class="field"><input id="password" type="password" placeholder="كلمة المرور"></div>
+    <button class="submit" onclick="emailLogin()">اشتراك</button>
+    <div class="divider">أو</div>
+    <button class="google-btn" onclick="googleLogin()">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
+      <span id="googleText">تسجيل الدخول باستخدام جوجل</span>
+    </button>
+  </div>
+</div>
 
-    <!-- Pages (SPA) -->
-    <section class="pages">
-      <!-- HOME -->
-      <section class="page active" id="page-home">
-        <div class="heroCard card">
-          <h1 class="heroTitle">اكسب نقاط وأرباحك من العروض والاستطلاعات والألعاب</h1>
-          <p class="heroDesc">
-            نفّذ مهام بسيطة (تطبيقات، ألعاب، استطلاعات، عروض) واحصل على نقاط بعد التحقق. ثم اطلب السحب بسهولة.
-            <br />
-            <span class="muted">المعيار: 1000 نقطة = 1 دولار (عرض النقاط للمستخدم يكون أقل لضمان الربح).</span>
-          </p>
+<!-- FIREBASE -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-          <div class="heroBtns">
-            <button class="btn primary" data-nav="earn" type="button">ابدأ الكسب الآن</button>
-            <button class="btn" data-nav="auth" type="button">إنشاء حساب</button>
-            <button class="btn ghost" data-nav="how" type="button">شاهد كيف يعمل</button>
-          </div>
-        </div>
+const firebaseConfig = {
+  apiKey: "AIzaSyAR1agEF6AHWHrgY4g_M3EoojdPKB1U9sY",
+  authDomain: "mintcash-65c77.firebaseapp.com",
+  projectId: "mintcash-65c77",
+  storageBucket: "mintcash-65c77.appspot.com",
+  messagingSenderId: "448741584532",
+  appId: "1:448741584532:web:ccad1e2feabd4c8071ce81"
+};
 
-        <div class="statsGrid">
-          <div class="stat card">
-            <div class="statValue" id="statTime">17 دقيقة</div>
-            <div class="statLabel">متوسط الوقت حتى أول سحب</div>
-          </div>
-          <div class="stat card">
-            <div class="statValue" id="statEarning">34.67 دولار</div>
-            <div class="statLabel">متوسط أرباح المستخدمين يوميًا</div>
-          </div>
-        </div>
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-        <div class="sectionTitle">أقسام الكسب</div>
-        <div class="cards2">
-          <button class="miniCard card" data-nav="offers" type="button">
-            <div class="miniIcon">🎯</div>
-            <div class="miniTxt">
-              <div class="miniTitle">العروض</div>
-              <div class="miniSub">نفّذ مهام واحصل على نقاط بعد التحقق</div>
-            </div>
-            <div class="miniTag">مربحة</div>
-          </button>
+window.emailLogin = async function(){
+  const email = email.value;
+  const password = password.value;
+  const nameVal = name.value || "مستخدم";
 
-          <button class="miniCard card" data-nav="earn" type="button">
-            <div class="miniIcon">🧠</div>
-            <div class="miniTxt">
-              <div class="miniTitle">الاستطلاعات</div>
-              <div class="miniSub">استطلاعات سريعة بنقاط فورية/بعد مراجعة</div>
-            </div>
-            <div class="miniTag">سريع</div>
-          </button>
-        </div>
+  try{
+    const res = await createUserWithEmailAndPassword(auth,email,password);
+    await setDoc(doc(db,"users",res.user.uid),{
+      name:nameVal,
+      email,
+      points:0,
+      balance_mc:0,
+      createdAt:serverTimestamp(),
+      last_login:serverTimestamp()
+    });
+    alert("تم إنشاء الحساب بنجاح");
+    closeAuth();
+  }catch(e){
+    if(e.code==="auth/email-already-in-use"){
+      await signInWithEmailAndPassword(auth,email,password);
+      alert("تم تسجيل الدخول");
+      closeAuth();
+    }else{
+      alert(e.message);
+    }
+  }
+}
 
-        <div class="hint card">
-          <div class="hintTitle">ملاحظة</div>
-          <div class="hintText">
-            النقاط تُضاف تلقائيًا بعد التحقق الحقيقي. السحب يتم يدويًا بموافقة الإدارة.
-          </div>
-        </div>
-      </section>
+window.googleLogin = async function(){
+  const provider = new GoogleAuthProvider();
+  const res = await signInWithPopup(auth,provider);
+  await setDoc(doc(db,"users",res.user.uid),{
+    name:res.user.displayName,
+    email:res.user.email,
+    points:0,
+    balance_mc:0,
+    createdAt:serverTimestamp(),
+    last_login:serverTimestamp()
+  },{merge:true});
+  alert("تم تسجيل الدخول عبر جوجل");
+  closeAuth();
+}
+</script>
 
-      <!-- EARN -->
-      <section class="page" id="page-earn">
-        <div class="card profileCard">
-          <div class="profileLeft">
-            <div class="avatar big">م</div>
-            <div class="profileMeta">
-              <div class="profileName" id="uName">زائر</div>
-              <div class="profileSmall">رصيدك من النقاط</div>
-            </div>
-          </div>
+<script>
+let lang="ar";
+function openAuth(){authBox.style.display="flex"}
+function closeAuth(){authBox.style.display="none"}
+function toggleLang(){
+  if(lang==="ar"){
+    document.documentElement.lang="en";
+    document.documentElement.dir="ltr";
+    title.innerHTML="<span>EARN MONEY</span> while having fun";
+    desc.innerText="Test apps & games now!";
+    authTitle.innerText="Create account / Sign in";
+    googleText.innerText="Sign in with Google";
+    lang="en";
+  }else location.reload();
+}
+</script>
 
-          <div class="profileRight">
-            <div class="coins">
-              <div class="coinsValue" id="uPoints">0</div>
-              <div class="coinsUnit">نقطة</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card levelCard">
-          <div class="levelRow">
-            <div class="levelChip" id="uLevel">المستوى: 1</div>
-            <div class="levelRate" id="uRate">1000 نقطة = 1 دولار</div>
-          </div>
-          <div class="levelNote muted">
-            إضافة النقاط تلقائيًا بعد التحقق الحقيقي. السحب يدوي بموافقة الإدارة.
-          </div>
-        </div>
-
-        <div class="sectionTitle">سريع</div>
-        <div class="card taskCard">
-          <div class="taskIcon">⭐</div>
-          <div class="taskBody">
-            <div class="taskTitle">مهمة متابعة قناة</div>
-            <div class="taskSub">تابع قناتك الرسمية لتحصل على نقاط (مرة واحدة)</div>
-            <div class="taskRow">
-              <div class="taskReward">+ <span id="followReward">300</span> نقطة</div>
-              <button class="btn small" id="btnFollow" type="button">تنفيذ</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="sectionTitle">مهام يومية</div>
-        <div class="tasksList" id="tasksList"></div>
-
-        <div class="sectionTitle">إجراءات سريعة</div>
-        <div class="cards2">
-          <button class="miniCard card" data-nav="withdraw" type="button">
-            <div class="miniIcon">💸</div>
-            <div class="miniTxt">
-              <div class="miniTitle">السحب</div>
-              <div class="miniSub">اختر طريقة السحب واطلب المبلغ</div>
-            </div>
-            <div class="miniTag">مهم</div>
-          </button>
-
-          <button class="miniCard card" data-nav="referrals" type="button">
-            <div class="miniIcon">👥</div>
-            <div class="miniTxt">
-              <div class="miniTitle">الإحالات</div>
-              <div class="miniSub">شارك رابطك واربح نسبة من أرباح أصدقائك</div>
-            </div>
-            <div class="miniTag">دائم</div>
-          </button>
-        </div>
-      </section>
-
-      <!-- OFFERS -->
-      <section class="page" id="page-offers">
-        <div class="card headerCard">
-          <div class="headerTitle">العروض</div>
-          <div class="headerSub">نفّذ مهام واحصل على نقاط بعد التحقق</div>
-        </div>
-
-        <div class="offersGrid" id="offersGrid"></div>
-      </section>
-
-      <!-- WITHDRAW -->
-      <section class="page" id="page-withdraw">
-        <div class="card headerCard">
-          <div class="headerTitle">السحب</div>
-          <div class="headerSub">السحب يدوي بموافقة الإدارة. الحد الأدنى حسب طريقة السحب.</div>
-        </div>
-
-        <div class="card formCard">
-          <label class="lbl">طريقة السحب</label>
-          <div class="selectWrap">
-            <select id="withdrawMethod"></select>
-          </div>
-
-          <div class="row2">
-            <div>
-              <label class="lbl">المبلغ بالدولار</label>
-              <div class="selectWrap">
-                <select id="withdrawUsd"></select>
-              </div>
-            </div>
-            <div>
-              <label class="lbl">النقاط المطلوبة</label>
-              <div class="inp readonly" id="withdrawPoints">0</div>
-            </div>
-          </div>
-
-          <label class="lbl" id="targetLabel">أدخل بريد بايبال</label>
-          <input class="inp" id="withdrawTarget" type="text" placeholder="example@email.com" inputmode="email" />
-
-          <div class="note muted" id="withdrawNote">
-            * سيتم مراجعة الطلب يدويًا. تأكد من صحة البيانات.
-          </div>
-
-          <button class="btn primary wide" id="btnCreateWithdraw" type="button">إرسال طلب السحب</button>
-
-          <div class="divider"></div>
-
-          <div class="miniInfo">
-            <div class="miniInfoTitle">حدود السحب (حسب الاتفاق)</div>
-            <ul class="miniInfoList" id="withdrawLimitsList"></ul>
-          </div>
-        </div>
-
-        <div class="card listCard">
-          <div class="listTitle">طلباتك</div>
-          <div class="listSub muted">آخر الطلبات المسجلة على جهازك (واجهة فقط)</div>
-          <div class="reqs" id="withdrawRequests"></div>
-        </div>
-      </section>
-
-      <!-- REFERRALS -->
-      <section class="page" id="page-referrals">
-        <div class="card headerCard">
-          <div class="headerTitle">دعوة الأصدقاء</div>
-          <div class="headerSub">تحصل على نسبة من أرباح أصدقائك دائمًا عند تسجيلهم عبر رابطك.</div>
-        </div>
-
-        <div class="card formCard">
-          <label class="lbl">رابط الدعوة</label>
-          <div class="copyRow">
-            <input class="inp" id="refLink" type="text" readonly />
-            <button class="btn" id="btnCopyRef" type="button">نسخ رابط الدعوة</button>
-          </div>
-
-          <div class="card inner">
-            <div class="innerTitle">قواعد الإحالة</div>
-            <ul class="rules">
-              <li>تربح نسبة من أرباح أصدقائك عند تنفيذهم مهام.</li>
-              <li>النسبة والإضافات يمكن تعديلها من لوحة الإدارة لاحقًا.</li>
-              <li>أي تلاعب يؤدي لإيقاف الحساب.</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <!-- HOW -->
-      <section class="page" id="page-how">
-        <div class="card headerCard">
-          <div class="headerTitle">شاهد كيف يعمل</div>
-          <div class="headerSub">شرح سريع لطريقة المنصة.</div>
-        </div>
-
-        <div class="card formCard">
-          <ol class="steps">
-            <li>أنشئ حسابك أو ادخل كزائر.</li>
-            <li>نفّذ مهام (عروض/استطلاعات/ألعاب).</li>
-            <li>بعد التحقق الحقيقي تُضاف النقاط تلقائيًا.</li>
-            <li>اطلب السحب (PayPal / Google Play) حسب الحد الأدنى.</li>
-            <li>تتم الموافقة يدويًا من الإدارة.</li>
-          </ol>
-          <button class="btn primary wide" data-nav="earn" type="button">ابدأ الآن</button>
-        </div>
-      </section>
-
-      <!-- AUTH -->
-      <section class="page" id="page-auth">
-        <div class="card headerCard">
-          <div class="headerTitle">تسجيل / إنشاء حساب</div>
-          <div class="headerSub">واجهة فقط الآن — الربط الحقيقي لاحقًا.</div>
-        </div>
-
-        <div class="card formCard">
-          <label class="lbl">الاسم</label>
-          <input class="inp" id="authName" type="text" placeholder="اكتب اسمك" />
-
-          <label class="lbl">البريد (اختياري)</label>
-          <input class="inp" id="authEmail" type="email" placeholder="example@email.com" />
-
-          <div class="row2">
-            <button class="btn primary wide" id="btnLogin" type="button">دخول</button>
-            <button class="btn wide" id="btnLogout" type="button">تسجيل خروج</button>
-          </div>
-
-          <div class="note muted">
-            * الآن هذا قالب UI مطابق. الربط الحقيقي (Firebase/سيرفر/حماية) نركبه بعد ما تعتمد الشكل 100%.
-          </div>
-        </div>
-      </section>
-    </section>
-
-    <!-- Bottom nav -->
-    <nav class="bottomNav">
-      <button class="navItem active" data-nav="home" type="button">
-        <span class="navIcon">🏠</span><span class="navTxt">الرئيسية</span>
-      </button>
-      <button class="navItem" data-nav="earn" type="button">
-        <span class="navIcon">⚡</span><span class="navTxt">كسب</span>
-      </button>
-      <button class="navItem" data-nav="offers" type="button">
-        <span class="navIcon">🎯</span><span class="navTxt">العروض</span>
-      </button>
-      <button class="navItem" data-nav="withdraw" type="button">
-        <span class="navIcon">💸</span><span class="navTxt">السحب</span>
-      </button>
-      <button class="navItem" data-nav="referrals" type="button">
-        <span class="navIcon">👥</span><span class="navTxt">إحالات</span>
-      </button>
-    </nav>
-  </main>
-
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-  <script src="./app.js"></script>
 </body>
 </html>
