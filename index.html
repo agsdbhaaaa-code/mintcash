@@ -1,162 +1,472 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MintCash</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MintCash</title>
 
-<style>
-:root{
-  --green:#2dff88;
-  --bg-dark:rgba(0,0,0,.6);
-  --card:#0f1f1a;
-}
-*{box-sizing:border-box;font-family:Arial}
-body{
-  margin:0;min-height:100vh;
-  background:
-    linear-gradient(var(--bg-dark),var(--bg-dark)),
-    url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEioGadxhmGRd2UJiH3Utj15KOcxGxPY3ZcTSRjIeElA6jt2PySe2h0NQ0lDpchkZsSqGDEf1EQ82nDcMkbUd3-Qw8zPa4TpLnEDOt3SegWkyjiJoCAqRa6E0HCpfJrVSdm9xL_hTubA86EFmebwZAdkIAKHYlMVrZ31okUr-16LYD_Dc81vs-_p7AGOeuQ/s1376/1766075604391.jpg")
-    center/cover no-repeat;
-  color:#fff;
-}
-header{display:flex;justify-content:space-between;align-items:center;padding:14px 16px}
-.logo{display:flex;align-items:center;gap:10px}
-.logo img{width:42px;height:42px;border-radius:50%}
-.lang-btn{padding:8px 14px;border-radius:16px;border:1px solid rgba(255,255,255,.3);background:rgba(0,0,0,.3);color:#fff;cursor:pointer}
-main{text-align:center;padding:80px 16px}
-h1 span{color:var(--green)}
-.actions{display:flex;gap:12px;justify-content:center;margin-top:28px}
-.btn{padding:14px 26px;border-radius:18px;border:none;cursor:pointer;font-size:16px}
-.btn.green{background:var(--green)}
-.btn.dark{background:rgba(0,0,0,.4);color:#fff}
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;align-items:center;justify-content:center;z-index:100}
-.modal{width:92%;max-width:420px;background:var(--card);border-radius:20px;padding:22px;position:relative}
-.close{position:absolute;top:10px;left:14px;font-size:22px;cursor:pointer}
-.modal h3{text-align:center;margin-bottom:18px}
-.field{margin-bottom:12px}
-.field input{width:100%;padding:14px;border-radius:14px;border:none;background:#1b2f28;color:#fff}
-.submit{width:100%;padding:14px;border-radius:16px;background:var(--green);border:none;font-size:16px;cursor:pointer}
-.divider{text-align:center;margin:14px 0;opacity:.7}
-.google-btn{width:100%;height:54px;border-radius:18px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;gap:12px;color:#fff;font-size:15px;cursor:pointer}
-.google-btn img{width:22px}
-</style>
+  <style>
+    :root{
+      --green:#2dff88;
+      --bg-dark:rgba(0,0,0,.6);
+      --card:#0f1f1a;
+      --card2:#132820;
+      --muted: rgba(255,255,255,.75);
+    }
+    *{box-sizing:border-box;font-family:Arial, sans-serif}
+    body{
+      margin:0;
+      min-height:100vh;
+      background:
+        linear-gradient(var(--bg-dark),var(--bg-dark)),
+        url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEioGadxhmGRd2UJiH3Utj15KOcxGxPY3ZcTSRjIeElA6jt2PySe2h0NQ0lDpchkZsSqGDEf1EQ82nDcMkbUd3-Qw8zPa4TpLnEDOt3SegWkyjiJoCAqRa6E0HCpfJrVSdm9xL_hTubA86EFmebwZAdkIAKHYlMVrZ31okUr-16LYD_Dc81vs-_p7AGOeuQ/s1376/1766075604391.jpg")
+        center/cover no-repeat;
+      color:#fff;
+    }
+
+    header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:14px 16px;
+    }
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .logo img{
+      width:42px;height:42px;border-radius:50%;
+      object-fit:cover;
+      border:1px solid rgba(255,255,255,.25);
+    }
+    .logo strong{font-size:18px;letter-spacing:.2px}
+    .lang-btn{
+      padding:9px 14px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.28);
+      background:rgba(0,0,0,.25);
+      color:#fff;
+      cursor:pointer;
+      font-size:14px;
+      backdrop-filter: blur(6px);
+    }
+
+    main{
+      text-align:center;
+      padding:70px 16px 30px;
+    }
+    h1{
+      margin:0 0 10px;
+      font-size:34px;
+      line-height:1.25;
+      text-shadow: 0 6px 18px rgba(0,0,0,.35);
+    }
+    h1 span{color:var(--green)}
+    p{
+      margin:0;
+      color:var(--muted);
+      font-size:18px;
+      text-shadow: 0 6px 18px rgba(0,0,0,.35);
+    }
+
+    .actions{
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      margin-top:28px;
+      flex-wrap:wrap;
+    }
+    .btn{
+      min-width:160px;
+      padding:14px 22px;
+      border-radius:18px;
+      border:none;
+      cursor:pointer;
+      font-size:16px;
+      transition: transform .08s ease;
+    }
+    .btn:active{transform: scale(.98)}
+    .btn.green{background:var(--green); color:#052113; font-weight:700}
+    .btn.dark{background:rgba(0,0,0,.35); color:#fff; border:1px solid rgba(255,255,255,.2)}
+    .btn.outline{background:rgba(0,0,0,.2); color:#fff; border:1px solid rgba(255,255,255,.35)}
+
+    /* MODAL */
+    .overlay{
+      position:fixed; inset:0;
+      background:rgba(0,0,0,.65);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index:100;
+      padding:18px;
+    }
+    .modal{
+      width:100%;
+      max-width:420px;
+      background:rgba(15,31,26,.96);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:22px;
+      padding:20px;
+      position:relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,.45);
+      backdrop-filter: blur(10px);
+    }
+    .close{
+      position:absolute;
+      top:12px;
+      inset-inline-start:14px;
+      font-size:22px;
+      cursor:pointer;
+      width:34px;height:34px;
+      display:flex;align-items:center;justify-content:center;
+      border-radius:12px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .modal h3{
+      margin:10px 0 14px;
+      font-size:22px;
+    }
+    .hint{
+      margin:0 0 14px;
+      color:rgba(255,255,255,.75);
+      font-size:13px;
+      line-height:1.4;
+    }
+    .field{
+      margin-bottom:12px;
+    }
+    .field input{
+      width:100%;
+      padding:14px 14px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(27,47,40,.92);
+      color:#fff;
+      outline:none;
+      font-size:15px;
+    }
+    .row{
+      display:flex;
+      gap:10px;
+      margin-top:10px;
+    }
+    .submit{
+      width:100%;
+      padding:14px 14px;
+      border-radius:18px;
+      background:var(--green);
+      border:none;
+      font-size:16px;
+      cursor:pointer;
+      font-weight:800;
+      color:#052113;
+    }
+    .google-btn{
+      width:100%;
+      height:54px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.18);
+      background:rgba(255,255,255,.06);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:12px;
+      color:#fff;
+      font-size:15px;
+      cursor:pointer;
+    }
+    .google-btn img{width:22px}
+    .msg{
+      margin-top:12px;
+      font-size:14px;
+      color:rgba(255,255,255,.85);
+      background:rgba(0,0,0,.25);
+      border:1px solid rgba(255,255,255,.12);
+      padding:10px 12px;
+      border-radius:14px;
+      display:none;
+      text-align:start;
+      line-height:1.4;
+    }
+  </style>
 </head>
 
 <body>
 
 <header>
   <div class="logo">
-    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhTrhu7Mi9p9krwFaOjjVmV_Yqi8PMNXcMpnJWQka-f3QpemAOY-8nK_QCzXBHFkQENTdNctzUxY61FK0Wi-uZh6hruvb2s_qZ7aTjluaNrYIzat6Y_0ODG_2F9s25ETtwDcBwyXqRz4HlG-4YIG6_mPXR8A6MzuwESeCpYMoqXEAjXG1Qm0vaveW7n9KI/s562/Screenshot_20251218_204032_Google.jpg">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhTrhu7Mi9p9krwFaOjjVmV_Yqi8PMNXcMpnJWQka-f3QpemAOY-8nK_QCzXBHFkQENTdNctzUxY61FK0Wi-uZh6hruvb2s_qZ7aTjluaNrYIzat6Y_0ODG_2F9s25ETtwDcBwyXqRz4HlG-4YIG6_mPXR8A6MzuwESeCpYMoqXEAjXG1Qm0vaveW7n9KI/s562/Screenshot_20251218_204032_Google.jpg" alt="MintCash" />
     <strong>MintCash</strong>
   </div>
-  <button class="lang-btn" onclick="toggleLang()">AR / EN</button>
+
+  <button class="lang-btn" id="langBtn" type="button">AR / EN</button>
 </header>
 
 <main>
-  <h1 id="title"><span>اكسب المال</span> أثناء المتعة</h1>
-  <p id="desc">جرّب التطبيقات والألعاب الآن!</p>
+  <h1 id="title"></h1>
+  <p id="desc"></p>
+
   <div class="actions">
-    <button class="btn green" onclick="openAuth()">ابدأ الآن</button>
-    <button class="btn dark" onclick="openAuth()">تسجيل الدخول</button>
+    <button class="btn green" id="startBtn" type="button"></button>
+    <button class="btn dark" id="loginBtn" type="button"></button>
+    <button class="btn outline" id="signupBtn" type="button"></button>
   </div>
 </main>
 
-<div class="overlay" id="authBox">
+<!-- AUTH MODAL -->
+<div class="overlay" id="authOverlay">
   <div class="modal">
-    <div class="close" onclick="closeAuth()">×</div>
-    <h3 id="authTitle">إنشاء حساب / تسجيل دخول</h3>
-    <div class="field"><input id="name" placeholder="الاسم"></div>
-    <div class="field"><input id="email" placeholder="البريد الإلكتروني"></div>
-    <div class="field"><input id="password" type="password" placeholder="كلمة المرور"></div>
-    <button class="submit" onclick="emailLogin()">اشتراك</button>
-    <div class="divider">أو</div>
-    <button class="google-btn" onclick="googleLogin()">
-      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
-      <span id="googleText">تسجيل الدخول باستخدام جوجل</span>
+    <div class="close" id="closeAuth">×</div>
+
+    <h3 id="authTitle"></h3>
+    <p class="hint" id="authHint"></p>
+
+    <div class="field">
+      <input id="emailInput" type="email" autocomplete="email" />
+    </div>
+
+    <div class="field">
+      <input id="passInput" type="password" autocomplete="current-password" />
+    </div>
+
+    <button class="submit" id="emailActionBtn" type="button"></button>
+
+    <div style="height:12px"></div>
+
+    <button class="google-btn" id="googleBtn" type="button">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" />
+      <span id="googleText"></span>
     </button>
+
+    <div class="msg" id="msgBox"></div>
   </div>
 </div>
 
-<!-- FIREBASE -->
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+  import {
+    getAuth,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    GoogleAuthProvider,
+    signInWithRedirect,
+    getRedirectResult
+  } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAR1agEF6AHWHrgY4g_M3EoojdPKB1U9sY",
-  authDomain: "mintcash-65c77.firebaseapp.com",
-  projectId: "mintcash-65c77",
-  storageBucket: "mintcash-65c77.appspot.com",
-  messagingSenderId: "448741584532",
-  appId: "1:448741584532:web:ccad1e2feabd4c8071ce81"
-};
+  // ✅ Firebase Config (نفس مشروعك)
+  const firebaseConfig = {
+    apiKey: "AIzaSyAR1agEF6AHWHrgY4g_M3EoojdPKB1U9sY",
+    authDomain: "mintcash-65c77.firebaseapp.com",
+    projectId: "mintcash-65c77",
+    storageBucket: "mintcash-65c77.firebasestorage.app",
+    messagingSenderId: "448741584532",
+    appId: "1:448741584532:web:ccad1e2feabd4c8071ce81"
+  };
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-
-window.emailLogin = async function(){
-  const email = email.value;
-  const password = password.value;
-  const nameVal = name.value || "مستخدم";
-
-  try{
-    const res = await createUserWithEmailAndPassword(auth,email,password);
-    await setDoc(doc(db,"users",res.user.uid),{
-      name:nameVal,
-      email,
-      points:0,
-      balance_mc:0,
-      createdAt:serverTimestamp(),
-      last_login:serverTimestamp()
-    });
-    alert("تم إنشاء الحساب بنجاح");
-    closeAuth();
-  }catch(e){
-    if(e.code==="auth/email-already-in-use"){
-      await signInWithEmailAndPassword(auth,email,password);
-      alert("تم تسجيل الدخول");
-      closeAuth();
-    }else{
-      alert(e.message);
-    }
-  }
-}
-
-window.googleLogin = async function(){
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
   const provider = new GoogleAuthProvider();
-  const res = await signInWithPopup(auth,provider);
-  await setDoc(doc(db,"users",res.user.uid),{
-    name:res.user.displayName,
-    email:res.user.email,
-    points:0,
-    balance_mc:0,
-    createdAt:serverTimestamp(),
-    last_login:serverTimestamp()
-  },{merge:true});
-  alert("تم تسجيل الدخول عبر جوجل");
-  closeAuth();
-}
+
+  // --------- عناصر الصفحة ----------
+  const langBtn = document.getElementById("langBtn");
+  const titleEl = document.getElementById("title");
+  const descEl  = document.getElementById("desc");
+
+  const startBtn  = document.getElementById("startBtn");
+  const loginBtn  = document.getElementById("loginBtn");
+  const signupBtn = document.getElementById("signupBtn");
+
+  const overlay   = document.getElementById("authOverlay");
+  const closeAuth = document.getElementById("closeAuth");
+
+  const authTitle = document.getElementById("authTitle");
+  const authHint  = document.getElementById("authHint");
+
+  const emailInput = document.getElementById("emailInput");
+  const passInput  = document.getElementById("passInput");
+
+  const emailActionBtn = document.getElementById("emailActionBtn");
+  const googleBtn  = document.getElementById("googleBtn");
+  const googleText = document.getElementById("googleText");
+
+  const msgBox = document.getElementById("msgBox");
+
+  // --------- لغة / نصوص ----------
+  let lang = "ar";        // ar | en
+  let mode = "login";     // login | signup
+
+  const T = {
+    ar: {
+      title: 'اكسب <span>المال</span> أثناء المتعة',
+      desc:  'جرّب التطبيقات والألعاب الآن!',
+      start: 'ابدأ الآن',
+      login: 'تسجيل الدخول',
+      signup:'إنشاء حساب',
+
+      authLoginTitle: 'تسجيل الدخول',
+      authSignupTitle:'إنشاء حساب',
+      hintLogin: 'ادخل بريدك وكلمة المرور لتسجيل الدخول.',
+      hintSignup:'ادخل بريدك وكلمة المرور لإنشاء حساب جديد.',
+      emailPH: 'البريد الإلكتروني',
+      passPH:  'كلمة المرور',
+      emailLoginBtn: 'تسجيل الدخول',
+      emailSignupBtn:'إنشاء الحساب',
+      googleLogin: 'تسجيل الدخول باستخدام جوجل',
+      googleSignup:'إنشاء حساب بجوجل',
+
+      okLogin: 'تم تسجيل الدخول بنجاح ✅',
+      okSignup:'تم إنشاء الحساب بنجاح ✅',
+      err: 'حدث خطأ: ',
+      close: 'إغلاق'
+    },
+    en: {
+      title: '<span>EARN MONEY</span> while having fun',
+      desc:  'Test apps & games now!',
+      start: 'Start Now',
+      login: 'Login',
+      signup:'Create Account',
+
+      authLoginTitle: 'Login',
+      authSignupTitle:'Create Account',
+      hintLogin: 'Enter your email and password to login.',
+      hintSignup:'Enter your email and password to create a new account.',
+      emailPH: 'Email address',
+      passPH:  'Password',
+      emailLoginBtn: 'Login',
+      emailSignupBtn:'Create Account',
+      googleLogin: 'Continue with Google',
+      googleSignup:'Sign up with Google',
+
+      okLogin: 'Logged in successfully ✅',
+      okSignup:'Account created successfully ✅',
+      err: 'Error: ',
+      close: 'Close'
+    }
+  };
+
+  function applyTexts(){
+    // اتجاه الصفحة
+    document.documentElement.dir = (lang === "ar") ? "rtl" : "ltr";
+    document.documentElement.lang = lang;
+
+    // عنوان ووصف
+    titleEl.innerHTML = T[lang].title;
+    descEl.textContent = T[lang].desc;
+
+    // أزرار الهوم
+    startBtn.textContent  = T[lang].start;
+    loginBtn.textContent  = T[lang].login;
+    signupBtn.textContent = T[lang].signup;
+
+    // نافذة التسجيل
+    authTitle.textContent = (mode === "login") ? T[lang].authLoginTitle : T[lang].authSignupTitle;
+    authHint.textContent  = (mode === "login") ? T[lang].hintLogin : T[lang].hintSignup;
+
+    emailInput.placeholder = T[lang].emailPH;
+    passInput.placeholder  = T[lang].passPH;
+
+    emailActionBtn.textContent = (mode === "login") ? T[lang].emailLoginBtn : T[lang].emailSignupBtn;
+    googleText.textContent     = (mode === "login") ? T[lang].googleLogin : T[lang].googleSignup;
+
+    // زر اللغة ثابت
+    langBtn.textContent = "AR / EN";
+  }
+
+  function openAuth(newMode){
+    mode = newMode;
+    msgBox.style.display = "none";
+    msgBox.textContent = "";
+    overlay.style.display = "flex";
+    applyTexts();
+    setTimeout(()=> emailInput.focus(), 150);
+  }
+
+  function closeAuthModal(){
+    overlay.style.display = "none";
+  }
+
+  function showMsg(text, isError=false){
+    msgBox.style.display = "block";
+    msgBox.textContent = text;
+    msgBox.style.borderColor = isError ? "rgba(255,80,80,.35)" : "rgba(45,255,136,.25)";
+  }
+
+  // --------- أحداث ----------
+  langBtn.addEventListener("click", ()=>{
+    lang = (lang === "ar") ? "en" : "ar";
+    applyTexts();
+  });
+
+  startBtn.addEventListener("click", ()=> openAuth("signup"));
+  loginBtn.addEventListener("click", ()=> openAuth("login"));
+  signupBtn.addEventListener("click", ()=> openAuth("signup"));
+
+  closeAuth.addEventListener("click", closeAuthModal);
+
+  overlay.addEventListener("click", (e)=>{
+    if(e.target === overlay) closeAuthModal();
+  });
+
+  // --------- Firebase Auth (Email/Pass) ----------
+  emailActionBtn.addEventListener("click", async ()=>{
+    const email = emailInput.value.trim();
+    const pass  = passInput.value;
+
+    if(!email || !pass){
+      showMsg((lang==="ar") ? "اكتب البريد وكلمة المرور." : "Enter email and password.", true);
+      return;
+    }
+
+    try{
+      if(mode === "login"){
+        await signInWithEmailAndPassword(auth, email, pass);
+        showMsg(T[lang].okLogin);
+      }else{
+        await createUserWithEmailAndPassword(auth, email, pass);
+        showMsg(T[lang].okSignup);
+      }
+    }catch(err){
+      // رسالة أوضح
+      const msg = (err?.message || "").replace("Firebase: ", "");
+      showMsg(T[lang].err + msg, true);
+    }
+  });
+
+  // --------- Firebase Auth (Google) ----------
+  googleBtn.addEventListener("click", async ()=>{
+    try{
+      // على الجوال أفضل Redirect
+      await signInWithRedirect(auth, provider);
+    }catch(err){
+      const msg = (err?.message || "").replace("Firebase: ", "");
+      showMsg(T[lang].err + msg, true);
+    }
+  });
+
+  // نتيجة Redirect بعد الرجوع للموقع
+  try{
+    const result = await getRedirectResult(auth);
+    if(result?.user){
+      overlay.style.display = "flex";
+      showMsg((mode==="login") ? T[lang].okLogin : T[lang].okSignup);
+    }
+  }catch(err){
+    // تجاهل لو ما في نتيجة
+  }
+
+  // تشغيل أولي
+  applyTexts();
 </script>
 
-<script>
-let lang="ar";
-function openAuth(){authBox.style.display="flex"}
-function closeAuth(){authBox.style.display="none"}
-function toggleLang(){
-  if(lang==="ar"){
-    document.documentElement.lang="en";
-    document.documentElement.dir="ltr";
-    title.innerHTML="<span>EARN MONEY</span> while having fun";
-    desc.innerText="Test apps & games now!";
-    authTitle.innerText="Create account / Sign in";
-    googleText.innerText="Sign in with Google";
-    lang="en";
-  }else location.reload();
-}
-</script>
+<!-- ✅ ملاحظة مهمة جداً:
+  لازم داخل Firebase Console > Authentication > Settings > Authorized domains
+  تضيف:
+  getmintcash.com
+  www.getmintcash.com
+  (و pages.dev إن احتجت)
+-->
 
 </body>
 </html>
