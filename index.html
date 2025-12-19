@@ -425,7 +425,6 @@
 <body>
   <div class="تنبيه" id="تنبيه"></div>
 
-  <!-- شريط علوي -->
   <header>
     <div class="شريط">
       <div class="هوية">
@@ -456,7 +455,6 @@
     </div>
   </header>
 
-  <!-- قائمة جانبية -->
   <div class="ستارة" id="ستارة"></div>
   <aside class="قائمة" id="قائمة" aria-label="القائمة الجانبية">
     <div class="قائمة_رأس">
@@ -487,7 +485,6 @@
     </div>
   </aside>
 
-  <!-- المحتوى -->
   <main>
     <div class="حاوية">
       <h1 id="عنوان_رئيسي">
@@ -504,7 +501,6 @@
         <button class="زر" id="زر_دخول" type="button">تسجيل الدخول</button>
       </div>
 
-      <!-- الأرقام المعتمدة -->
       <div class="شبكة" aria-label="مؤشرات">
         <div class="بطاقة">
           <b id="نص_وقت_عنوان">المتوسط للوصول لأول طلب</b>
@@ -536,7 +532,6 @@
     </div>
   </main>
 
-  <!-- نافذة التسجيل -->
   <div class="غطاء" id="غطاء_تسجيل" role="dialog" aria-modal="true" aria-label="التسجيل">
     <div class="نافذة" role="document">
       <div class="نافذة_رأس">
@@ -602,7 +597,6 @@
     </div>
   </div>
 
-  <!-- نافذة التعليمات/الخصوصية -->
   <div class="غطاء" id="غطاء_نص" role="dialog" aria-modal="true" aria-label="محتوى">
     <div class="نافذة" role="document">
       <div class="نافذة_رأس">
@@ -619,13 +613,12 @@
     </div>
   </div>
 
-  <!-- فايربيس (مكتبات المتصفح) -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 
   <script>
     /* =========================
-       1) إعداد فايربيس (كما أرسلت)
+       1) إعداد فايربيس
     ========================== */
     const إعداد_فايربيس = {
       apiKey: "AIzaSyAR1agEF6AHWHrgY4g_M3EoojdPKB1U9sY",
@@ -740,7 +733,6 @@
 
     function اغلق_تسجيل(){
       غطاء_تسجيل.classList.remove("مفتوح");
-      // تفريغ الحقول
       ["حقل_اسم","حقل_بريد","حقل_كلمة","حقل_هاتف","حقل_بريد_دخول","حقل_كلمة_دخول"].forEach(id=>{
         const el=$(id); if(el) el.value="";
       });
@@ -794,90 +786,16 @@
 
     function قالب_تعليمات(){
       if(لغة==="en"){
-        return `
-          <div class="قسم">
-            <h3>How MintCash works</h3>
-            <p>Complete tasks such as testing an app, playing a game, or finishing a survey. Points will be added after verification.</p>
-          </div>
-          <div class="قسم">
-            <h3>Important rules</h3>
-            <ul class="قائمة_نقاط">
-              <li>One account per person. Multiple accounts are not allowed.</li>
-              <li>Do not use VPN or fake information. This may cause disqualification.</li>
-              <li>Follow each offer’s requirements exactly (install, open, level, time, etc.).</li>
-              <li>Points appear after verification (may take time depending on the offer).</li>
-            </ul>
-          </div>
-          <div class="قسم">
-            <h3>Anti-fraud</h3>
-            <p>We monitor unusual behavior and may review or suspend accounts that attempt manipulation or cheating.</p>
-          </div>
-        `;
+        return `<div class="قسم"><h3>How MintCash works</h3><p>Complete tasks such as testing an app, playing a game, or finishing a survey. Points will be added after verification.</p></div>`;
       }
-      return `
-        <div class="قسم">
-          <h3>كيف تعمل منت كاش</h3>
-          <p>تنفّذ مهام مثل تجربة تطبيق، لعب لعبة، أو إكمال استبيان. تُضاف النقاط بعد التحقق حسب شروط كل مهمة.</p>
-        </div>
-
-        <div class="قسم">
-          <h3>قواعد مهمة لضمان احتساب النقاط</h3>
-          <ul class="قائمة_نقاط">
-            <li>حساب واحد لكل شخص. تعدد الحسابات يمنع ويؤدي لإيقاف الحساب.</li>
-            <li>يُمنع استخدام أي وسائل تحايل أو معلومات غير صحيحة.</li>
-            <li>اتبع شروط المهمة حرفيًا (تثبيت، فتح، مستوى، مدة، تسجيل… إلخ).</li>
-            <li>قد لا تظهر النقاط فورًا — يتم إضافتها بعد التحقق حسب الشبكة المعلنة.</li>
-          </ul>
-        </div>
-
-        <div class="قسم">
-          <h3>منع الغش والتحايل</h3>
-          <p>يتم رصد السلوك غير الطبيعي وقد يتم تعليق الحساب أو مراجعة السحب عند الاشتباه. هدفنا منصة عادلة للجميع.</p>
-        </div>
-      `;
+      return `<div class="قسم"><h3>كيف تعمل منت كاش</h3><p>تنفّذ مهام مثل تجربة تطبيق، لعب لعبة، أو إكمال استبيان. تُضاف النقاط بعد التحقق حسب شروط كل مهمة.</p></div>`;
     }
 
     function قالب_خصوصية(){
       if(لغة==="en"){
-        return `
-          <div class="قسم">
-            <h3>Data we collect</h3>
-            <p>Name, email, country, optional phone, and basic usage data to improve the service.</p>
-          </div>
-          <div class="قسم">
-            <h3>How we use data</h3>
-            <ul class="قائمة_نقاط">
-              <li>Account creation and security.</li>
-              <li>Offer verification and fraud prevention.</li>
-              <li>Support and service improvements.</li>
-            </ul>
-          </div>
-          <div class="قسم">
-            <h3>Your rights</h3>
-            <p>You can request updates or deletion of your account data through support.</p>
-          </div>
-        `;
+        return `<div class="قسم"><h3>Data we collect</h3><p>Name, email, country, optional phone, and basic usage data to improve the service.</p></div>`;
       }
-      return `
-        <div class="قسم">
-          <h3>البيانات التي نجمعها</h3>
-          <p>قد نجمع الاسم والبريد والدولة ورقم الهاتف (اختياري) وبيانات استخدام بسيطة لتحسين الخدمة وحماية الحساب.</p>
-        </div>
-
-        <div class="قسم">
-          <h3>كيف نستخدم البيانات</h3>
-          <ul class="قائمة_نقاط">
-            <li>إنشاء الحساب وتأمينه.</li>
-            <li>التحقق من المهام ومنع الغش والتحايل.</li>
-            <li>تحسين التجربة وتقديم الدعم الفني.</li>
-          </ul>
-        </div>
-
-        <div class="قسم">
-          <h3>حقوقك</h3>
-          <p>يمكنك طلب تحديث بياناتك أو حذف حسابك عبر الدعم داخل المنصة لاحقًا.</p>
-        </div>
-      `;
+      return `<div class="قسم"><h3>البيانات التي نجمعها</h3><p>قد نجمع الاسم والبريد والدولة ورقم الهاتف (اختياري) وبيانات استخدام بسيطة لتحسين الخدمة وحماية الحساب.</p></div>`;
     }
 
     /* =========================
@@ -894,68 +812,45 @@
 
           if(!بريد || !كلمة){
             رسالة("بيانات ناقصة", "اكتب البريد وكلمة المرور.");
-            تعطيل($("زر_تنفيذ"), false);
-            تعطيل($("زر_جوجل"), false);
+            تعطيل($("زر_تنفيذ"), false); تعطيل($("زر_جوجل"), false);
             return;
           }
 
           await تحقق.signInWithEmailAndPassword(بريد, كلمة);
           رسالة("تم تسجيل الدخول", "تم الدخول بنجاح، سيتم نقلك الآن.");
-          setTimeout(()=>{ window.location.href = "اكسب.html"; }, 700);
+          setTimeout(()=>{ window.location.href = "earn.html"; }, 700);
           return;
         }
 
-        // إنشاء حساب
         const اسم = نظف($("حقل_اسم").value);
         const بريد = نظف($("حقل_بريد").value);
         const كلمة = نظف($("حقل_كلمة").value);
         const دولة = نظف($("حقل_دولة").value);
-        const هاتف = نظف($("حقل_هاتف").value);
 
         if(!اسم || !بريد || !كلمة || !دولة){
           رسالة("بيانات ناقصة", "الاسم والبريد وكلمة المرور والدولة مطلوبة.");
-          تعطيل($("زر_تنفيذ"), false);
-          تعطيل($("زر_جوجل"), false);
-          return;
-        }
-        if(كلمة.length < 6){
-          رسالة("كلمة المرور ضعيفة", "اجعل كلمة المرور 6 أحرف على الأقل.");
-          تعطيل($("زر_تنفيذ"), false);
-          تعطيل($("زر_جوجل"), false);
+          تعطيل($("زر_تنفيذ"), false); تعطيل($("زر_جوجل"), false);
           return;
         }
 
         const نتيجة = await تحقق.createUserWithEmailAndPassword(بريد, كلمة);
-
-        // تحديث اسم العرض
         if(نتيجة && نتيجة.user){
           await نتيجة.user.updateProfile({ displayName: اسم });
         }
 
-        // ملاحظة: حفظ (الدولة/الهاتف) يتم عادة في قاعدة بيانات (مستندات/جداول)
-        // لأن المصادقة وحدها لا تخزن كل هذه الحقول. سنربطها في صفحة لوحة التحكم لاحقًا.
-        // الآن ننجح التسجيل وننقل.
-
         رسالة("تم إنشاء الحساب", "تم إنشاء الحساب بنجاح، سيتم نقلك الآن.");
-        setTimeout(()=>{ window.location.href = "اكسب.html"; }, 800);
+        setTimeout(()=>{ window.location.href = "earn.html"; }, 800);
 
       }catch(err){
-        const رسالة_خطأ = تفسير_خطأ(err);
-        رسالة("حدث خطأ", رسالة_خطأ);
-        تعطيل($("زر_تنفيذ"), false);
-        تعطيل($("زر_جوجل"), false);
+        رسالة("حدث خطأ", تفسير_خطأ(err));
+        تعطيل($("زر_تنفيذ"), false); تعطيل($("زر_جوجل"), false);
       }
     };
 
     function تفسير_خطأ(err){
       const كود = (err && err.code) ? err.code : "";
-      if(كود.includes("auth/email-already-in-use")) return "هذا البريد مسجل مسبقًا. جرّب تسجيل الدخول.";
-      if(كود.includes("auth/invalid-email")) return "البريد الإلكتروني غير صحيح.";
-      if(كود.includes("auth/weak-password")) return "كلمة المرور ضعيفة.";
-      if(كود.includes("auth/user-not-found")) return "الحساب غير موجود. أنشئ حسابًا جديدًا.";
+      if(كود.includes("auth/email-already-in-use")) return "هذا البريد مسجل مسبقًا.";
       if(كود.includes("auth/wrong-password")) return "كلمة المرور غير صحيحة.";
-      if(كود.includes("auth/too-many-requests")) return "محاولات كثيرة. انتظر قليلًا ثم حاول مرة أخرى.";
-      if(كود.includes("auth/popup-blocked")) return "تم حظر النافذة المنبثقة. اسمح بها ثم حاول.";
       return (err && err.message) ? err.message : "خطأ غير معروف.";
     }
 
@@ -965,121 +860,30 @@
     $("زر_جوجل").onclick = async ()=>{
       تعطيل($("زر_تنفيذ"), true);
       تعطيل($("زر_جوجل"), true);
-
       try{
         const مزود = new firebase.auth.GoogleAuthProvider();
-        // يفضّل استخدام نافذة منبثقة
         await تحقق.signInWithPopup(مزود);
-
-        رسالة("تم تسجيل الدخول", "تم الدخول عبر جوجل بنجاح، سيتم نقلك الآن.");
-        setTimeout(()=>{ window.location.href = "اكسب.html"; }, 700);
-
+        window.location.href = "earn.html";
       }catch(err){
-        // في بعض المتصفحات قد يفشل المنبثق فنحاول التحويل
-        const كود = (err && err.code) ? err.code : "";
-        if(كود.includes("auth/popup-blocked") || كود.includes("auth/operation-not-supported-in-this-environment")){
-          try{
-            const مزود = new firebase.auth.GoogleAuthProvider();
-            await تحقق.signInWithRedirect(مزود);
-            return;
-          }catch(e2){
-            رسالة("حدث خطأ", تفسير_خطأ(e2));
-          }
-        } else {
-          رسالة("حدث خطأ", تفسير_خطأ(err));
-        }
-        تعطيل($("زر_تنفيذ"), false);
-        تعطيل($("زر_جوجل"), false);
+        رسالة("حدث خطأ", تفسير_خطأ(err));
+        تعطيل($("زر_تنفيذ"), false); تعطيل($("زر_جوجل"), false);
       }
     };
 
     /* =========================
-       8) اللغة (عربي/إنجليزي) كاملة
+       8) اللغة
     ========================== */
     const نصوص = {
-      ar: {
-        dir:"rtl",
-        شارة:"عربي",
-        اسم:"منت كاش",
-        شعار:"اكسب نقاطك بسهولة",
-        عنوان_أخضر:"اكسب المال",
-        عنوان_باقي:" أثناء المتعة",
-        وصف:"اربح نقاطًا عبر إكمال مهام بسيطة مثل تجربة تطبيق، لعب لعبة، أو إكمال استبيان — ثم استبدل نقاطك بالسحب بعد المراجعة.",
-        ابدأ:"ابدأ الآن",
-        دخول:"تسجيل الدخول",
-        قائمة:"القائمة",
-        رابط_تسجيل:"تسجيل الدخول",
-        رابط_إنشاء:"إنشاء حساب",
-        تعليمات:"تعليمات",
-        خصوصية:"سياسة الخصوصية",
-        وقت_عنوان:"المتوسط للوصول لأول طلب",
-        يومي_عنوان:"متوسط المكافآت اليومية",
-        إجمالي_عنوان:"إجمالي المكافآت",
-        تذييل1:"الدومين:",
-        تذييل_تعليمات:"تعليمات",
-        تذييل_خصوصية:"سياسة الخصوصية",
-        إنشاء_عنوان:"إنشاء حساب",
-        إنشاء_وصف:"أنشئ حسابك الآن لتبدأ تنفيذ المهام وكسب النقاط",
-        دخول_عنوان:"تسجيل الدخول",
-        دخول_وصف:"سجّل دخولك للوصول إلى حسابك ومتابعة مهامك",
-        زر_إنشاء:"إنشاء حساب",
-        زر_دخول:"تسجيل الدخول",
-        زر_جوجل:"متابعة باستخدام جوجل",
-        لديك_حساب:"لدي حساب — تسجيل الدخول",
-        جديد:"مستخدم جديد — إنشاء حساب",
-        قانوني:"باستخدامك للمنصة فأنت توافق على سياسة الخصوصية، ويُمنع الغش أو التحايل أو استخدام أكثر من حساب لنفس الشخص.",
-        حقول_اسم:"الاسم الكامل",
-        حقول_بريد:"البريد الإلكتروني",
-        حقول_كلمة:"كلمة المرور",
-        حقول_دولة:"اختر الدولة",
-        حقول_هاتف:"رقم الهاتف (اختياري)"
-      },
-      en: {
-        dir:"ltr",
-        شارة:"English",
-        اسم:"MintCash",
-        شعار:"Earn points with ease",
-        عنوان_أخضر:"EARN MONEY",
-        عنوان_باقي:" while having fun",
-        وصف:"Earn points by completing simple tasks like trying an app, playing a game, or finishing a survey — then cash out after review.",
-        ابدأ:"Start now",
-        دخول:"Sign in",
-        قائمة:"Menu",
-        رابط_تسجيل:"Sign in",
-        رابط_إنشاء:"Create account",
-        تعليمات:"Instructions",
-        خصوصية:"Privacy policy",
-        وقت_عنوان:"Average time to first request",
-        يومي_عنوان:"Average daily rewards",
-        إجمالي_عنوان:"Total rewards",
-        تذييل1:"Domain:",
-        تذييل_تعليمات:"Instructions",
-        تذييل_خصوصية:"Privacy policy",
-        إنشاء_عنوان:"Create account",
-        إنشاء_وصف:"Create your account to start earning points",
-        دخول_عنوان:"Sign in",
-        دخول_وصف:"Sign in to access your account",
-        زر_إنشاء:"Create account",
-        زر_دخول:"Sign in",
-        زر_جوجل:"Continue with Google",
-        لديك_حساب:"I have an account — Sign in",
-        جديد:"New user — Create account",
-        قانوني:"By using this platform you agree to the privacy policy. Fraud, manipulation, or multiple accounts are not allowed.",
-        حقول_اسم:"Full name",
-        حقول_بريد:"Email",
-        حقول_كلمة:"Password",
-        حقول_دولة:"Select country",
-        حقول_هاتف:"Phone (optional)"
-      }
+      ar: { dir:"rtl", شارة:"عربي", اسم:"منت كاش", شعار:"اكسب نقاطك بسهولة", عنوان_أخضر:"اكسب المال", عنوان_باقي:" أثناء المتعة", وصف:"اربح نقاطًا عبر إكمال مهام بسيطة مثل تجربة تطبيق، لعب لعبة، أو إكمال استبيان — ثم استبدل نقاطك بالسحب بعد المراجعة.", ابدأ:"ابدأ الآن", دخول:"تسجيل الدخول", قائمة:"القائمة", رابط_تسجيل:"تسجيل الدخول", رابط_إنشاء:"إنشاء حساب", تعليمات:"تعليمات", خصوصية:"سياسة الخصوصية", وقت_عنوان:"المتوسط للوصول لأول طلب", يومي_عنوان:"متوسط المكافآت اليومية", إجمالي_عنوان:"إجمالي المكافآت", تذييل1:"الدومين:", تذييل_تعليمات:"تعليمات", تذييل_خصوصية:"سياسة الخصوصية", حقول_اسم:"الاسم الكامل", حقول_بريد:"البريد الإلكتروني", حقول_كلمة:"كلمة المرور", حقول_دولة:"اختر الدولة", حقول_هاتف:"رقم الهاتف (اختياري)", زر_جوجل:"متابعة باستخدام جوجل", لديك_حساب:"لدي حساب — تسجيل الدخول", جديد:"مستخدم جديد — إنشاء حساب", قانوني:"باستخدامك للمنصة فأنت توافق على سياسة الخصوصية" },
+      en: { dir:"ltr", شارة:"English", اسم:"MintCash", شعار:"Earn points with ease", عنوان_أخضر:"EARN MONEY", عنوان_باقي:" while having fun", وصف:"Earn points by completing simple tasks like trying an app, playing a game, or finishing a survey — then cash out after review.", ابدأ:"Start now", دخول:"Sign in", قائمة:"Menu", رابط_تسجيل:"Sign in", رابط_إنشاء:"Create account", تعليمات:"Instructions", خصوصية:"Privacy policy", وقت_عنوان:"Average time to first request", يومي_عنوان:"Average daily rewards", إجمالي_عنوان:"Total rewards", تذييل1:"Domain:", تذييل_تعليمات:"Instructions", تذييل_خصوصية:"Privacy policy", حقول_اسم:"Full name", حقول_بريد:"Email", حقول_كلمة:"Password", حقول_دولة:"Select country", حقول_هاتف:"Phone (optional)", زر_جوجل:"Continue with Google", لديك_حساب:"I have an account — Sign in", جديد:"New user — Create account", قانوني:"By using this platform you agree to the privacy policy" }
     };
 
-    let لغة = (localStorage.getItem("لغة_منت_كاش") || ((navigator.language||"").toLowerCase().startsWith("ar") ? "ar" : "en"));
+    let لغة = (localStorage.getItem("لغة_منت_كاش") || "ar");
 
     function طبق_اللغة(){
       const t = نصوص[لغة];
-      document.documentElement.lang = (لغة==="ar" ? "ar" : "en");
+      document.documentElement.lang = لغة;
       document.documentElement.dir = t.dir;
-
       $("شارة_لغة").textContent = t.شارة;
       $("اسم_الموقع").textContent = t.اسم;
       $("شعار_قصير").textContent = t.شعار;
@@ -1088,56 +892,26 @@
       $("وصف_رئيسي").textContent = t.وصف;
       $("زر_ابدأ").textContent = t.ابدأ;
       $("زر_دخول").textContent = t.دخول;
-
       $("عنوان_القائمة").textContent = t.قائمة;
       $("نص_تسجيل").textContent = t.رابط_تسجيل;
       $("نص_إنشاء").textContent = t.رابط_إنشاء;
       $("نص_تعليمات").textContent = t.تعليمات;
       $("نص_خصوصية").textContent = t.خصوصية;
-
       $("نص_وقت_عنوان").textContent = t.وقت_عنوان;
       $("نص_يومي_عنوان").textContent = t.يومي_عنوان;
       $("نص_إجمالي_عنوان").textContent = t.إجمالي_عنوان;
-
       $("تذييل_1").textContent = t.تذييل1;
       $("تذييل_تعليمات").textContent = t.تذييل_تعليمات;
       $("تذييل_خصوصية").textContent = t.تذييل_خصوصية;
-
-      // نافذة التسجيل حسب الوضع الحالي
-      if(وضع==="دخول"){
-        $("عنوان_تسجيل").textContent = t.دخول_عنوان;
-        $("وصف_تسجيل").textContent = t.دخول_وصف;
-        $("زر_تنفيذ").textContent = t.زر_دخول;
-      }else{
-        $("عنوان_تسجيل").textContent = t.إنشاء_عنوان;
-        $("وصف_تسجيل").textContent = t.إنشاء_وصف;
-        $("زر_تنفيذ").textContent = t.زر_إنشاء;
-      }
-
-      $("نص_جوجل").textContent = t.زر_جوجل;
-      $("زر_تحويل_لوضع_دخول").textContent = t.لديك_حساب;
-      $("زر_تحويل_لوضع_إنشاء").textContent = t.جديد;
-      $("ملاحظة_قانونية").firstChild && ( $("ملاحظة_قانونية").childNodes[0].textContent = t.قانوني.split("سياسة الخصوصية")[0] ? t.قانوني : t.قانوني );
-
-      // حقول
       $("حقل_اسم").placeholder = t.حقول_اسم;
       $("حقل_بريد").placeholder = t.حقول_بريد;
       $("حقل_كلمة").placeholder = t.حقول_كلمة;
-      $("حقل_هاتف").placeholder = t.حقول_هاتف;
-
       $("حقل_بريد_دخول").placeholder = t.حقول_بريد;
       $("حقل_كلمة_دخول").placeholder = t.حقول_كلمة;
-
-      // خيار الدولة الأول
+      $("نص_جوجل").textContent = t.زر_جوجل;
+      $("زر_تحويل_لوضع_دخول").textContent = t.لديك_حساب;
+      $("زر_تحويل_لوضع_إنشاء").textContent = t.جديد;
       $("حقل_دولة").options[0].textContent = t.حقول_دولة;
-
-      // ربط محتوى النص إذا كانت نافذة النص مفتوحة
-      if($("غطاء_نص").classList.contains("مفتوح")){
-        // لا نغير النوع الحالي؛ فقط نعيد بناء المحتوى بحسب العنوان
-        const عنوان = $("عنوان_نص").textContent;
-        if(عنوان.includes("Privacy") || عنوان.includes("الخصوصية")) افتح_نص("خصوصية");
-        else افتح_نص("تعليمات");
-      }
     }
 
     $("زر_لغة").onclick = ()=>{
@@ -1147,17 +921,14 @@
     };
 
     /* =========================
-       9) منع بقاء المستخدم على نفس الصفحة:
-          إذا تم تسجيل الدخول بنجاح -> نقل
+       9) حل مشكلة التحديث المستمر
     ========================== */
     تحقق.onAuthStateChanged((مستخدم)=>{
-      // إذا المستخدم موجود وهو بالفعل داخل الصفحة، ننقله مباشرة (إلا إذا كان يريد القراءة فقط)
-      // سننقل فقط إذا كانت نافذة التسجيل مفتوحة أو تم الدخول للتو.
       if(مستخدم){
-        // إغلاق النوافذ
-        try{ اغلق_تسجيل(); }catch(e){}
-        // توجيه للصفحة التالية
-        setTimeout(()=>{ window.location.href = "اكسب.html"; }, 300);
+        // نتحقق أننا لسنا بالفعل في صفحة earn.html لتجنب حلقة التحديث اللانهائية
+        if (!window.location.pathname.includes("earn.html")) {
+            window.location.replace("earn.html");
+        }
       }
     });
 
@@ -1166,4 +937,3 @@
   </script>
 </body>
 </html>
-```0
