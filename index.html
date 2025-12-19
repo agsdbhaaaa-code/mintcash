@@ -1,939 +1,233 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>منت كاش | اكسب المال أثناء المتعة</title>
-  <meta name="description" content="منت كاش — اكسب نقاطًا عبر تنفيذ مهام مثل تجربة التطبيقات والألعاب والاستبيانات ثم استبدلها بسحوبات." />
-  <meta name="theme-color" content="#07110e" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منت كاش | MintCash - الموقع الرسمي</title>
+    
+    <meta name="description" content="منت كاش MintCash المنصة العربية الأولى لربح المال من الإنترنت عبر المهام والألعاب. سجل الآن وابدأ بجني الأرباح وسحبها فوراً.">
+    <meta name="keywords" content="منت كاش, MintCash, ربح منت كاش, اربح من اكمال المهام, اربح من الانترنت, make money online, earn money">
 
-  <style>
-    :root{
-      --أخضر:#2dff88;
-      --أخضر2:#0de86a;
-      --خلف:#07110e;
-      --لوحة:rgba(12,23,21,.88);
-      --لوحة2:rgba(8,12,11,.90);
-      --حد:rgba(255,255,255,.14);
-      --نص:#eafff6;
-      --نص2:rgba(234,255,246,.76);
-      --ظل:0 20px 70px rgba(0,0,0,.55);
-      --دائري:22px;
-      --زر:56px;
-      --عرض:1100px;
-      --خط: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans Arabic", "Noto Kufi Arabic", "Tajawal";
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:var(--خط);
-      color:var(--نص);
-      background:
-        linear-gradient(rgba(0,0,0,.58), rgba(0,0,0,.58)),
-        url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEioGadxhmGRd2UJiH3Utj15KOcxGxPY3ZcTSRjIeElA6jt2PySe2h0NQ0lDpchkZsSqGDEf1EQ82nDcMkbUd3-Qw8zPa4TpLnEDOt3SegWkyjiJoCAqRa6E0HCpfJrVSdm9xL_hTubA86EFmebwZAdkIAKHYlMVrZ31okUr-16LYD_Dc81vs-_p7AGOeuQ/s1376/1766075604391.jpg")
-        center/cover no-repeat fixed;
-      overflow-x:hidden;
-    }
-    a{color:inherit;text-decoration:none}
-    button{font-family:inherit}
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 
-    /* شريط علوي */
-    header{
-      position:fixed; inset-inline:0; top:0;
-      z-index:20;
-      padding:14px 14px;
-      display:flex;
-      justify-content:center;
-      pointer-events:none;
-    }
-    .شريط{
-      width:min(var(--عرض), calc(100% - 0px));
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      padding:12px 12px;
-      border:1px solid var(--حد);
-      border-radius:18px;
-      background:rgba(8,12,11,.45);
-      backdrop-filter: blur(12px);
-      box-shadow: var(--ظل);
-      pointer-events:auto;
-    }
-    .هوية{display:flex;align-items:center;gap:10px;user-select:none}
-    .هوية img{
-      width:42px;height:42px;border-radius:50%;
-      border:1px solid rgba(255,255,255,.18);
-      box-shadow:0 10px 26px rgba(0,0,0,.35);
-      background:rgba(255,255,255,.06);
-      object-fit:cover;
-    }
-    .اسم{display:flex;flex-direction:column;line-height:1.1}
-    .اسم b{font-size:16px;letter-spacing:.2px}
-    .اسم span{font-size:12px;color:var(--نص2)}
-    .أزرار_علوية{display:flex;align-items:center;gap:10px}
+    <style>
+        :root {
+            --primary: #00ff73;
+            --bg: #050a0e;
+            --card: #0f172a;
+            --text: #ffffff;
+            --text-dim: #94a3b8;
+        }
 
-    .زر_أيقونة{
-      height:42px; min-width:42px;
-      border-radius:14px;
-      border:1px solid var(--حد);
-      background:rgba(0,0,0,.30);
-      color:var(--نص);
-      display:grid;place-items:center;
-      cursor:pointer;
-      transition:.18s ease;
-      backdrop-filter: blur(12px);
-    }
-    .زر_أيقونة:hover{transform:translateY(-1px); border-color:rgba(45,255,136,.35)}
-    .زر_أيقونة:active{transform:translateY(0px) scale(.99)}
-    .زر_لغة{
-      padding:0 12px; min-width:auto;
-      display:flex; align-items:center; gap:8px;
-      font-weight:900;
-    }
-    .زر_أيقونة svg{width:18px;height:18px}
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; transition: 0.3s; }
+        body { background-color: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
 
-    /* محتوى */
-    main{
-      min-height:100svh;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      padding:110px 14px 46px;
-    }
-    .حاوية{
-      width:min(var(--عرض), 100%);
-      display:grid;
-      gap:18px;
-      justify-items:center;
-      text-align:center;
-    }
-    h1{
-      margin:0;
-      font-size: clamp(28px, 4.8vw, 56px);
-      line-height:1.06;
-      text-shadow:0 20px 60px rgba(0,0,0,.55);
-    }
-    h1 .أخضر{color:var(--أخضر); text-shadow:0 20px 60px rgba(45,255,136,.18)}
-    .وصف{
-      margin:0;
-      max-width:860px;
-      font-size: clamp(14px, 2.1vw, 18px);
-      color:rgba(234,255,246,.92);
-      line-height:1.65;
-    }
+        /* Navigation */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: rgba(5, 10, 14, 0.95); backdrop-filter: blur(10px); position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .nav-btns { display: flex; gap: 12px; }
+        .btn { padding: 10px 22px; border-radius: 12px; font-weight: bold; cursor: pointer; border: none; font-size: 14px; display: flex; align-items: center; justify-content: center; }
+        .btn-lang { background: transparent; border: 1.5px solid var(--primary); color: var(--primary); }
+        .btn-login { background: #1e293b; color: #fff; }
+        .btn-reg { background: var(--primary); color: #000; box-shadow: 0 0 20px rgba(0, 255, 115, 0.4); }
 
-    .أزرار{
-      margin-top:6px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      justify-content:center;
-    }
-    .زر{
-      height:var(--زر);
-      padding:0 22px;
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,.18);
-      background:rgba(0,0,0,.32);
-      color:var(--نص);
-      font-weight:1000;
-      cursor:pointer;
-      box-shadow:var(--ظل);
-      backdrop-filter: blur(12px);
-      transition:.18s ease;
-      min-width: 180px;
-    }
-    .زر:hover{transform:translateY(-1px); border-color:rgba(45,255,136,.35)}
-    .زر:active{transform:translateY(0px) scale(.99)}
-    .زر.أساسي{
-      border:none;
-      background:linear-gradient(90deg, var(--أخضر), var(--أخضر2));
-      color:#062014;
-      box-shadow:0 22px 80px rgba(45,255,136,.18);
-    }
+        /* Hero */
+        .hero { padding: 150px 20px 80px; text-align: center; background: radial-gradient(circle at top, rgba(0,255,115,0.1) 0%, transparent 70%); }
+        .logo-main { width: 160px; height: 160px; border-radius: 50%; border: 4px solid var(--primary); padding: 5px; margin-bottom: 30px; box-shadow: 0 0 40px var(--primary); }
+        h1 { font-size: 42px; font-weight: 900; color: var(--primary); margin-bottom: 15px; }
+        .hero p { font-size: 18px; color: var(--text-dim); max-width: 700px; margin: 0 auto 40px; }
 
-    /* بطاقات معلومات (قابلة للتمرير) */
-    .شبكة{
-      width:100%;
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap:12px;
-      margin-top: 10px;
-    }
-    @media (max-width:900px){.شبكة{grid-template-columns:1fr;}}
-    .بطاقة{
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(10,14,13,.45);
-      border-radius: 22px;
-      padding:14px;
-      box-shadow:0 18px 60px rgba(0,0,0,.45);
-      backdrop-filter: blur(12px);
-      text-align:start;
-    }
-    .بطاقة b{display:block; font-size:14px; margin-bottom:6px}
-    .بطاقة .قيمة{
-      display:block;
-      font-size:20px;
-      font-weight:1000;
-      color:var(--أخضر);
-      margin-bottom:6px;
-    }
-    .بطاقة span{display:block;color:rgba(234,255,246,.86);line-height:1.6;font-size:13px}
+        /* Stats */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; padding: 0 5%; max-width: 1100px; margin: 0 auto; }
+        .stat-card { background: var(--card); padding: 30px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.05); text-align: center; }
+        .stat-card h3 { font-size: 32px; color: #fff; margin-bottom: 10px; }
+        .stat-card p { color: var(--text-dim); font-size: 14px; }
 
-    /* شريط سفلي بسيط */
-    .تذييل{
-      margin-top: 6px;
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:center;
-      color:rgba(234,255,246,.72);
-      font-size:12px;
-    }
-    .تذييل a{color:rgba(45,255,136,.96); font-weight:1000}
+        /* Modals */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); z-index: 2000; align-items: center; justify-content: center; padding: 20px; }
+        .modal-content { background: #0f172a; padding: 35px; border-radius: 28px; width: 100%; max-width: 480px; position: relative; border-top: 5px solid var(--primary); text-align: right; box-shadow: 0 20px 50px rgba(0,0,0,0.5); max-height: 90vh; overflow-y: auto; }
+        .close-btn { position: absolute; top: 20px; left: 20px; color: var(--text-dim); cursor: pointer; font-size: 24px; }
+        
+        input, select { width: 100%; padding: 15px; margin: 12px 0; background: #1e293b; border: 1px solid #334155; color: #fff; border-radius: 12px; font-size: 16px; }
+        
+        /* Google Button - Fixed Icon */
+        .google-btn { background: #ffffff; color: #1f1f1f; width: 100%; padding: 14px; border-radius: 14px; display: flex; align-items: center; justify-content: center; gap: 12px; font-weight: bold; border: 1px solid #dadce0; margin-top: 20px; cursor: pointer; font-size: 16px; }
+        .google-icon { width: 22px; height: 22px; }
 
-    /* قائمة جانبية */
-    .ستارة{
-      position:fixed; inset:0;
-      background:rgba(0,0,0,.66);
-      display:none;
-      z-index:40;
-    }
-    .ستارة.مفتوحة{display:block}
-    .قائمة{
-      position:fixed;
-      top:0; bottom:0;
-      inset-inline-start:0;
-      width:min(320px, 86vw);
-      background:linear-gradient(180deg, rgba(12,23,21,.96), rgba(8,12,11,.96));
-      border-inline-end:1px solid rgba(255,255,255,.12);
-      box-shadow:0 30px 120px rgba(0,0,0,.65);
-      transform:translateX(110%);
-      transition:.22s ease;
-      z-index:45;
-      padding:16px 14px;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
-    [dir="ltr"] .قائمة{inset-inline-start:auto; inset-inline-end:0; transform:translateX(-110%);}
-    .قائمة.مفتوحة{transform:translateX(0)}
-    .قائمة_رأس{
-      display:flex;align-items:center;justify-content:space-between;gap:10px;
-      padding:10px 8px 14px;
-      border-bottom:1px solid rgba(255,255,255,.10);
-    }
-    .قائمة_رأس b{font-size:15px}
-    .اغلاق{
-      width:40px;height:40px;border-radius:14px;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(255,255,255,.06);
-      color:var(--نص);
-      cursor:pointer;
-    }
-    .روابط{display:grid;gap:10px;margin-top:10px}
-    .رابط{
-      width:100%;
-      text-align:start;
-      padding:14px 12px;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(255,255,255,.05);
-      color:var(--نص);
-      cursor:pointer;
-      display:flex;justify-content:space-between;gap:10px;align-items:center;
-    }
-    .رابط:hover{border-color:rgba(45,255,136,.35)}
-    .شارة{
-      font-size:12px;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid rgba(45,255,136,.28);
-      background:rgba(45,255,136,.12);
-      font-weight:900;
-    }
+        footer { padding: 60px 5% 30px; background: #030712; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 80px; text-align: center; }
+        .f-links { display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; margin-bottom: 30px; }
+        .f-links a { color: var(--text-dim); text-decoration: none; font-size: 14px; cursor: pointer; }
+        .f-links a:hover { color: var(--primary); }
 
-    /* نافذة تسجيل */
-    .غطاء{
-      position:fixed; inset:0;
-      background:rgba(0,0,0,.70);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:16px;
-      z-index:60;
-    }
-    .غطاء.مفتوح{display:flex}
-    .نافذة{
-      width:min(560px, 100%);
-      border-radius: 26px;
-      border:1px solid rgba(255,255,255,.14);
-      background:linear-gradient(180deg, rgba(12,23,21,.92), rgba(8,12,11,.92));
-      box-shadow:0 40px 140px rgba(0,0,0,.70);
-      overflow:hidden;
-    }
-    .نافذة_رأس{
-      display:flex;align-items:center;justify-content:space-between;gap:10px;
-      padding:16px 16px;
-      border-bottom:1px solid rgba(255,255,255,.10);
-    }
-    .نافذة_رأس .نص{
-      text-align:start;
-      display:flex;flex-direction:column;gap:4px;
-    }
-    .نافذة_رأس .نص b{font-size:16px}
-    .نافذة_رأس .نص span{font-size:12px;color:var(--نص2);line-height:1.5}
-    .إغلاق_نافذة{
-      width:42px;height:42px;border-radius:14px;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(255,255,255,.06);
-      color:var(--نص);
-      cursor:pointer;
-    }
-    .نافذة_جسم{padding:14px 16px 16px; text-align:start}
-    .مجموعة{display:grid;gap:10px}
-    .حقل{
-      display:flex;gap:10px;align-items:center;
-      padding:13px 12px;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(255,255,255,.04);
-    }
-    .حقل input,.حقل select{
-      flex:1;
-      border:0; outline:none;
-      background:transparent;
-      color:var(--نص);
-      font-size:14px;
-    }
-    .حقل select{appearance:none}
-    .ملاحظة{
-      margin:8px 2px 12px;
-      font-size:12px;
-      color:rgba(234,255,246,.74);
-      line-height:1.65;
-    }
-    .ملاحظة button{
-      border:0;
-      background:transparent;
-      color:rgba(45,255,136,.96);
-      font-weight:1000;
-      cursor:pointer;
-      padding:0;
-    }
-    .زر_نموذج{
-      width:100%;
-      height:58px;
-      border-radius:20px;
-      border:0;
-      cursor:pointer;
-      font-weight:1000;
-      letter-spacing:.2px;
-      background:linear-gradient(90deg, var(--أخضر), var(--أخضر2));
-      color:#062014;
-      box-shadow:0 18px 70px rgba(45,255,136,.18);
-    }
-    .فاصل{
-      display:flex;align-items:center;gap:10px;
-      margin:12px 0;
-      color:rgba(234,255,246,.68);
-      font-size:12px;
-    }
-    .فاصل::before,.فاصل::after{
-      content:""; flex:1; height:1px; background:rgba(255,255,255,.12);
-    }
-    .زر_جوجل{
-      width:100%;
-      height:54px;
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,.16);
-      background:rgba(255,255,255,.06);
-      color:var(--نص);
-      cursor:pointer;
-      font-weight:1000;
-      display:flex;align-items:center;justify-content:center;gap:12px;
-    }
-    .زر_جوجل img{width:22px;height:22px}
-    .صف_زرين{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:10px;
-      margin-top:10px;
-    }
-    @media (max-width:560px){.صف_زرين{grid-template-columns:1fr}}
-    .زر_ثانوي{
-      height:52px;
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,.16);
-      background:rgba(0,0,0,.28);
-      color:var(--نص);
-      cursor:pointer;
-      font-weight:1000;
-    }
+        .tg-float { position: fixed; bottom: 30px; left: 30px; background: #229ED9; width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 1000; box-shadow: 0 10px 20px rgba(34, 158, 217, 0.4); }
 
-    /* نافذة تعليمات/خصوصية */
-    .صفحة_نص{
-      max-height: 66svh;
-      overflow:auto;
-      padding-inline:2px;
-    }
-    .قسم{
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(255,255,255,.03);
-      border-radius:18px;
-      padding:12px;
-      margin-top:10px;
-    }
-    .قسم h3{margin:0 0 8px; font-size:14px}
-    .قسم p{margin:0; color:rgba(234,255,246,.86); line-height:1.75; font-size:13px}
-    .قائمة_نقاط{margin:8px 0 0; padding:0 18px; color:rgba(234,255,246,.86); font-size:13px; line-height:1.75}
-    .قائمة_نقاط li{margin:6px 0}
-
-    /* رسائل */
-    .تنبيه{
-      position:fixed;
-      top:14px;
-      inset-inline:14px;
-      max-width:560px;
-      margin:0 auto;
-      z-index:80;
-      display:grid;
-      gap:10px;
-      pointer-events:none;
-    }
-    .تنبيه .رسالة{
-      pointer-events:auto;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(12,23,21,.92);
-      box-shadow:0 18px 70px rgba(0,0,0,.55);
-      border-radius:16px;
-      padding:12px;
-      display:flex;align-items:flex-start;justify-content:space-between;gap:10px;
-    }
-    .رسالة b{display:block;font-size:13px;margin-bottom:4px}
-    .رسالة span{display:block;color:rgba(234,255,246,.78);font-size:12px;line-height:1.5}
-    .إغلاق_رسالة{cursor:pointer;opacity:.85;user-select:none}
-
-    /* تعطيل زر */
-    .معطل{opacity:.55; cursor:not-allowed; filter:saturate(.7)}
-  </style>
+        /* English/Arabic Support */
+        [lang="en"] { direction: ltr; text-align: left; }
+        [lang="en"] .modal-content { text-align: left; }
+        [lang="en"] .close-btn { left: auto; right: 20px; }
+    </style>
 </head>
+<body id="pageBody">
 
-<body>
-  <div class="تنبيه" id="تنبيه"></div>
-
-  <header>
-    <div class="شريط">
-      <div class="هوية">
-        <img id="شعار" alt="شعار منت كاش"
-             src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhTrhu7Mi9p9krwFaOjjVmV_Yqi8PMNXcMpnJWQka-f3QpemAOY-8nK_QCzXBHFkQENTdNctzUxY61FK0Wi-uZh6hruvb2s_qZ7aTjluaNrYIzat6Y_0ODG_2F9s25ETtwDcBwyXqRz4HlG-4YIG6_mPXR8A6MzuwESeCpYMoqXEAjXG1Qm0vaveW7n9KI/s562/Screenshot_%D9%A2%D9%A0%D9%A2%D9%A5%D9%A1%D9%A2%D9%A1%D9%A8_%D9%A2%D9%A0%D9%A4%D9%A0%D9%A3%D9%A2_Google.jpg" />
-        <div class="اسم">
-          <b id="اسم_الموقع">منت كاش</b>
-          <span id="شعار_قصير">اكسب نقاطك بسهولة</span>
+    <nav>
+        <div class="nav-btns">
+            <button class="btn btn-lang" onclick="toggleLang()" id="langBtn">EN</button>
+            <button class="btn btn-login" onclick="showModal('loginModal')" data-i18n="nav_login">تسجيل دخول</button>
+            <button class="btn btn-reg" onclick="showModal('regModal')" data-i18n="nav_join">انضم إلينا</button>
         </div>
-      </div>
+        <div style="color: var(--primary); font-weight: 900; font-size: 24px;">MINTCASH</div>
+    </nav>
 
-      <div class="أزرار_علوية">
-        <button class="زر_أيقونة زر_لغة" id="زر_لغة" type="button" aria-label="تغيير اللغة">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z" stroke="currentColor" stroke-width="2"/>
-            <path d="M3 12h18" stroke="currentColor" stroke-width="2"/>
-            <path d="M12 3c2.6 2.5 4 5.6 4 9s-1.4 6.5-4 9c-2.6-2.5-4-5.6-4-9s1.4-6.5 4-9Z" stroke="currentColor" stroke-width="2" opacity=".9"/>
-          </svg>
-          <span id="شارة_لغة">عربي</span>
+    <div class="hero">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhTrhu7Mi9p9krwFaOjjVmV_Yqi8PMNXcMpnJWQka-f3QpemAOY-8nK_QCzXBHFkQENTdNctzUxY61FK0Wi-uZh6hruvb2s_qZ7aTjluaNrYIzat6Y_0ODG_2F9s25ETtwDcBwyXqRz4HlG-4YIG6_mPXR8A6MzuwESeCpYMoqXEAjXG1Qm0vaveW7n9KI/s562/Screenshot_%D9%A2%D9%A0%D9%A2%D9%A5%D9%A1%D9%A2%D9%A1%D9%A8_%D9%A2%D9%A0%D9%A4%D9%A0%D9%A3%D9%A2_Google.jpg" class="logo-main">
+        <h1 data-i18n="hero_title">اربح المال مع منت كاش</h1>
+        <p data-i18n="hero_p">حوّل وقتك إلى أرباح حقيقية. نفذ المهام اليومية، استمتع بالألعاب، واسحب دولاراتك فوراً عبر المنصة الأكثر أماناً في العالم العربي.</p>
+        <button class="btn btn-reg" style="padding: 18px 60px; font-size: 1.2rem; margin: 0 auto;" onclick="showModal('regModal')" data-i18n="hero_btn">ابدأ رحلة الأرباح الآن</button>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card"><h3>17m 12s</h3><p data-i18n="s1">متوسط وقت أول سحب للمستخدمين</p></div>
+        <div class="stat-card"><h3>$34.67</h3><p data-i18n="s2">متوسط أرباح المستخدمين يومياً</p></div>
+        <div class="stat-card"><h3>+$25,000</h3><p data-i18n="s3">إجمالي الأرباح المدفوعة للآن</p></div>
+    </div>
+
+    <div id="regModal" class="modal"><div class="modal-content"><span class="close-btn" onclick="hideModal('regModal')">✕</span>
+        <h2 style="color:var(--primary); text-align:center;" data-i18n="reg_h">إنشاء حساب جديد</h2>
+        <form id="regForm">
+            <input type="text" id="rName" placeholder="الاسم الكامل" required>
+            <input type="email" id="rEmail" placeholder="البريد الإلكتروني" required>
+            <input type="password" id="rPass" placeholder="كلمة المرور" required>
+            <select id="rCountry"></select>
+            <button type="submit" class="btn btn-reg" style="width:100%; padding:15px;" data-i18n="reg_btn">تأكيد التسجيل</button>
+        </form>
+        <button class="google-btn" onclick="googleAuth()">
+            <svg class="google-icon" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24s.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/><path fill="none" d="M0 0h48v48H0z"/></svg>
+            <span data-i18n="google_btn">المتابعة باستخدام Google</span>
         </button>
+    </div></div>
 
-        <button class="زر_أيقونة" id="زر_قائمة" type="button" aria-label="القائمة">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </button>
-      </div>
-    </div>
-  </header>
+    <div id="loginModal" class="modal"><div class="modal-content"><span class="close-btn" onclick="hideModal('loginModal')">✕</span>
+        <h2 style="color:var(--primary); text-align:center;" data-i18n="nav_login">تسجيل الدخول</h2>
+        <form id="loginForm">
+            <input type="email" id="lEmail" placeholder="البريد الإلكتروني" required>
+            <input type="password" id="lPass" placeholder="كلمة المرور" required>
+            <button type="submit" class="btn btn-reg" style="width:100%; padding:15px;" data-i18n="login_btn">دخول الحساب</button>
+        </form>
+    </div></div>
 
-  <div class="ستارة" id="ستارة"></div>
-  <aside class="قائمة" id="قائمة" aria-label="القائمة الجانبية">
-    <div class="قائمة_رأس">
-      <b id="عنوان_القائمة">القائمة</b>
-      <button class="اغلاق" id="زر_اغلاق_قائمة" type="button" aria-label="إغلاق">✕</button>
-    </div>
+    <div id="infoModal" class="modal"><div class="modal-content" style="max-width:600px;"><span class="close-btn" onclick="hideModal('infoModal')">✕</span>
+        <div id="infoTarget"></div>
+    </div></div>
 
-    <div class="روابط">
-      <button class="رابط" type="button" id="رابط_تسجيل">
-        <span id="نص_تسجيل">تسجيل الدخول</span>
-        <span class="شارة" id="شارة_تسجيل">دخول</span>
-      </button>
+    <a href="https://t.me/A_L_0_0_0_1" class="tg-float" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" width="35">
+    </a>
 
-      <button class="رابط" type="button" id="رابط_إنشاء">
-        <span id="نص_إنشاء">إنشاء حساب</span>
-        <span class="شارة" id="شارة_إنشاء">جديد</span>
-      </button>
-
-      <button class="رابط" type="button" id="رابط_تعليمات">
-        <span id="نص_تعليمات">تعليمات</span>
-        <span class="شارة">مهم</span>
-      </button>
-
-      <button class="رابط" type="button" id="رابط_خصوصية">
-        <span id="نص_خصوصية">سياسة الخصوصية</span>
-        <span class="شارة">قانوني</span>
-      </button>
-    </div>
-  </aside>
-
-  <main>
-    <div class="حاوية">
-      <h1 id="عنوان_رئيسي">
-        <span class="أخضر" id="عنوان_أخضر">اكسب المال</span>
-        <span id="عنوان_باقي"> أثناء المتعة</span>
-      </h1>
-
-      <p class="وصف" id="وصف_رئيسي">
-        اربح نقاطًا عبر إكمال مهام بسيطة مثل تجربة تطبيق، لعب لعبة، أو إكمال استبيان — ثم استبدل نقاطك بالسحب بعد المراجعة.
-      </p>
-
-      <div class="أزرار">
-        <button class="زر أساسي" id="زر_ابدأ" type="button">ابدأ الآن</button>
-        <button class="زر" id="زر_دخول" type="button">تسجيل الدخول</button>
-      </div>
-
-      <div class="شبكة" aria-label="مؤشرات">
-        <div class="بطاقة">
-          <b id="نص_وقت_عنوان">المتوسط للوصول لأول طلب</b>
-          <span class="قيمة" id="نص_وقت_قيمة">15 دقيقة و12 ثانية</span>
-          <span id="نص_وقت_وصف">متوسط المدة التي يحتاجها المستخدم لإكمال أول مهمة والوصول إلى أول طلب سحب داخل منصة منت كاش</span>
+    <footer>
+        <div class="f-links">
+            <a onclick="showInfo('about')" data-i18n="f_about">من نحن</a>
+            <a onclick="showInfo('faq')" data-i18n="f_faq">الأسئلة الشائعة</a>
+            <a onclick="showInfo('policy')" data-i18n="f_policy">سياسة الخصوصية</a>
+            <a onclick="showInfo('terms')" data-i18n="f_terms">شروط الاستخدام</a>
         </div>
+        <p style="font-size: 13px; color: var(--text-dim);">© 2025 MintCash. All Rights Reserved.</p>
+    </footer>
 
-        <div class="بطاقة">
-          <b id="نص_يومي_عنوان">متوسط المكافآت اليومية</b>
-          <span class="قيمة" id="نص_يومي_قيمة">25 دولارًا يوميًا</span>
-          <span id="نص_يومي_وصف">متوسط الأرباح اليومية التي يحققها المستخدمون من خلال تنفيذ المهام والألعاب المتاحة في MintCash</span>
-        </div>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAR1agEF6AHWHrgY4g_M3EoojdPKB1U9sY",
+            authDomain: "mintcash-65c77.firebaseapp.com",
+            projectId: "mintcash-65c77",
+            storageBucket: "mintcash-65c77.firebasestorage.app",
+            messagingSenderId: "448741584532",
+            appId: "1:448741584532:web:ccad1e2feabd4c8071ce81"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
 
-        <div class="بطاقة">
-          <b id="نص_إجمالي_عنوان">إجمالي المكافآت</b>
-          <span class="قيمة" id="نص_إجمالي_قيمة">أكثر من 15000 دولار أمريكي</span>
-          <span id="نص_إجمالي_وصف">إجمالي المكافآت التي تم توزيعها للمستخدمين عبر منصة منت كاش</span>
-        </div>
-      </div>
+        const translations = {
+            ar: {
+                nav_login: "تسجيل دخول", nav_join: "انضم إلينا", hero_title: "اربح المال مع منت كاش",
+                hero_p: "حوّل وقتك إلى أرباح حقيقية. نفذ المهام اليومية، استمتع بالألعاب، واسحب دولاراتك فوراً عبر المنصة الأكثر أماناً في العالم العربي.",
+                hero_btn: "ابدأ رحلة الأرباح الآن", s1: "متوسط وقت أول سحب للمستخدمين", s2: "متوسط أرباح المستخدمين يومياً",
+                s3: "إجمالي الأرباح المدفوعة للآن", reg_h: "إنشاء حساب جديد", reg_btn: "تأكيد التسجيل",
+                login_btn: "دخول الحساب", google_btn: "المتابعة باستخدام Google", f_about: "من نحن", f_faq: "الأسئلة الشائعة",
+                f_policy: "سياسة الخصوصية", f_terms: "شروط الاستخدام",
+                about_content: "<h2>من نحن</h2><p><b>منت كاش</b> هي منصة عربية مبتكرة تهدف إلى توفير فرص ربح حقيقية للشباب العربي. نحن نربطك بكبرى شركات العروض العالمية والالعاب لتتمكن من جمع النقاط وتحويلها إلى كاش حقيقي بكل مصداقية.</p>",
+                faq_content: "<h2>الأسئلة الشائعة</h2><b>كيف أسحب أرباحي؟</b><p>يمكنك السحب عبر فودافون كاش، بايبال، باير، أو بطاقات جوجل وألعاب.</p><b>هل يمكنني استخدام أكثر من حساب؟</b><p>لا، سياسة المنصة تمنع تعدد الحسابات لضمان العدالة.</p><b>ما نوع المهام المتوفرة؟</b><p>تشمل المهام تحميل التطبيقات، الوصول لمستويات معينة في الألعاب، والإجابة على استطلاعات الرأي.</p>",
+                policy_content: "<h2>سياسة الخصوصية</h2><p>نحن نحمي بياناتك بأعلى معايير التشفير. بياناتك الشخصية تستخدم فقط لإرسال الأرباح إليك ولا يتم مشاركتها أبداً.</p>",
+                terms_content: "<h2>شروط الاستخدام</h2><p>بإستخدامك لمنت كاش، أنت توافق على عدم الغش أو محاولة التلاعب بالعروض. أي محاولة مخالفة تعرض حسابك للإغلاق الدائم.</p>"
+            },
+            en: {
+                nav_login: "Login", nav_join: "Join Us", hero_title: "Earn Money with MintCash",
+                hero_p: "Turn your time into real profits. Complete daily tasks, play games, and withdraw your dollars instantly on the #1 Arab platform.",
+                hero_btn: "Start Earning Now", s1: "Avg. time for first withdrawal", s2: "Avg. daily user earnings",
+                s3: "Total profits paid so far", reg_h: "Create New Account", reg_btn: "Confirm Registration",
+                login_btn: "Login to Account", google_btn: "Continue with Google", f_about: "About Us", f_faq: "FAQ",
+                f_policy: "Privacy Policy", f_terms: "Terms of Use",
+                about_content: "<h2>About Us</h2><p><b>MintCash</b> is an innovative platform offering real earning opportunities. We connect you with top global offerwalls and games to earn cash rewards.</p>",
+                faq_content: "<h2>FAQ</h2><b>How to withdraw?</b><p>Via Vodafone Cash, PayPal, Payeer, or Gift Cards.</p><b>Can I use multiple accounts?</b><p>No, multiple accounts are strictly forbidden.</p>",
+                policy_content: "<h2>Privacy Policy</h2><p>Your data is encrypted and safe with us. We only use it to process your rewards.</p>",
+                terms_content: "<h2>Terms of Use</h2><p>By using MintCash, you agree not to cheat. Fraudulent activity leads to an permanent ban.</p>"
+            }
+        };
 
-      <div class="تذييل">
-        <span id="تذييل_1">الدومين:</span>
-        <b dir="ltr">getmintcash.com</b>
-        <span>•</span>
-        <a href="#" id="تذييل_تعليمات">تعليمات</a>
-        <span>•</span>
-        <a href="#" id="تذييل_خصوصية">سياسة الخصوصية</a>
-      </div>
-    </div>
-  </main>
+        let currentLang = navigator.language.startsWith('ar') ? 'ar' : 'en';
 
-  <div class="غطاء" id="غطاء_تسجيل" role="dialog" aria-modal="true" aria-label="التسجيل">
-    <div class="نافذة" role="document">
-      <div class="نافذة_رأس">
-        <div class="نص">
-          <b id="عنوان_تسجيل">إنشاء حساب</b>
-          <span id="وصف_تسجيل">أنشئ حسابك الآن لتبدأ تنفيذ المهام وكسب النقاط</span>
-        </div>
-        <button class="إغلاق_نافذة" id="زر_اغلاق_تسجيل" type="button" aria-label="إغلاق">✕</button>
-      </div>
-
-      <div class="نافذة_جسم">
-        <div class="مجموعة" id="حقول_إنشاء">
-          <div class="حقل">
-            <input id="حقل_اسم" type="text" autocomplete="name" placeholder="الاسم الكامل" />
-          </div>
-
-          <div class="حقل">
-            <input id="حقل_بريد" type="email" autocomplete="email" placeholder="البريد الإلكتروني" />
-          </div>
-
-          <div class="حقل">
-            <input id="حقل_كلمة" type="password" autocomplete="new-password" placeholder="كلمة المرور" />
-          </div>
-
-          <div class="حقل">
-            <select id="حقل_دولة" aria-label="الدولة">
-              <option value="" selected>اختر الدولة</option>
-            </select>
-          </div>
-
-          <div class="حقل">
-            <input id="حقل_هاتف" type="tel" inputmode="tel" placeholder="رقم الهاتف (اختياري)" />
-          </div>
-        </div>
-
-        <div class="مجموعة" id="حقول_دخول" style="display:none;">
-          <div class="حقل">
-            <input id="حقل_بريد_دخول" type="email" autocomplete="email" placeholder="البريد الإلكتروني" />
-          </div>
-          <div class="حقل">
-            <input id="حقل_كلمة_دخول" type="password" autocomplete="current-password" placeholder="كلمة المرور" />
-          </div>
-        </div>
-
-        <p class="ملاحظة" id="ملاحظة_قانونية">
-          باستخدامك للمنصة فأنت توافق على <button type="button" id="زر_فتح_خصوصية_من_تسجيل">سياسة الخصوصية</button>، ويُمنع الغش أو التحايل أو استخدام أكثر من حساب لنفس الشخص.
-        </p>
-
-        <button class="زر_نموذج" id="زر_تنفيذ" type="button">إنشاء حساب</button>
-
-        <div class="فاصل" id="نص_أو">أو</div>
-
-        <button class="زر_جوجل" id="زر_جوجل" type="button">
-          <img alt="جوجل" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" />
-          <span id="نص_جوجل">متابعة باستخدام جوجل</span>
-        </button>
-
-        <div class="صف_زرين">
-          <button class="زر_ثانوي" id="زر_تحويل_لوضع_دخول" type="button">لدي حساب — تسجيل الدخول</button>
-          <button class="زر_ثانوي" id="زر_تحويل_لوضع_إنشاء" type="button" style="display:none;">مستخدم جديد — إنشاء حساب</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="غطاء" id="غطاء_نص" role="dialog" aria-modal="true" aria-label="محتوى">
-    <div class="نافذة" role="document">
-      <div class="نافذة_رأس">
-        <div class="نص">
-          <b id="عنوان_نص">تعليمات</b>
-          <span id="وصف_نص">اقرأها جيدًا لتضمن إضافة النقاط بشكل صحيح</span>
-        </div>
-        <button class="إغلاق_نافذة" id="زر_اغلاق_نص" type="button" aria-label="إغلاق">✕</button>
-      </div>
-
-      <div class="نافذة_جسم">
-        <div class="صفحة_نص" id="محتوى_نص"></div>
-      </div>
-    </div>
-  </div>
-
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-
-  <script>
-    /* =========================
-       1) إعداد فايربيس
-    ========================== */
-    const إعداد_فايربيس = {
-      apiKey: "AIzaSyAR1agEF6AHWHrgY4g_M3EoojdPKB1U9sY",
-      authDomain: "mintcash-65c77.firebaseapp.com",
-      projectId: "mintcash-65c77",
-      storageBucket: "mintcash-65c77.firebasestorage.app",
-      messagingSenderId: "448741584532",
-      appId: "1:448741584532:web:ccad1e2feabd4c8071ce81",
-      measurementId: "G-44HHCZ090K"
-    };
-
-    firebase.initializeApp(إعداد_فايربيس);
-    const تحقق = firebase.auth();
-
-    /* =========================
-       أدوات
-    ========================== */
-    const $ = (id)=>document.getElementById(id);
-
-    function رسالة(عنوان, نص){
-      const صندوق = $("تنبيه");
-      const عنصر = document.createElement("div");
-      عنصر.className = "رسالة";
-      عنصر.innerHTML = `
-        <div>
-          <b>${عنوان}</b>
-          <span>${نص}</span>
-        </div>
-        <div class="إغلاق_رسالة">✕</div>
-      `;
-      عنصر.querySelector(".إغلاق_رسالة").onclick = ()=> عنصر.remove();
-      صندوق.appendChild(عنصر);
-      setTimeout(()=>{ try{ عنصر.remove(); }catch(e){} }, 5200);
-    }
-
-    function نظف(نص){ return (نص||"").trim(); }
-
-    function تعطيل(زر, حالة){
-      if(!زر) return;
-      زر.disabled = حالة;
-      زر.classList.toggle("معطل", !!حالة);
-    }
-
-    /* =========================
-       2) قائمة الدول
-    ========================== */
-    const الدول = [
-      "السعودية","اليمن","الإمارات","الكويت","قطر","البحرين","عُمان",
-      "مصر","الأردن","العراق","سوريا","لبنان","فلسطين","السودان","ليبيا","تونس","الجزائر","المغرب","موريتانيا",
-      "تركيا","الولايات المتحدة","كندا","ألمانيا","فرنسا","إيطاليا","إسبانيا","بريطانيا","هولندا","السويد",
-      "الهند","باكستان","بنغلاديش","إندونيسيا","ماليزيا","الفلبين","أستراليا"
-    ];
-    const قائمة_الدول = $("حقل_دولة");
-    الدول.forEach(d=>{
-      const o=document.createElement("option");
-      o.value=d; o.textContent=d;
-      قائمة_الدول.appendChild(o);
-    });
-
-    /* =========================
-       3) فتح/إغلاق القائمة الجانبية
-    ========================== */
-    const ستارة = $("ستارة");
-    const قائمة = $("قائمة");
-
-    function افتح_القائمة(){
-      ستارة.classList.add("مفتوحة");
-      قائمة.classList.add("مفتوحة");
-    }
-    function اغلق_القائمة(){
-      ستارة.classList.remove("مفتوحة");
-      قائمة.classList.remove("مفتوحة");
-    }
-    $("زر_قائمة").onclick = افتح_القائمة;
-    $("زر_اغلاق_قائمة").onclick = اغلق_القائمة;
-    ستارة.onclick = اغلق_القائمة;
-
-    /* =========================
-       4) نافذة التسجيل (إنشاء/دخول)
-    ========================== */
-    const غطاء_تسجيل = $("غطاء_تسجيل");
-    let وضع = "إنشاء"; // "إنشاء" | "دخول"
-
-    function افتح_تسجيل(نوع){
-      وضع = نوع;
-      if(نوع === "دخول"){
-        $("عنوان_تسجيل").textContent = (لغة==="ar") ? "تسجيل الدخول" : "Sign in";
-        $("وصف_تسجيل").textContent = (لغة==="ar")
-          ? "سجّل دخولك للوصول إلى حسابك ومتابعة مهامك"
-          : "Sign in to access your account";
-        $("حقول_إنشاء").style.display = "none";
-        $("حقول_دخول").style.display = "grid";
-        $("زر_تنفيذ").textContent = (لغة==="ar") ? "تسجيل الدخول" : "Sign in";
-        $("زر_تحويل_لوضع_دخول").style.display = "none";
-        $("زر_تحويل_لوضع_إنشاء").style.display = "block";
-      } else {
-        $("عنوان_تسجيل").textContent = (لغة==="ar") ? "إنشاء حساب" : "Create account";
-        $("وصف_تسجيل").textContent = (لغة==="ar")
-          ? "أنشئ حسابك الآن لتبدأ تنفيذ المهام وكسب النقاط"
-          : "Create your account to start earning points";
-        $("حقول_إنشاء").style.display = "grid";
-        $("حقول_دخول").style.display = "none";
-        $("زر_تنفيذ").textContent = (لغة==="ar") ? "إنشاء حساب" : "Create account";
-        $("زر_تحويل_لوضع_دخول").style.display = "block";
-        $("زر_تحويل_لوضع_إنشاء").style.display = "none";
-      }
-
-      غطاء_تسجيل.classList.add("مفتوح");
-      تعطيل($("زر_تنفيذ"), false);
-      تعطيل($("زر_جوجل"), false);
-    }
-
-    function اغلق_تسجيل(){
-      غطاء_تسجيل.classList.remove("مفتوح");
-      ["حقل_اسم","حقل_بريد","حقل_كلمة","حقل_هاتف","حقل_بريد_دخول","حقل_كلمة_دخول"].forEach(id=>{
-        const el=$(id); if(el) el.value="";
-      });
-      $("حقل_دولة").value="";
-    }
-
-    $("زر_ابدأ").onclick = ()=> افتح_تسجيل("إنشاء");
-    $("زر_دخول").onclick = ()=> افتح_تسجيل("دخول");
-
-    $("رابط_تسجيل").onclick = ()=>{ اغلق_القائمة(); افتح_تسجيل("دخول"); };
-    $("رابط_إنشاء").onclick = ()=>{ اغلق_القائمة(); افتح_تسجيل("إنشاء"); };
-
-    $("زر_اغلاق_تسجيل").onclick = اغلق_تسجيل;
-    غطاء_تسجيل.addEventListener("click", (e)=>{ if(e.target===غطاء_تسجيل) اغلق_تسجيل(); });
-    window.addEventListener("keydown", (e)=>{ if(e.key==="Escape"){ اغلق_تسجيل(); اغلق_نص(); اغلق_القائمة(); } });
-
-    $("زر_تحويل_لوضع_دخول").onclick = ()=> افتح_تسجيل("دخول");
-    $("زر_تحويل_لوضع_إنشاء").onclick = ()=> افتح_تسجيل("إنشاء");
-
-    /* =========================
-       5) تعليمات + سياسة الخصوصية
-    ========================== */
-    const غطاء_نص = $("غطاء_نص");
-
-    function افتح_نص(نوع){
-      $("عنوان_نص").textContent = (نوع==="تعليمات")
-        ? ((لغة==="ar") ? "تعليمات" : "Instructions")
-        : ((لغة==="ar") ? "سياسة الخصوصية" : "Privacy policy");
-
-      $("وصف_نص").textContent = (نوع==="تعليمات")
-        ? ((لغة==="ar") ? "اقرأها جيدًا لتضمن إضافة النقاط بشكل صحيح" : "Read carefully to ensure points are tracked")
-        : ((لغة==="ar") ? "شفافية كاملة حول البيانات والاستخدام" : "How we handle data and usage");
-
-      $("محتوى_نص").innerHTML = (نوع==="تعليمات") ? قالب_تعليمات() : قالب_خصوصية();
-      غطاء_نص.classList.add("مفتوح");
-    }
-
-    function اغلق_نص(){
-      غطاء_نص.classList.remove("مفتوح");
-      $("محتوى_نص").innerHTML = "";
-    }
-
-    $("زر_اغلاق_نص").onclick = اغلق_نص;
-    غطاء_نص.addEventListener("click", (e)=>{ if(e.target===غطاء_نص) اغلق_نص(); });
-
-    $("رابط_تعليمات").onclick = ()=>{ اغلق_القائمة(); افتح_نص("تعليمات"); };
-    $("رابط_خصوصية").onclick = ()=>{ اغلق_القائمة(); افتح_نص("خصوصية"); };
-    $("تذييل_تعليمات").onclick = (e)=>{ e.preventDefault(); افتح_نص("تعليمات"); };
-    $("تذييل_خصوصية").onclick = (e)=>{ e.preventDefault(); افتح_نص("خصوصية"); };
-    $("زر_فتح_خصوصية_من_تسجيل").onclick = ()=> افتح_نص("خصوصية");
-
-    function قالب_تعليمات(){
-      if(لغة==="en"){
-        return `<div class="قسم"><h3>How MintCash works</h3><p>Complete tasks such as testing an app, playing a game, or finishing a survey. Points will be added after verification.</p></div>`;
-      }
-      return `<div class="قسم"><h3>كيف تعمل منت كاش</h3><p>تنفّذ مهام مثل تجربة تطبيق، لعب لعبة، أو إكمال استبيان. تُضاف النقاط بعد التحقق حسب شروط كل مهمة.</p></div>`;
-    }
-
-    function قالب_خصوصية(){
-      if(لغة==="en"){
-        return `<div class="قسم"><h3>Data we collect</h3><p>Name, email, country, optional phone, and basic usage data to improve the service.</p></div>`;
-      }
-      return `<div class="قسم"><h3>البيانات التي نجمعها</h3><p>قد نجمع الاسم والبريد والدولة ورقم الهاتف (اختياري) وبيانات استخدام بسيطة لتحسين الخدمة وحماية الحساب.</p></div>`;
-    }
-
-    /* =========================
-       6) تنفيذ (إنشاء/دخول) بالبريد + كلمة مرور
-    ========================== */
-    $("زر_تنفيذ").onclick = async ()=>{
-      تعطيل($("زر_تنفيذ"), true);
-      تعطيل($("زر_جوجل"), true);
-
-      try{
-        if(وضع === "دخول"){
-          const بريد = نظف($("حقل_بريد_دخول").value);
-          const كلمة = نظف($("حقل_كلمة_دخول").value);
-
-          if(!بريد || !كلمة){
-            رسالة("بيانات ناقصة", "اكتب البريد وكلمة المرور.");
-            تعطيل($("زر_تنفيذ"), false); تعطيل($("زر_جوجل"), false);
-            return;
-          }
-
-          await تحقق.signInWithEmailAndPassword(بريد, كلمة);
-          رسالة("تم تسجيل الدخول", "تم الدخول بنجاح، سيتم نقلك الآن.");
-          setTimeout(()=>{ window.location.href = "earn.html"; }, 700);
-          return;
+        function applyLang() {
+            document.documentElement.lang = currentLang;
+            document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+            document.getElementById('langBtn').innerText = currentLang === 'ar' ? 'EN' : 'AR';
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                el.innerHTML = translations[currentLang][key];
+            });
         }
 
-        const اسم = نظف($("حقل_اسم").value);
-        const بريد = نظف($("حقل_بريد").value);
-        const كلمة = نظف($("حقل_كلمة").value);
-        const دولة = نظف($("حقل_دولة").value);
-
-        if(!اسم || !بريد || !كلمة || !دولة){
-          رسالة("بيانات ناقصة", "الاسم والبريد وكلمة المرور والدولة مطلوبة.");
-          تعطيل($("زر_تنفيذ"), false); تعطيل($("زر_جوجل"), false);
-          return;
+        function toggleLang() { currentLang = currentLang === 'ar' ? 'en' : 'ar'; applyLang(); }
+        function showModal(id) { document.getElementById(id).style.display = 'flex'; }
+        function hideModal(id) { document.getElementById(id).style.display = 'none'; }
+        function showInfo(type) {
+            document.getElementById('infoTarget').innerHTML = translations[currentLang][type + '_content'];
+            showModal('infoModal');
         }
 
-        const نتيجة = await تحقق.createUserWithEmailAndPassword(بريد, كلمة);
-        if(نتيجة && نتيجة.user){
-          await نتيجة.user.updateProfile({ displayName: اسم });
-        }
+        // --- Firebase Functions ---
+        const countries = ["اليمن", "السعودية", "مصر", "العراق", "المغرب", "الأردن", "الإمارات", "أخرى"];
+        const cSel = document.getElementById('rCountry');
+        countries.forEach(c => { const o = document.createElement('option'); o.value = c; o.innerText = c; cSel.appendChild(o); });
 
-        رسالة("تم إنشاء الحساب", "تم إنشاء الحساب بنجاح، سيتم نقلك الآن.");
-        setTimeout(()=>{ window.location.href = "earn.html"; }, 800);
+        document.getElementById('regForm').onsubmit = async (e) => {
+            e.preventDefault();
+            try {
+                const cred = await auth.createUserWithEmailAndPassword(rEmail.value, rPass.value);
+                await db.collection("users").doc(cred.user.uid).set({ name: rName.value, country: rCountry.value, balance: 0 });
+                window.location.href = "dashboard.html";
+            } catch (err) { alert(err.message); }
+        };
 
-      }catch(err){
-        رسالة("حدث خطأ", تفسير_خطأ(err));
-        تعطيل($("زر_تنفيذ"), false); تعطيل($("زر_جوجل"), false);
-      }
-    };
+        document.getElementById('loginForm').onsubmit = async (e) => {
+            e.preventDefault();
+            try {
+                await auth.signInWithEmailAndPassword(lEmail.value, lPass.value);
+                window.location.href = "dashboard.html";
+            } catch (err) { alert(err.message); }
+        };
 
-    function تفسير_خطأ(err){
-      const كود = (err && err.code) ? err.code : "";
-      if(كود.includes("auth/email-already-in-use")) return "هذا البريد مسجل مسبقًا.";
-      if(كود.includes("auth/wrong-password")) return "كلمة المرور غير صحيحة.";
-      return (err && err.message) ? err.message : "خطأ غير معروف.";
-    }
+        window.googleAuth = async () => {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            try {
+                const res = await auth.signInWithPopup(provider);
+                await db.collection("users").doc(res.user.uid).set({ name: res.user.displayName, email: res.user.email, balance: 0 }, { merge: true });
+                window.location.href = "dashboard.html";
+            } catch (err) { alert(err.message); }
+        };
 
-    /* =========================
-       7) تسجيل بجوجل
-    ========================== */
-    $("زر_جوجل").onclick = async ()=>{
-      تعطيل($("زر_تنفيذ"), true);
-      تعطيل($("زر_جوجل"), true);
-      try{
-        const مزود = new firebase.auth.GoogleAuthProvider();
-        await تحقق.signInWithPopup(مزود);
-        window.location.href = "earn.html";
-      }catch(err){
-        رسالة("حدث خطأ", تفسير_خطأ(err));
-        تعطيل($("زر_تنفيذ"), false); تعطيل($("زر_جوجل"), false);
-      }
-    };
-
-    /* =========================
-       8) اللغة
-    ========================== */
-    const نصوص = {
-      ar: { dir:"rtl", شارة:"عربي", اسم:"منت كاش", شعار:"اكسب نقاطك بسهولة", عنوان_أخضر:"اكسب المال", عنوان_باقي:" أثناء المتعة", وصف:"اربح نقاطًا عبر إكمال مهام بسيطة مثل تجربة تطبيق، لعب لعبة، أو إكمال استبيان — ثم استبدل نقاطك بالسحب بعد المراجعة.", ابدأ:"ابدأ الآن", دخول:"تسجيل الدخول", قائمة:"القائمة", رابط_تسجيل:"تسجيل الدخول", رابط_إنشاء:"إنشاء حساب", تعليمات:"تعليمات", خصوصية:"سياسة الخصوصية", وقت_عنوان:"المتوسط للوصول لأول طلب", يومي_عنوان:"متوسط المكافآت اليومية", إجمالي_عنوان:"إجمالي المكافآت", تذييل1:"الدومين:", تذييل_تعليمات:"تعليمات", تذييل_خصوصية:"سياسة الخصوصية", حقول_اسم:"الاسم الكامل", حقول_بريد:"البريد الإلكتروني", حقول_كلمة:"كلمة المرور", حقول_دولة:"اختر الدولة", حقول_هاتف:"رقم الهاتف (اختياري)", زر_جوجل:"متابعة باستخدام جوجل", لديك_حساب:"لدي حساب — تسجيل الدخول", جديد:"مستخدم جديد — إنشاء حساب", قانوني:"باستخدامك للمنصة فأنت توافق على سياسة الخصوصية" },
-      en: { dir:"ltr", شارة:"English", اسم:"MintCash", شعار:"Earn points with ease", عنوان_أخضر:"EARN MONEY", عنوان_باقي:" while having fun", وصف:"Earn points by completing simple tasks like trying an app, playing a game, or finishing a survey — then cash out after review.", ابدأ:"Start now", دخول:"Sign in", قائمة:"Menu", رابط_تسجيل:"Sign in", رابط_إنشاء:"Create account", تعليمات:"Instructions", خصوصية:"Privacy policy", وقت_عنوان:"Average time to first request", يومي_عنوان:"Average daily rewards", إجمالي_عنوان:"Total rewards", تذييل1:"Domain:", تذييل_تعليمات:"Instructions", تذييل_خصوصية:"Privacy policy", حقول_اسم:"Full name", حقول_بريد:"Email", حقول_كلمة:"Password", حقول_دولة:"Select country", حقول_هاتف:"Phone (optional)", زر_جوجل:"Continue with Google", لديك_حساب:"I have an account — Sign in", جديد:"New user — Create account", قانوني:"By using this platform you agree to the privacy policy" }
-    };
-
-    let لغة = (localStorage.getItem("لغة_منت_كاش") || "ar");
-
-    function طبق_اللغة(){
-      const t = نصوص[لغة];
-      document.documentElement.lang = لغة;
-      document.documentElement.dir = t.dir;
-      $("شارة_لغة").textContent = t.شارة;
-      $("اسم_الموقع").textContent = t.اسم;
-      $("شعار_قصير").textContent = t.شعار;
-      $("عنوان_أخضر").textContent = t.عنوان_أخضر;
-      $("عنوان_باقي").textContent = t.عنوان_باقي;
-      $("وصف_رئيسي").textContent = t.وصف;
-      $("زر_ابدأ").textContent = t.ابدأ;
-      $("زر_دخول").textContent = t.دخول;
-      $("عنوان_القائمة").textContent = t.قائمة;
-      $("نص_تسجيل").textContent = t.رابط_تسجيل;
-      $("نص_إنشاء").textContent = t.رابط_إنشاء;
-      $("نص_تعليمات").textContent = t.تعليمات;
-      $("نص_خصوصية").textContent = t.خصوصية;
-      $("نص_وقت_عنوان").textContent = t.وقت_عنوان;
-      $("نص_يومي_عنوان").textContent = t.يومي_عنوان;
-      $("نص_إجمالي_عنوان").textContent = t.إجمالي_عنوان;
-      $("تذييل_1").textContent = t.تذييل1;
-      $("تذييل_تعليمات").textContent = t.تذييل_تعليمات;
-      $("تذييل_خصوصية").textContent = t.تذييل_خصوصية;
-      $("حقل_اسم").placeholder = t.حقول_اسم;
-      $("حقل_بريد").placeholder = t.حقول_بريد;
-      $("حقل_كلمة").placeholder = t.حقول_كلمة;
-      $("حقل_بريد_دخول").placeholder = t.حقول_بريد;
-      $("حقل_كلمة_دخول").placeholder = t.حقول_كلمة;
-      $("نص_جوجل").textContent = t.زر_جوجل;
-      $("زر_تحويل_لوضع_دخول").textContent = t.لديك_حساب;
-      $("زر_تحويل_لوضع_إنشاء").textContent = t.جديد;
-      $("حقل_دولة").options[0].textContent = t.حقول_دولة;
-    }
-
-    $("زر_لغة").onclick = ()=>{
-      لغة = (لغة==="ar") ? "en" : "ar";
-      localStorage.setItem("لغة_منت_كاش", لغة);
-      طبق_اللغة();
-    };
-
-    /* =========================
-       9) حل مشكلة التحديث المستمر
-    ========================== */
-    تحقق.onAuthStateChanged((مستخدم)=>{
-      if(مستخدم){
-        // نتحقق أننا لسنا بالفعل في صفحة earn.html لتجنب حلقة التحديث اللانهائية
-        if (!window.location.pathname.includes("earn.html")) {
-            window.location.replace("earn.html");
-        }
-      }
-    });
-
-    /* بدء */
-    طبق_اللغة();
-  </script>
+        applyLang();
+        window.onclick = (e) => { if(e.target.className === 'modal') hideModal(e.target.id); }
+    </script>
 </body>
 </html>
